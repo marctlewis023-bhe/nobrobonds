@@ -1,0 +1,279 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import StatCard from '../components/StatCard.astro';
+import QuoteCallout from '../components/QuoteCallout.astro';
+import Tooltip from '../components/Tooltip.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'The Broker Problem: How Bond Middlemen Cost You Money',
+  description: 'An in-depth look at how surety bond brokers earn commissions of 20-40% on your premium, what they actually do for that money, and why the industry resists transparency.',
+  author: { '@type': 'Organization', name: 'NoBro Bonds' },
+  publisher: { '@type': 'Organization', name: 'NoBro Bonds', url: 'https://nobrobonds.com' },
+};
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'The Broker Problem', href: '/the-broker-problem' },
+];
+---
+
+<BaseLayout
+  title="The Broker Problem: How Bond Middlemen Cost You Money"
+  description="An in-depth look at how surety bond brokers earn commissions of 20-40% on your premium, what they actually do for that money, and why the industry resists transparency."
+  schema={schema}
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'The Broker Problem' }]} />
+
+    <!-- Hero -->
+    <div class="max-w-3xl mb-16">
+      <SectionLabel color="coral">Editorial</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        The Broker Problem
+      </h1>
+      <p class="text-muted text-xl leading-relaxed">
+        The surety bond industry runs on relationships. That sounds nice until you realize "relationships" is the industry's word for "commissions paid by people who do not know they have a choice."
+      </p>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
+      <StatCard number="$20B" unit="+" label="U.S. surety bond market" accent="blue" />
+      <StatCard number="10-40" unit="%" label="Broker commission range" accent="coral" />
+      <StatCard number="$2.8B" label="Estimated annual broker fees" accent="dark" />
+    </div>
+
+    <!-- The Relationship Economy -->
+    <section class="mb-16 max-w-3xl">
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mb-6">The Relationship Economy</h2>
+      <p class="text-text text-[16px] leading-relaxed mb-4">
+        The surety bond industry is built on a model where brokers serve as intermediaries between you and the surety companies that actually issue bonds. On the surface, this looks reasonable. Brokers say they "shop the market" for you, "leverage relationships" with underwriters, and "navigate complexity."
+      </p>
+      <p class="text-text text-[16px] leading-relaxed mb-4">
+        In practice, here is what happens: you need a bond. You search online and find a broker. You fill out their form. They forward your application to one or two surety companies they already have agreements with. The surety underwrites your bond. You pay a <Tooltip slug="premium" /> — and baked into that premium is a <Tooltip slug="broker-commission" text="commission" /> of 20% to 40% that goes straight to the broker.
+      </p>
+      <p class="text-text text-[16px] leading-relaxed mb-4">
+        You never see the commission. It is not broken out on your invoice. The broker did not negotiate your rate down — the surety sets the rate. The broker's "relationship" with the surety is really just an appointment agreement that lets them sell bonds and collect commissions.
+      </p>
+      <p class="text-text text-[16px] leading-relaxed">
+        The industry calls this "the distribution channel." We call it what it is: a toll booth on a road that does not need one.
+      </p>
+    </section>
+
+    <!-- Full Premium Breakdown -->
+    <section class="bg-primary rounded-[20px] p-8 md:p-12 mb-16">
+      <SectionLabel color="accent-light">Follow the Money</SectionLabel>
+      <h2 class="font-display font-bold text-white text-2xl md:text-3xl mt-3 mb-4">Where Your Premium Actually Goes</h2>
+      <p class="text-white/60 text-[16px] mb-8 max-w-2xl">
+        On a $10,000 annual premium, here is a typical breakdown of where that money ends up. Not every broker takes the maximum — but none of them volunteer the breakdown.
+      </p>
+
+      <!-- Bar -->
+      <div class="flex rounded-[16px] overflow-hidden h-[60px] mb-8">
+        <div class="bar-segment bg-accent text-white" style="width: 45%;">
+          <span class="text-sm">45%</span>
+          <span class="text-[10px] opacity-70">Surety</span>
+        </div>
+        <div class="bar-segment bg-coral text-white" style="width: 30%;">
+          <span class="text-sm">30%</span>
+          <span class="text-[10px] opacity-70">Broker</span>
+        </div>
+        <div class="bar-segment bg-violet text-white" style="width: 15%;">
+          <span class="text-sm">15%</span>
+          <span class="text-[10px] opacity-70">Sub-Agent</span>
+        </div>
+        <div class="bar-segment bg-lime text-primary" style="width: 10%;">
+          <span class="text-sm">10%</span>
+          <span class="text-[10px] opacity-70">Fees</span>
+        </div>
+      </div>
+
+      <!-- Legend with detailed descriptions -->
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white/5 rounded-[16px] p-6 border border-white/10">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full bg-accent"></span>
+            <span class="text-white font-bold">Surety Company — $4,500</span>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed">
+            This is the real cost of your bond. It covers the surety's risk assessment, reserves, reinsurance, and overhead. This is the only portion that has to exist. Everything else is distribution cost — money paid to get the bond from the surety to you.
+          </p>
+        </div>
+        <div class="bg-white/5 rounded-[16px] p-6 border border-white/10">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full bg-coral"></span>
+            <span class="text-white font-bold">Broker Commission — $3,000</span>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed">
+            The base commission your broker earns for placing the bond. They receive this every year you renew — whether they do additional work or not. On larger bonds, this can be tens of thousands of dollars for what amounts to forwarding an application and making a phone call.
+          </p>
+        </div>
+        <div class="bg-white/5 rounded-[16px] p-6 border border-white/10">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full bg-violet"></span>
+            <span class="text-white font-bold">Subagent Cut — $1,500</span>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed">
+            If your broker works under a managing general agent (MGA) or larger agency, the commission gets split again. This adds another layer of cost and another party whose interests are not aligned with yours. The <Tooltip slug="subagent" text="subagent" def="A bond seller who works under a bigger agency and splits the commission, adding a layer of cost." /> model means more mouths to feed from your premium.
+          </p>
+        </div>
+        <div class="bg-white/5 rounded-[16px] p-6 border border-white/10">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full bg-lime"></span>
+            <span class="text-white font-bold">Processing Fees — $1,000</span>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed">
+            Some brokers add flat fees on top of the commission for "processing" or "administration." These fees go 100% to the broker. The surety company does not charge them and does not require them. They are pure margin, and many buyers never question them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commission Structure -->
+    <section class="mb-16">
+      <SectionLabel color="coral">The Fine Print</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mt-3 mb-8">The Commission Structure</h2>
+
+      <div class="grid md:grid-cols-2 gap-6 max-w-4xl">
+        <div class="bg-card rounded-[20px] border border-border p-7">
+          <div class="w-14 h-14 rounded-full bg-coral/15 text-coral flex items-center justify-center mb-5 text-2xl">&#128176;</div>
+          <h3 class="font-display font-bold text-primary text-lg mb-2">Base Commission (20-40%)</h3>
+          <p class="text-muted text-[15px] leading-relaxed">
+            The standard cut a broker earns on every bond they place. This is paid every year the bond renews. The <Tooltip slug="broker-commission" text="commission" /> is built into the premium — you do not see a separate line item. It is the same whether the broker spent 5 minutes or 5 hours on your bond.
+          </p>
+        </div>
+        <div class="bg-card rounded-[20px] border border-border p-7">
+          <div class="w-14 h-14 rounded-full bg-violet/15 text-violet flex items-center justify-center mb-5 text-2xl">&#127873;</div>
+          <h3 class="font-display font-bold text-primary text-lg mb-2">Contingent Commission (5-15%)</h3>
+          <p class="text-muted text-[15px] leading-relaxed">
+            A bonus paid to brokers when the bonds they place have low claims. This is a <Tooltip slug="contingent-commission" /> — and it creates a conflict of interest. A broker who earns more when your claims are low has an incentive to avoid placing bonds for riskier clients, even if those clients deserve coverage.
+          </p>
+        </div>
+        <div class="bg-card rounded-[20px] border border-border p-7">
+          <div class="w-14 h-14 rounded-full bg-accent/15 text-accent flex items-center justify-center mb-5 text-2xl">&#128101;</div>
+          <h3 class="font-display font-bold text-primary text-lg mb-2">Subagent Split (shared)</h3>
+          <p class="text-muted text-[15px] leading-relaxed">
+            When a <Tooltip slug="subagent" /> works under a larger agency, they share the commission. This does not reduce the total cost — it just adds another person taking a slice. You pay the same premium either way, but more of it goes to middlemen instead of to the surety that actually backs your bond.
+          </p>
+        </div>
+        <div class="bg-card rounded-[20px] border border-border p-7">
+          <div class="w-14 h-14 rounded-full bg-lime/15 text-lime flex items-center justify-center mb-5 text-2xl">&#128196;</div>
+          <h3 class="font-display font-bold text-primary text-lg mb-2">Processing Fees ($25-$200+)</h3>
+          <p class="text-muted text-[15px] leading-relaxed">
+            A flat fee some brokers charge on top of the premium. There is no industry standard. The surety does not require it. It goes straight to the broker. A <Tooltip slug="processing-fee" /> is the clearest example of a charge that exists only because most buyers do not know enough to question it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What a Broker Actually Does -->
+    <section class="mb-16 max-w-3xl">
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mb-6">What a Broker Actually Does (and What Is Automatable)</h2>
+      <p class="text-text text-[16px] leading-relaxed mb-8">
+        Not everything a broker does is worthless. But most of what they do is either automatable or unnecessary for most bond buyers.
+      </p>
+
+      <div class="space-y-3">
+        <div class="flex items-center gap-4 bg-card rounded-[16px] border border-border p-5">
+          <span class="bg-lime/15 text-lime text-xs font-bold px-3 py-1 rounded-full shrink-0">Automatable</span>
+          <div>
+            <h4 class="font-display font-bold text-primary text-sm">Collecting your application information</h4>
+            <p class="text-muted text-sm">This is a form. Online portals already do this.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-card rounded-[16px] border border-border p-5">
+          <span class="bg-lime/15 text-lime text-xs font-bold px-3 py-1 rounded-full shrink-0">Automatable</span>
+          <div>
+            <h4 class="font-display font-bold text-primary text-sm">Submitting your application to a surety</h4>
+            <p class="text-muted text-sm">This is forwarding documents. Software does this instantly.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-card rounded-[16px] border border-border p-5">
+          <span class="bg-lime/15 text-lime text-xs font-bold px-3 py-1 rounded-full shrink-0">Automatable</span>
+          <div>
+            <h4 class="font-display font-bold text-primary text-sm">Delivering your bond certificate</h4>
+            <p class="text-muted text-sm">Digital delivery is standard. A PDF and an email.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-card rounded-[16px] border border-border p-5">
+          <span class="bg-lime/15 text-lime text-xs font-bold px-3 py-1 rounded-full shrink-0">Automatable</span>
+          <div>
+            <h4 class="font-display font-bold text-primary text-sm">Renewal reminders and processing</h4>
+            <p class="text-muted text-sm">Automated emails. Calendar triggers. Yet the broker earns full commission on every renewal.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-card rounded-[16px] border border-border p-5">
+          <span class="bg-violet/15 text-violet text-xs font-bold px-3 py-1 rounded-full shrink-0">Human Value</span>
+          <div>
+            <h4 class="font-display font-bold text-primary text-sm">Advocating for a declined application</h4>
+            <p class="text-muted text-sm">If you are declined, a good broker can sometimes persuade a surety to reconsider. This is rare but genuinely useful.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-card rounded-[16px] border border-border p-5">
+          <span class="bg-violet/15 text-violet text-xs font-bold px-3 py-1 rounded-full shrink-0">Human Value</span>
+          <div>
+            <h4 class="font-display font-bold text-primary text-sm">Claims assistance and guidance</h4>
+            <p class="text-muted text-sm">When a claim is filed against your bond, a knowledgeable broker can help you navigate the process. This matters — but it also happens rarely.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Underwriters Evaluate -->
+    <section class="mb-16 max-w-3xl">
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mb-6">What Underwriters Actually Look At</h2>
+      <p class="text-text text-[16px] leading-relaxed mb-4">
+        Brokers love to imply that they "know the underwriters" and can get you a better deal. In reality, <Tooltip slug="underwriting" /> is a systematic process. Underwriters evaluate your application based on objective criteria, not on how many lunches your broker bought them.
+      </p>
+      <p class="text-text text-[16px] leading-relaxed mb-4">
+        The main factors: your personal credit score, your business financial statements, your industry experience, your current workload, and your claims history. A broker does not change any of those things. Your financials are your financials. A broker's "relationship" does not improve your credit score.
+      </p>
+      <p class="text-text text-[16px] leading-relaxed">
+        There is a narrow exception for borderline cases — a broker who knows a particular underwriter's preferences might package your application more favorably. But for the vast majority of bond buyers, the underwriting decision would be the same with or without a broker.
+      </p>
+    </section>
+
+    <!-- Industry Data -->
+    <section class="mb-16">
+      <SectionLabel>By the Numbers</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mt-3 mb-8">The Numbers Tell the Story</h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard number="$20B" label="Total U.S. direct written surety premium (SFAA)" accent="blue" />
+        <StatCard number="~30" unit="%" label="Average broker commission rate" accent="coral" />
+        <StatCard number="$6B" label="Estimated total distribution costs" accent="violet" />
+        <StatCard number="4x" label="More than auto insurance agent commissions" accent="dark" />
+      </div>
+
+      <p class="text-muted text-sm mt-6 max-w-2xl">
+        Sources: Surety & Fidelity Association of America (SFAA) market data, industry commission surveys, AM Best surety market reports. Distribution cost estimates include all intermediary compensation including broker commissions, subagent fees, and processing charges.
+      </p>
+    </section>
+
+    <!-- Quote -->
+    <QuoteCallout>
+      The bond industry is the last corner of financial services where a 30% commission is not just normal — it is invisible. You can not negotiate what you can not see.
+    </QuoteCallout>
+
+    <!-- Soft CTA -->
+    <section class="bg-primary rounded-[20px] p-8 md:p-12 text-center mt-8">
+      <h2 class="font-display font-bold text-white text-2xl mb-3">Knowledge is leverage</h2>
+      <p class="text-white/60 text-[16px] mb-6 max-w-lg mx-auto">
+        You can not change the industry overnight. But you can understand it — and understanding is the first step to paying less.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/how-it-works" class="bg-accent hover:bg-accent/90 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+          How Bonding Works
+        </a>
+        <a href="/resources/where-your-premium-goes" class="bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+          See the Breakdown
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

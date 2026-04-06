@@ -1,0 +1,59 @@
+---
+interface Props {
+  number: string;
+  unit?: string;
+  label: string;
+  accent: "blue" | "dark" | "violet" | "lime" | "white";
+  icon?: string;
+  wide?: boolean;
+  sideText?: string;
+}
+
+const { number, unit, label, accent, icon, wide, sideText } = Astro.props;
+
+const accentStyles: Record<string, { bg: string; text: string; label: string }> = {
+  blue: { bg: "bg-accent", text: "text-white", label: "text-white/80" },
+  dark: { bg: "bg-primary", text: "text-white", label: "text-white/70" },
+  violet: { bg: "bg-violet", text: "text-white", label: "text-white/80" },
+  lime: { bg: "bg-lime", text: "text-primary", label: "text-primary/70" },
+  white: { bg: "bg-card", text: "text-primary", label: "text-muted" },
+};
+
+const style = accentStyles[accent] || accentStyles.blue;
+---
+
+<div
+  class:list={[
+    "rounded-[20px] p-7 relative overflow-hidden",
+    style.bg,
+    wide ? "col-span-1 md:col-span-2" : "",
+  ]}
+>
+  {icon && (
+    <div
+      class="absolute top-4 right-4 opacity-30 w-12 h-12"
+      set:html={icon}
+    />
+  )}
+
+  {wide && sideText ? (
+    <div class="flex items-center justify-between gap-6">
+      <div>
+        <div class:list={["font-display font-bold text-4xl md:text-5xl leading-none", style.text]}>
+          {number}
+          {unit && <span class="text-2xl ml-1">{unit}</span>}
+        </div>
+        <p class:list={["text-sm mt-2", style.label]}>{label}</p>
+      </div>
+      <p class:list={["text-sm leading-relaxed max-w-[240px]", style.label]}>{sideText}</p>
+    </div>
+  ) : (
+    <>
+      <div class:list={["font-display font-bold text-4xl md:text-5xl leading-none", style.text]}>
+        {number}
+        {unit && <span class="text-2xl ml-1">{unit}</span>}
+      </div>
+      <p class:list={["text-sm mt-2", style.label]}>{label}</p>
+    </>
+  )}
+</div>

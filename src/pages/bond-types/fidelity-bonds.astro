@@ -1,0 +1,107 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'What is a fidelity bond?',
+    answer: 'A fidelity bond protects a business from financial losses caused by dishonest acts of its employees — theft, fraud, embezzlement, or forgery. Unlike most surety bonds that protect third parties, a fidelity bond protects the bond purchaser (the employer). It is essentially employee dishonesty insurance.',
+  },
+  {
+    question: 'Is a fidelity bond the same as insurance?',
+    answer: 'Technically, fidelity bonds are surety bonds — not insurance policies. But they function more like insurance in practice because they protect the purchaser rather than a third party. Some fidelity coverage is sold as insurance (crime insurance policies). The distinction matters mainly for regulatory purposes. The cost and coverage are similar either way.',
+  },
+  {
+    question: 'Who needs a fidelity bond?',
+    answer: 'Any business with employees who handle money, have access to financial systems, or manage valuable assets. ERISA requires fidelity bonds for anyone who handles employee benefit plan assets. Beyond that, many businesses carry fidelity bonds as a risk management tool — especially financial services companies, accounting firms, and service businesses that enter customers\' homes.',
+  },
+  {
+    question: 'How much does a fidelity bond cost?',
+    answer: 'Fidelity bond premiums typically range from 0.5% to 3% of the coverage amount. A $100,000 fidelity bond might cost $500-$3,000 per year. ERISA fidelity bonds are generally cheaper (as low as $100/year for $500,000 coverage) because the claims history is favorable.',
+  },
+  {
+    question: 'What is an ERISA fidelity bond?',
+    answer: 'ERISA (Employee Retirement Income Security Act) requires that anyone who handles employee benefit plan assets must be bonded. The bond amount must be at least 10% of the plan assets, with a minimum of $1,000 and maximum of $500,000 (or $1,000,000 for plans that hold employer securities). This is a federal requirement — not optional.',
+  },
+  {
+    question: 'What does a fidelity bond cover?',
+    answer: 'Standard fidelity bonds cover employee dishonesty: theft of money or property, forgery, fraudulent transfers, and embezzlement. Some also cover computer fraud, funds transfer fraud, and third-party dishonesty. What is NOT covered: poor business decisions, general negligence, or losses not caused by dishonest acts.',
+  },
+  {
+    question: 'How do I file a fidelity bond claim?',
+    answer: 'If you discover employee theft or dishonesty, notify the surety in writing as soon as possible. Provide documentation of the loss — financial records, police reports, internal investigation findings. The surety investigates and, if the claim is valid, pays up to the bond amount. You do not need to prosecute the employee to file a claim, but documentation of the dishonest act is required.',
+  },
+  {
+    question: 'Can I get a fidelity bond for a new business?',
+    answer: 'Yes. Fidelity bonds are available for new businesses. The surety evaluates your internal controls, the nature of your business, and your personal credit. New businesses may pay slightly higher rates due to lack of operating history, but availability is rarely an issue for standard fidelity bond amounts.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="fidelity-bonds"
+  title="Fidelity Bonds"
+  description="A fidelity bond protects a business from financial losses caused by employee dishonesty, theft, or fraud. Unlike most surety bonds, fidelity bonds protect the bond purchaser rather than a third party."
+  statNumber="$500K"
+  statLabel="Maximum ERISA fidelity bond requirement for employee benefit plans"
+  statAccent="dark"
+  whatIsIt={`
+    <p>A fidelity bond is a surety bond that protects a business from financial losses caused by dishonest employees. It covers theft, fraud, embezzlement, forgery, and other acts of employee dishonesty.</p>
+    <p>Fidelity bonds are unique in the surety world because they protect the buyer — not a third party. With a performance bond, you buy the bond and it protects the project owner. With a fidelity bond, you buy the bond and it protects you. If your bookkeeper steals $50,000, the fidelity bond reimburses you, not someone else.</p>
+    <p>There are several types of fidelity bonds:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Business Service Bonds:</strong> For businesses whose employees work on client premises (janitorial services, home health care, etc.). Protects the client from employee theft.</li>
+      <li><strong>Employee Dishonesty Bonds:</strong> Blanket coverage for all employees or specific positions within a company</li>
+      <li><strong>ERISA Bonds:</strong> Federally required bonds for anyone who handles employee benefit plan funds</li>
+    </ul>
+    <p>The ERISA fidelity bond is the most commonly required fidelity bond. Federal law mandates it for every person who handles pension, 401(k), or other employee benefit plan assets. This is not optional — it is a federal compliance requirement.</p>
+  `}
+  whoNeedsIt={`
+    <p>Fidelity bonds are needed by a wide range of businesses:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Any employer with a benefit plan:</strong> ERISA requires fidelity bonds for plan fiduciaries and anyone handling plan assets. If you have a 401(k), pension, or health plan, you need an ERISA bond.</li>
+      <li><strong>Service businesses:</strong> Janitorial companies, home health agencies, property management firms, and other businesses whose employees access client property or funds</li>
+      <li><strong>Financial services companies:</strong> Banks, credit unions, investment firms, and accounting practices where employees handle large sums</li>
+      <li><strong>Nonprofits:</strong> Organizations with volunteer treasurers, bookkeepers, or anyone handling donor funds</li>
+      <li><strong>Retailers:</strong> Businesses with employees handling cash, inventory, or financial systems</li>
+    </ul>
+    <p class="mt-4">Even if a fidelity bond is not legally required for your business (outside the ERISA context), it is a smart risk management tool. The average employee theft case costs a business $175,000 — and most small businesses cannot absorb that kind of loss.</p>
+  `}
+  whatItCosts={`
+    <p>Fidelity bond pricing depends on the coverage amount and the type of bond:</p>
+    <table class="w-full border-collapse my-4">
+      <thead>
+        <tr class="border-b-2 border-border">
+          <th class="text-left py-2 px-3 text-sm font-bold">Coverage Amount</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">ERISA Bond</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Business Service Bond</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Employee Dishonesty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$50,000</td><td class="py-2 px-3 text-sm">$75-$150</td><td class="py-2 px-3 text-sm">$100-$300</td><td class="py-2 px-3 text-sm">$150-$500</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$100,000</td><td class="py-2 px-3 text-sm">$100-$200</td><td class="py-2 px-3 text-sm">$200-$500</td><td class="py-2 px-3 text-sm">$300-$800</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$250,000</td><td class="py-2 px-3 text-sm">$150-$350</td><td class="py-2 px-3 text-sm">$400-$1,000</td><td class="py-2 px-3 text-sm">$600-$1,500</td></tr>
+        <tr><td class="py-2 px-3 text-sm">$500,000</td><td class="py-2 px-3 text-sm">$200-$500</td><td class="py-2 px-3 text-sm">$800-$2,000</td><td class="py-2 px-3 text-sm">$1,000-$3,000</td></tr>
+      </tbody>
+    </table>
+    <p>ERISA bonds are notably inexpensive because the claims frequency is very low. Most plan fiduciaries never have a claim filed against their bond. Business service bonds cost more because the exposure (employees on client premises) creates more claim opportunities.</p>
+  `}
+  howToQualify={`
+    <p>Fidelity bond qualification is generally straightforward:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>ERISA bonds:</strong> Available to virtually any employer. The underwriting is minimal because the claims history on ERISA bonds is very low. Most applications are approved based on basic business information.</li>
+      <li><strong>Business service bonds:</strong> The surety evaluates your business type, number of employees, hiring practices, and background check procedures. Businesses that screen employees get better rates.</li>
+      <li><strong>Employee dishonesty bonds:</strong> The surety looks at your internal controls, financial oversight procedures, and claims history. Larger coverage amounts may require financial statements.</li>
+    </ul>
+    <p class="mt-4">Personal credit is less of a factor for fidelity bonds than for other surety bonds. The surety is more interested in your business practices and internal controls than your personal credit score. Businesses with good hiring practices (background checks, reference verification) qualify for the best rates.</p>
+  `}
+  editorialInsight={`
+    <p>Fidelity bonds are one of the most commoditized products in the surety industry. ERISA bonds especially — they are required by law, the coverage is standardized, the rates are low, and the underwriting is nearly automatic.</p>
+    <p>So why would anyone pay a broker for an ERISA bond?</p>
+    <p>The answer: most people buy their ERISA bond through whoever manages their 401(k) or benefits plan, without ever thinking about it. The TPA (third-party administrator) or financial advisor bundles the fidelity bond with plan administration services. The bond premium is small enough that nobody questions it. But a broker commission is still in there — $30-$100 on a $200 bond, every year, automatically.</p>
+    <p>Multiply that by millions of ERISA bonds nationwide and you have a large stream of broker revenue for a product that requires essentially no broker involvement. The surety issues the bond based on a form. The broker's role is processing the paperwork — which is already automated.</p>
+    <p>For business service bonds, the broker dynamic is similar. A janitorial company needs a $10,000 bond for each employee. A broker might process 50 bonds for the company and earn $1,000-$2,000 in commission for what amounts to a batch application. Not bad for an hour of work.</p>
+    <p>Our take: fidelity bonds are simple, standardized, and available online from multiple surety companies. Buy direct. The money you save on one bond is small, but if you are buying coverage for multiple employees or multiple years, it adds up. And the principle remains: you should know what you are paying for.</p>
+  `}
+  faqs={faqs}
+/>

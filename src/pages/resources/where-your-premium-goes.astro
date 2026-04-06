@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PremiumBreakdown from '../../components/PremiumBreakdown';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Resources', href: '/resources' },
+  { name: 'Where Your Premium Goes', href: '/resources/where-your-premium-goes' },
+];
+---
+
+<BaseLayout
+  title="Where Your Surety Bond Premium Goes — Interactive Breakdown"
+  description="See exactly who gets what from your surety bond premium. Interactive visual breakdown of surety company costs, broker commissions, subagent fees, and processing charges."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'Resources', href: '/resources' }, { label: 'Where Your Premium Goes' }]} />
+
+    <div class="max-w-3xl mb-10">
+      <SectionLabel color="coral">Follow the Money</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        Where Your Premium Goes
+      </h1>
+      <p class="text-muted text-lg leading-relaxed">
+        When you pay a surety bond premium, your money gets split between several parties. Use the slider below to see exactly how much goes to the surety company that backs your bond — and how much goes to middlemen.
+      </p>
+    </div>
+
+    <!-- Interactive Tool -->
+    <div class="bg-card rounded-[20px] border border-border p-8 md:p-10 max-w-3xl mb-12">
+      <PremiumBreakdown client:load />
+    </div>
+
+    <!-- Methodology -->
+    <div class="max-w-3xl">
+      <section class="mb-12">
+        <h2 class="font-display font-bold text-primary text-2xl mb-4">Our Methodology</h2>
+        <p class="text-text text-[16px] leading-relaxed mb-4">
+          The percentages in this breakdown represent a typical premium distribution based on industry data. Actual splits vary by surety company, broker agreement, and bond type. Here is what we know:
+        </p>
+        <ul class="space-y-3 text-text text-[15px] leading-relaxed">
+          <li class="flex gap-3">
+            <span class="w-3 h-3 rounded-full bg-accent mt-1.5 shrink-0"></span>
+            <span><strong>Risk assessment (45%):</strong> This compensates the surety company for underwriting and guaranteeing your obligation. It covers reserves, reinsurance, operational costs, and the actual risk of issuing the bond. This is the only portion that has to exist.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-3 h-3 rounded-full bg-coral mt-1.5 shrink-0"></span>
+            <span><strong>Broker commission (30%):</strong> Industry data shows broker commissions typically range from 20-40% of the premium. The 30% figure is a conservative midpoint. This is earned by the broker for placing the bond — forwarding your application, handling paperwork, and maintaining the client relationship.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-3 h-3 rounded-full bg-violet mt-1.5 shrink-0"></span>
+            <span><strong>Carrier profit (15%):</strong> The surety company's profit margin after accounting for risk reserves, claims, and operating expenses. This varies significantly by loss year and surety company size.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-3 h-3 rounded-full bg-muted mt-1.5 shrink-0"></span>
+            <span><strong>Admin and filing (10%):</strong> Covers state filing fees, underwriting overhead, regulatory compliance, and bond form preparation. Some brokers add additional processing fees on top of this.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="font-display font-bold text-primary text-2xl mb-4">Sources</h2>
+        <p class="text-text text-[15px] leading-relaxed mb-3">
+          Premium distribution data is derived from publicly available surety industry reports, including the Surety & Fidelity Association of America (SFAA) annual reports, AM Best surety market reviews, and published analyses of surety distribution economics.
+        </p>
+        <p class="text-text text-[15px] leading-relaxed">
+          Commission ranges are corroborated by state insurance department filings, industry compensation surveys, and surety company appointment agreements that specify standard commission schedules.
+        </p>
+      </section>
+
+      <div class="bg-gradient-to-br from-accent/5 to-violet/5 rounded-[16px] p-6 border border-accent/10">
+        <p class="text-text text-[15px] leading-relaxed">
+          <strong>The bottom line:</strong> up to 55% of your premium may go to distribution costs — broker commissions, subagent fees, and processing charges. That money pays for the middlemen between you and the surety company. Understanding this split is the first step toward making better decisions about how you buy your bonds.
+        </p>
+        <p class="text-muted text-sm mt-3">
+          <a href="/the-broker-problem" class="text-accent no-underline hover:underline">Read more in The Broker Problem &rarr;</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

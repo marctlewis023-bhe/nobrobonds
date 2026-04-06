@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About NoBro Bonds',
+  description: 'NoBro Bonds is a free educational platform helping contractors and business owners understand commercial surety bonds without the broker runaround.',
+  publisher: {
+    '@type': 'Organization',
+    name: 'NoBro Bonds',
+    url: 'https://nobrobonds.com',
+  },
+};
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+];
+---
+
+<BaseLayout
+  title="About NoBro Bonds"
+  description="NoBro Bonds is a free educational platform helping contractors and business owners understand commercial surety bonds without the broker runaround."
+  schema={schema}
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'About' }]} />
+
+    <div class="max-w-3xl">
+      <!-- Hero -->
+      <SectionLabel>About</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-6">
+        Who We Are
+      </h1>
+      <p class="text-muted text-xl leading-relaxed mb-12">
+        NoBro Bonds is a free educational platform. We help contractors, business owners, and professionals understand commercial surety bonds — without a broker, a sales pitch, or a gate.
+      </p>
+
+      <!-- Why We Built This -->
+      <section class="mb-12">
+        <h2 class="font-display font-bold text-primary text-2xl mb-4">Why We Built This</h2>
+        <p class="text-text text-[16px] leading-relaxed mb-4">
+          The surety bond industry is a $20 billion market, and most of the people buying bonds have almost no idea what they are paying for. That is not an accident. The industry benefits from confusion.
+        </p>
+        <p class="text-text text-[16px] leading-relaxed mb-4">
+          Brokers earn commissions of 20-40% on every premium — paid every year whether they do additional work or not. That creates a system where the people selling bonds have no incentive to educate the people buying them. The less you understand, the more you depend on a middleman.
+        </p>
+        <p class="text-text text-[16px] leading-relaxed mb-4">
+          We built NoBro Bonds because we believe you should be able to understand your bond before you buy it. Not after. Not during a sales call. Before — on your own time, in plain English, for free.
+        </p>
+        <p class="text-text text-[16px] leading-relaxed">
+          Every guide, tool, and glossary entry on this site exists to give you the information that brokers would rather keep behind a phone call.
+        </p>
+      </section>
+
+      <!-- Our Approach to Information -->
+      <section class="mb-12">
+        <h2 class="font-display font-bold text-primary text-2xl mb-6">Our Approach to Information</h2>
+
+        <div class="space-y-6">
+          <div class="bg-card rounded-[16px] border border-border p-6">
+            <h3 class="font-display font-bold text-primary mb-2">We cite our sources</h3>
+            <p class="text-muted text-[15px] leading-relaxed">
+              Industry data on this site comes from public sources: the Surety & Fidelity Association of America (SFAA), AM Best reports, U.S. Treasury surety lists, and published industry surveys. When we make a claim about commission rates or market size, we can back it up.
+            </p>
+          </div>
+
+          <div class="bg-card rounded-[16px] border border-border p-6">
+            <h3 class="font-display font-bold text-primary mb-2">We write at a 3rd-5th grade reading level</h3>
+            <p class="text-muted text-[15px] leading-relaxed">
+              Surety bonds are not inherently complex — the language around them is. We strip out the jargon and write in plain English. If something can be said simpler, we say it simpler. Every term that needs context gets a tooltip definition, and our glossary covers 30+ industry terms.
+            </p>
+          </div>
+
+          <div class="bg-card rounded-[16px] border border-border p-6">
+            <h3 class="font-display font-bold text-primary mb-2">We do not gate our content</h3>
+            <p class="text-muted text-[15px] leading-relaxed">
+              No email walls. No "download our free guide" popups. No chat widgets that are really sales funnels. Everything on NoBro Bonds is free and open. If you want to read our glossary, read it. If you want to use our cost estimator, use it. We do not collect your information and we do not sell it.
+            </p>
+          </div>
+
+          <div class="bg-card rounded-[16px] border border-border p-6">
+            <h3 class="font-display font-bold text-primary mb-2">We are not neutral about brokers</h3>
+            <p class="text-muted text-[15px] leading-relaxed">
+              We have a clear editorial position: the bond broker model adds cost without proportional value for most buyers. We believe that position is supported by the data. Some brokers provide genuine value in complex or difficult-to-place situations. Most do not. We will always be upfront about that distinction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Disclaimer -->
+      <section class="bg-gradient-to-br from-accent/5 to-violet/5 rounded-[20px] p-8 border border-accent/20 mb-12">
+        <h2 class="font-display font-bold text-primary text-2xl mb-4">Important Disclaimer</h2>
+        <p class="text-text text-[15px] leading-relaxed mb-4">
+          NoBro Bonds is an educational resource. We are not a surety company. We are not a bond broker. We are not a licensed insurance agent. We do not sell bonds, issue bonds, or facilitate bond transactions.
+        </p>
+        <p class="text-text text-[15px] leading-relaxed mb-4">
+          Nothing on this website constitutes financial, legal, or insurance advice. The information provided is for educational purposes only. Bond requirements, rates, and regulations vary by state, bond type, and individual circumstances.
+        </p>
+        <p class="text-text text-[15px] leading-relaxed mb-4">
+          The tools on this site (cost estimator, pre-qualification assessment, premium breakdown) produce estimates based on general industry data. They are not quotes. Actual premiums can only be determined by a surety company through a formal underwriting process.
+        </p>
+        <p class="text-text text-[15px] leading-relaxed">
+          If you need a surety bond, we encourage you to contact surety companies directly, compare options, and make informed decisions based on your specific situation.
+        </p>
+      </section>
+
+      <!-- CTA -->
+      <section class="text-center py-8">
+        <h2 class="font-display font-bold text-primary text-2xl mb-3">Start learning</h2>
+        <p class="text-muted text-[16px] mb-6">
+          Browse our guides, explore bond types, and use our free tools.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/how-it-works" class="bg-accent hover:bg-accent/90 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+            How Bonding Works
+          </a>
+          <a href="/bond-types" class="bg-primary/5 hover:bg-primary/10 text-primary font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+            Browse Bond Types
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

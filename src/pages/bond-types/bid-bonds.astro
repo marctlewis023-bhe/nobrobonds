@@ -1,0 +1,90 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'How much does a bid bond cost?',
+    answer: 'Bid bonds are often free or included as part of a surety relationship. When there is a charge, it is typically 1-3% of the bid amount. Many surety companies provide bid bonds at no cost to contractors they have an established bonding program with, because the real revenue comes from the performance and payment bonds that follow if you win the project.',
+  },
+  {
+    question: 'What happens if I win the bid and refuse the contract?',
+    answer: 'If you win a bid and refuse to enter the contract, the project owner can file a claim against your bid bond. The surety will pay the difference between your bid and the next lowest bid, up to the bid bond amount (usually 5-10% of your bid). Then the surety comes to you for reimbursement under the indemnity agreement. Walking away from a winning bid is expensive.',
+  },
+  {
+    question: 'What percentage of the bid is the bid bond?',
+    answer: 'Bid bonds are typically 5% to 10% of the bid amount. The exact percentage is set by the project owner in the bid documents. Federal projects under the Miller Act generally require 20% bid guarantees, though this can be a bid bond, certified check, or other security.',
+  },
+  {
+    question: 'Can I get a bid bond with bad credit?',
+    answer: 'It is harder but possible. Since bid bonds often lead to performance and payment bonds, the surety is really evaluating whether they would be comfortable bonding the full project. Poor credit (below 600) will make most traditional sureties hesitant. The SBA Bond Guarantee Program and specialty surety companies may be options.',
+  },
+  {
+    question: 'How fast can I get a bid bond?',
+    answer: 'If you have an existing surety relationship, bid bonds can be issued same-day or within hours. For first-time applicants, expect 2-5 business days for the initial underwriting review. Once approved, subsequent bid bonds are usually fast. This is one of the few cases where an established broker relationship can genuinely speed things up.',
+  },
+  {
+    question: 'Is a bid bond the same as a bid deposit?',
+    answer: 'No. A bid deposit is actual cash or a certified check submitted with your bid. A bid bond is a surety guarantee that serves the same purpose — protecting the project owner if you withdraw your bid. Bid bonds are more common because they do not tie up your cash. But they create a surety obligation that a deposit does not.',
+  },
+  {
+    question: 'Do all construction projects require bid bonds?',
+    answer: 'No. Bid bonds are most common on public construction projects. Federal projects, most state projects, and many municipal projects require them. Private projects may or may not require bid bonds — it depends on the project owner. Residential work rarely requires bid bonds.',
+  },
+  {
+    question: 'What is the connection between bid bonds and performance bonds?',
+    answer: 'A bid bond guarantees you will enter the contract if you win. Once you sign the contract, you then need a performance bond to guarantee you will complete the work. Most surety companies evaluate bid bond requests by asking: would we be comfortable issuing the performance bond on this project? The bid bond is really a pre-qualification for the performance bond.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="bid-bonds"
+  title="Bid Bonds"
+  description="A bid bond guarantees that a contractor will honor their bid and enter into the contract if awarded the project. It protects project owners from contractors who submit low bids and then walk away."
+  statNumber="5-10%"
+  statLabel="Typical bid bond amount as a percentage of the total bid"
+  statAccent="dark"
+  whatIsIt={`
+    <p>A bid bond is a surety bond submitted with a contractor's bid on a construction project. It guarantees two things: that the contractor's bid is made in good faith, and that the contractor will enter into the contract at the bid price if they win.</p>
+    <p>Think of it as a promise backed by money. If a contractor submits the lowest bid on a $2 million road project and then decides they do not want the job, the project owner can file a claim against the bid bond. The surety pays the difference between the winning bid and the next lowest bid — up to the bond amount.</p>
+    <p>Bid bonds exist because competitive bidding only works when all bidders are serious. Without bid bonds, a contractor could submit an unrealistically low bid, win the project, and then back out — wasting everyone's time and taxpayer money.</p>
+    <p>The bid bond is usually the first bond in a three-bond sequence on construction projects: bid bond, performance bond, and payment bond. When a surety issues a bid bond, they are essentially saying "we would also be willing to issue the performance and payment bonds if this contractor wins."</p>
+  `}
+  whoNeedsIt={`
+    <p>Contractors who bid on bonded construction projects need bid bonds. This includes:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Federal construction bidders:</strong> The Miller Act and FAR (Federal Acquisition Regulation) require bid guarantees on federal projects, typically at 20% of the bid amount</li>
+      <li><strong>State and municipal project bidders:</strong> Most public works require bid bonds, usually at 5-10% of the bid amount</li>
+      <li><strong>Highway and transportation contractors:</strong> DOT projects almost always require bid bonds</li>
+      <li><strong>Private project bidders:</strong> Some private owners require bid bonds on larger commercial projects</li>
+    </ul>
+    <p class="mt-4">If you are a general contractor or large specialty contractor who bids on public work, you need a reliable source of bid bonds. Subcontractors occasionally need bid bonds too, depending on the project structure.</p>
+  `}
+  whatItCosts={`
+    <p>Bid bonds are among the least expensive bonds — and often free. Here is the cost structure:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Existing surety relationships:</strong> Usually $0. Sureties provide bid bonds free to contractors in their bonding program because the revenue comes from performance/payment bonds.</li>
+      <li><strong>New applicants:</strong> Some sureties charge a flat fee ($100-$500) or a small percentage (1-3%) for first-time bid bonds while they evaluate the contractor.</li>
+      <li><strong>Instant-issue online bonds:</strong> For smaller projects, some online platforms provide bid bonds for a flat fee, but these may not cover large contract values.</li>
+    </ul>
+    <p class="mt-4">The real cost of a bid bond is not the premium — it is the obligation. If you win and walk away, you owe the difference between your bid and the next lowest. On a $2 million project, that could be tens or hundreds of thousands of dollars.</p>
+  `}
+  howToQualify={`
+    <p>Qualifying for a bid bond is really qualifying for the performance bond that follows. Sureties evaluate:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Your bonding capacity:</strong> Can you handle the size of the project? If your largest completed project is $200K, a surety may hesitate on a $2M bid bond.</li>
+      <li><strong>Personal credit:</strong> Scores above 700 are preferred. The surety is really asking: if this person wins and defaults, can we recover from them?</li>
+      <li><strong>Financial statements:</strong> Working capital, net worth, and cash flow. For contract bonds, the surety typically wants to see working capital of at least 10% of your largest project.</li>
+      <li><strong>Experience:</strong> Track record of completing similar projects on time and on budget. The surety looks at your work history as evidence of capacity.</li>
+      <li><strong>Work on hand:</strong> How many active projects do you have? Surety companies monitor your total bonded work to make sure you are not overextended.</li>
+    </ul>
+    <p class="mt-4">Having an established surety relationship makes bid bonds nearly automatic. If your surety has already approved your bonding program, they will issue bid bonds within hours as long as the project fits your capacity.</p>
+  `}
+  editorialInsight={`
+    <p>Here is the thing about bid bonds that brokers will never tell you: bid bonds are often free. The surety makes its money on the performance and payment bonds. The bid bond is a formality — a pre-approval.</p>
+    <p>So when a broker charges you for a bid bond, ask what exactly you are paying for. On a $50,000 contract, a broker might charge a $200-500 bid bond fee. That is pure broker revenue. The surety would have issued it free as part of your bonding program.</p>
+    <p>The bigger issue is this: brokers use bid bonds as the entry point for a long-term relationship. Once they are providing your bid bonds, they are also providing your performance and payment bonds — and collecting commissions on every one. A $5 million construction company doing 10 bonded projects a year might pay $100,000+ in premiums, with $25,000-$40,000 going to the broker.</p>
+    <p>That is real money. And the broker earned the whole thing because they got in the door with a bid bond. If you are establishing a surety relationship for the first time, consider going direct. The surety company's underwriter is doing the actual work. The broker is doing the introductions — and taking a cut of everything that follows.</p>
+  `}
+  faqs={faqs}
+/>

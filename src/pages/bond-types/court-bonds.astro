@@ -1,0 +1,109 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'What is a court bond?',
+    answer: 'A court bond is a surety bond required by a court during legal proceedings. It protects parties in litigation from potential financial loss caused by the bonded party\'s actions. Common types include appeal bonds (supersedeas bonds), guardian bonds, administrator bonds, and injunction bonds.',
+  },
+  {
+    question: 'What is an appeal bond (supersedeas bond)?',
+    answer: 'An appeal bond, also called a supersedeas bond, allows the losing party in a lawsuit to delay paying the judgment while they appeal. The bond guarantees that if the appeal fails, the appellant will pay the full judgment plus interest and court costs. The bond amount is typically the judgment amount plus one to two years of interest.',
+  },
+  {
+    question: 'How much does a court bond cost?',
+    answer: 'Court bond premiums typically range from 2% to 5% of the bond amount. For an appeal bond on a $500,000 judgment, you might pay $10,000-$25,000 in premium. The rate depends on the type of court bond, your creditworthiness, and the strength of your appeal. More complex or risky situations command higher rates.',
+  },
+  {
+    question: 'Can I get a court bond with bad credit?',
+    answer: 'It depends on the type. For appeal bonds on large judgments, sureties typically require strong credit and significant collateral. For smaller court bonds like guardian or administrator bonds, the requirements are more lenient. In all cases, the surety wants assurance that the bond obligation will be honored.',
+  },
+  {
+    question: 'What is a guardian bond?',
+    answer: 'A guardian bond is required when a court appoints someone as guardian of a minor or incapacitated person. The bond protects the ward (the person under guardianship) from financial mismanagement. If the guardian misuses the ward\'s assets, a claim can be filed against the bond. Guardian bonds are typically required for the value of the ward\'s estate.',
+  },
+  {
+    question: 'What is an administrator or executor bond?',
+    answer: 'An administrator bond (or executor bond) is required when someone is appointed to manage a deceased person\'s estate. The bond guarantees the administrator will faithfully carry out their duties — distributing assets according to the will or state law and not stealing from the estate. The bond amount is typically the value of the estate.',
+  },
+  {
+    question: 'How long does it take to get a court bond?',
+    answer: 'Simple court bonds (guardian, small estate) can be approved in 1-3 business days. Appeal bonds on large judgments may take 1-2 weeks because the surety needs to evaluate the merits of the appeal and the applicant\'s ability to pay the judgment. Time-sensitive situations (like staying execution of a judgment) require expedited processing.',
+  },
+  {
+    question: 'Do I need collateral for a court bond?',
+    answer: 'For many court bonds, especially appeal bonds on large judgments, sureties require collateral. This can be cash, certificates of deposit, letters of credit, or real property. The collateral requirement typically ranges from 50% to 100% of the bond amount. Smaller court bonds ($10,000-$50,000) may not require collateral if your credit is strong.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="court-bonds"
+  title="Court Bonds"
+  description="Court bonds are required by courts during legal proceedings to protect parties from financial loss. They include appeal bonds, guardian bonds, administrator bonds, and other judicial bonds."
+  statNumber="100%+"
+  statLabel="Appeal bonds often require the judgment amount plus 1-2 years of interest"
+  statAccent="violet"
+  whatIsIt={`
+    <p>A court bond is a surety bond required by a court as part of legal proceedings. Unlike most surety bonds, which are required by government agencies for licensing or contracting, court bonds are ordered by judges to protect parties in litigation.</p>
+    <p>The most common court bonds include:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Appeal bonds (supersedeas bonds):</strong> Allow the losing party to delay paying a judgment while they appeal</li>
+      <li><strong>Guardian bonds:</strong> Protect the assets of minors or incapacitated persons under guardianship</li>
+      <li><strong>Administrator/executor bonds:</strong> Guarantee proper management of a deceased person's estate</li>
+      <li><strong>Injunction bonds:</strong> Protect the defendant if an injunction is later found to be wrongful</li>
+      <li><strong>Attachment bonds:</strong> Guarantee the plaintiff will pay damages if a property attachment is found improper</li>
+      <li><strong>Replevin bonds:</strong> Required when recovering personal property before a final court judgment</li>
+    </ul>
+    <p>Court bonds serve a fundamental purpose in the legal system: they allow legal processes to move forward while protecting all parties from financial harm. Without appeal bonds, every judgment would be immediately enforceable — even if the appeals court might reverse it.</p>
+  `}
+  whoNeedsIt={`
+    <p>Court bonds are needed by anyone involved in certain legal proceedings:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Appellants:</strong> If you lost a lawsuit and want to appeal without paying the judgment immediately, you need an appeal bond</li>
+      <li><strong>Court-appointed guardians:</strong> If a court appoints you as guardian of a minor or incapacitated person's estate, you typically need a guardian bond</li>
+      <li><strong>Estate administrators and executors:</strong> If you are managing a deceased person's estate and the court requires a bond</li>
+      <li><strong>Plaintiffs seeking injunctions:</strong> If you ask a court to stop someone from doing something, the court may require a bond to protect the defendant</li>
+      <li><strong>Trustees:</strong> Court-appointed trustees managing trust assets may be required to post a bond</li>
+    </ul>
+    <p class="mt-4">Unlike other surety bonds, the need for a court bond is typically not planned. It arises from legal proceedings, often under time pressure. That creates an environment where brokers can charge premium rates because the buyer is under duress and does not have time to shop around.</p>
+  `}
+  whatItCosts={`
+    <p>Court bond premiums vary more than most surety bonds because they depend on the type of bond and the specifics of the legal situation:</p>
+    <table class="w-full border-collapse my-4">
+      <thead>
+        <tr class="border-b-2 border-border">
+          <th class="text-left py-2 px-3 text-sm font-bold">Court Bond Type</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Typical Rate</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Bond Amount Basis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">Appeal/Supersedeas</td><td class="py-2 px-3 text-sm">2-5%</td><td class="py-2 px-3 text-sm">Judgment + interest</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">Guardian</td><td class="py-2 px-3 text-sm">1-3%</td><td class="py-2 px-3 text-sm">Value of ward's estate</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">Administrator/Executor</td><td class="py-2 px-3 text-sm">1-3%</td><td class="py-2 px-3 text-sm">Value of estate</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">Injunction</td><td class="py-2 px-3 text-sm">2-5%</td><td class="py-2 px-3 text-sm">Court-determined amount</td></tr>
+        <tr><td class="py-2 px-3 text-sm">Trustee</td><td class="py-2 px-3 text-sm">1-3%</td><td class="py-2 px-3 text-sm">Value of trust assets</td></tr>
+      </tbody>
+    </table>
+    <p>For large appeal bonds, sureties almost always require collateral — cash, CDs, or irrevocable letters of credit. The collateral requirement is separate from the premium. You pay the premium and post collateral.</p>
+  `}
+  howToQualify={`
+    <p>Court bond qualification varies by type, but the general principles apply:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Appeal bonds:</strong> The surety evaluates your financial ability to pay the judgment if the appeal fails. They review personal credit, financial statements, and available collateral. Collateral of 50-100% of the bond amount is commonly required.</li>
+      <li><strong>Guardian and administrator bonds:</strong> The surety evaluates the appointed person's credit and character. For smaller estates ($50,000-$200,000), a personal credit check may suffice. Larger estates require more thorough financial review.</li>
+      <li><strong>Injunction and attachment bonds:</strong> These are underwritten based on the plaintiff's financial strength and the merits of the legal action.</li>
+    </ul>
+    <p class="mt-4">Key factors for all court bonds: personal credit score, net worth relative to bond amount, availability of liquid collateral, and the specific legal circumstances. The indemnity agreement is always required.</p>
+  `}
+  editorialInsight={`
+    <p>Court bonds are where the broker-as-intermediary model shows its most cynical face. When you need a court bond, you are usually under time pressure. A judge ordered it. You need it now. You do not have weeks to shop around and compare.</p>
+    <p>Brokers know this. And they charge accordingly.</p>
+    <p>The appeal bond market is especially problematic. A company that just lost a $2 million lawsuit needs a supersedeas bond to stay the judgment while they appeal. The bond amount might be $2.4 million (judgment plus interest). The premium at 3% is $72,000. The broker takes $14,000-$29,000 of that.</p>
+    <p>What did the broker do? They forwarded the application to a surety company that writes appeal bonds. The surety's underwriter made the decision. The surety required the collateral. The broker's role was routing the application and handling paperwork — for $14,000 or more.</p>
+    <p>The appellate client, already dealing with the stress and cost of a lost lawsuit, is in no position to negotiate or shop around. They need the bond fast, and the broker knows it. That urgency premium is never disclosed — it is just built into the rate, which the client accepts because they have no choice and no time.</p>
+    <p>If you know you may need a court bond (for example, you expect a judgment and plan to appeal), start researching surety companies before you need the bond. Direct relationships with sureties eliminate the broker markup during the most stressful moment.</p>
+  `}
+  faqs={faqs}
+/>

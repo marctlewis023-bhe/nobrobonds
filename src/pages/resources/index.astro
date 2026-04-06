@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Resources', href: '/resources' },
+];
+---
+
+<BaseLayout
+  title="Free Surety Bond Resources & Tools"
+  description="Free surety bond guides, glossary, cost estimator, premium breakdown, and pre-qualification tools. No broker. No email gate. No sales pitch."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'Resources' }]} />
+
+    <div class="max-w-3xl mb-16">
+      <SectionLabel>Resources</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        Free Tools & Guides
+      </h1>
+      <p class="text-muted text-xl leading-relaxed">
+        Everything you need to understand surety bonds — written in plain English, free to use, no email required.
+      </p>
+    </div>
+
+    <!-- Guides -->
+    <section class="mb-16">
+      <h2 class="font-display font-bold text-primary text-2xl mb-6">Guides</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="/how-it-works" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+          <span class="text-3xl block mb-4">&#9881;</span>
+          <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">How Bonding Works</h3>
+          <p class="text-muted text-sm leading-relaxed">The complete guide to surety bonds — the three-party relationship, the application process, and what underwriters evaluate.</p>
+        </a>
+        <a href="/the-broker-problem" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+          <span class="text-3xl block mb-4">&#128176;</span>
+          <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">The Broker Problem</h3>
+          <p class="text-muted text-sm leading-relaxed">How bond brokers earn 20-40% commissions on your premium, what they actually do for that money, and why the industry resists transparency.</p>
+        </a>
+        <a href="/bond-types" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+          <span class="text-3xl block mb-4">&#128203;</span>
+          <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">Bond Types</h3>
+          <p class="text-muted text-sm leading-relaxed">Detailed guides for all 8 major bond types — performance, bid, payment, license, permit, court, customs, and fidelity bonds.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Reference -->
+    <section class="mb-16">
+      <h2 class="font-display font-bold text-primary text-2xl mb-6">Reference</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="/resources/glossary" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+          <span class="text-3xl block mb-4">&#128214;</span>
+          <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">Surety Bond Glossary</h3>
+          <p class="text-muted text-sm leading-relaxed">30+ surety bond terms defined in plain English. From "principal" to "contingent commission" — no jargon walls.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Interactive Tools -->
+    <section class="mb-16">
+      <h2 class="font-display font-bold text-primary text-2xl mb-6">Interactive Tools</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="/resources/bond-cost-estimator" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+          <span class="text-3xl block mb-4">&#128178;</span>
+          <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">Bond Cost Estimator</h3>
+          <p class="text-muted text-sm leading-relaxed">Estimate your bond premium based on bond type, amount, credit score, and business experience. See what a broker would earn on your bond.</p>
+        </a>
+        <a href="/resources/where-your-premium-goes" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+          <span class="text-3xl block mb-4">&#128200;</span>
+          <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">Premium Breakdown</h3>
+          <p class="text-muted text-sm leading-relaxed">Interactive visual breakdown showing exactly who gets what from your bond premium — surety, broker, subagent, and processing fees.</p>
+        </a>
+        <a href="/pre-qualify" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+          <span class="text-3xl block mb-4">&#9989;</span>
+          <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">Pre-Qualification Check</h3>
+          <p class="text-muted text-sm leading-relaxed">See where you stand before you apply. Answer a few questions about your credit, experience, and financials — no data collected.</p>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,109 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'How much does a performance bond cost?',
+    answer: 'Performance bond premiums typically range from 1% to 3% of the contract value. On a $500,000 contract, that is $5,000 to $15,000 per year. Your personal credit score is the biggest factor in where you land in that range. Contractors with credit above 700 and strong financials usually pay closer to 1%.',
+  },
+  {
+    question: 'Can I get a performance bond with bad credit?',
+    answer: 'Yes, but it will cost more. Contractors with credit below 600 may pay 3-5% or higher. Some surety companies specialize in substandard credit accounts. The SBA Bond Guarantee Program can also help small contractors who struggle to qualify through traditional channels.',
+  },
+  {
+    question: 'What happens if a contractor defaults on a performance bond?',
+    answer: 'If a contractor fails to complete the project, the project owner (obligee) files a claim against the performance bond. The surety investigates the claim. If valid, the surety can either hire a new contractor to finish the work, pay the obligee the cost to complete, or negotiate a settlement. Then the surety comes after the original contractor for reimbursement under the indemnity agreement.',
+  },
+  {
+    question: 'Do I need a performance bond for private projects?',
+    answer: 'It depends on the project owner. Federal projects over $150,000 require performance bonds under the Miller Act. Many states have similar requirements for public projects. Private project owners can require performance bonds at any threshold they choose — and many do for projects over $100,000.',
+  },
+  {
+    question: 'What is the difference between a performance bond and a payment bond?',
+    answer: 'A performance bond guarantees the contractor will complete the work. A payment bond guarantees the contractor will pay their subcontractors and suppliers. On most public projects, both are required together. They protect different parties — the project owner (performance) and the workers and suppliers (payment).',
+  },
+  {
+    question: 'How long does it take to get a performance bond?',
+    answer: 'For contractors with established surety relationships and clean financials, approval can take 1-3 business days. First-time applicants or those with credit issues may take 5-10 business days while the underwriter reviews additional documentation. Having CPA-prepared financial statements ready speeds the process significantly.',
+  },
+  {
+    question: 'Do I need a broker to get a performance bond?',
+    answer: 'No. Many surety companies accept direct applications. A broker can be useful for complex situations or if you have been declined, but for straightforward performance bonds, the broker is adding cost (20-40% of your premium in commission) for what is essentially forwarding your application. Understanding the process yourself can save you thousands.',
+  },
+  {
+    question: 'What is the Miller Act?',
+    answer: 'The Miller Act is a federal law requiring performance and payment bonds on all federal construction projects over $150,000. It was enacted in 1935 to protect the government and subcontractors. Most states have "Little Miller Acts" with similar requirements for state-funded projects, though the thresholds vary.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="performance-bonds"
+  title="Performance Bonds"
+  description="A performance bond guarantees a contractor will complete a construction project according to the contract terms. If the contractor fails, the surety steps in to make it right. It is the most common contract bond in construction."
+  statNumber="$150K"
+  statLabel="Federal Miller Act threshold — all federal projects above this require performance bonds"
+  statAccent="blue"
+  whatIsIt={`
+    <p>A performance bond is a type of contract surety bond used in construction. It is a three-party guarantee: the surety company promises the project owner (the obligee) that the contractor (the principal) will complete the work described in the contract.</p>
+    <p>If the contractor fails to finish the job — whether due to bankruptcy, abandonment, or inability to perform — the surety steps in. The surety may hire a replacement contractor, fund the completion directly, or compensate the project owner for the cost to finish. This is not free money for the contractor. Under the indemnity agreement, the surety then seeks full reimbursement from the contractor and their personal guarantors.</p>
+    <p>Performance bonds exist because construction projects involve large sums of money, long timelines, and significant risk. Project owners — especially government agencies — need assurance that a contractor who wins a bid will actually do the work. The performance bond is that assurance.</p>
+    <p>On federal projects, performance bonds are required by the Miller Act for any contract over $150,000. Most state and local governments have similar requirements. Private project owners can require them at any dollar threshold.</p>
+  `}
+  whoNeedsIt={`
+    <p>General contractors and specialty contractors working on bonded projects need performance bonds. The most common situations include:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Federal construction projects</strong> over $150,000 (Miller Act requirement)</li>
+      <li><strong>State and municipal projects</strong> (thresholds vary by state, but most public work over $25,000-$100,000 requires bonding)</li>
+      <li><strong>Private commercial projects</strong> where the owner requires bonding as a condition of the contract</li>
+      <li><strong>Design-build projects</strong> where the contractor is responsible for both design and construction</li>
+    </ul>
+    <p class="mt-4">If you are bidding on public work, you almost certainly need a performance bond. If you are doing private commercial work over $100,000, you should be prepared for the owner to require one. Residential contractors generally do not need performance bonds unless the project is publicly funded.</p>
+  `}
+  whatItCosts={`
+    <p>Performance bond premiums typically range from <strong>1% to 3% of the contract value</strong>. The exact rate depends on your credit score, financial statements, experience, and the size and complexity of the project.</p>
+    <table class="w-full border-collapse my-4">
+      <thead>
+        <tr class="border-b-2 border-border">
+          <th class="text-left py-2 px-3 text-sm font-bold">Contract Value</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Rate Range</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Premium</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$100,000</td><td class="py-2 px-3 text-sm">2-3%</td><td class="py-2 px-3 text-sm">$2,000-$3,000</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$500,000</td><td class="py-2 px-3 text-sm">1.5-2.5%</td><td class="py-2 px-3 text-sm">$7,500-$12,500</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$1,000,000</td><td class="py-2 px-3 text-sm">1-2%</td><td class="py-2 px-3 text-sm">$10,000-$20,000</td></tr>
+        <tr><td class="py-2 px-3 text-sm">$5,000,000</td><td class="py-2 px-3 text-sm">1-1.5%</td><td class="py-2 px-3 text-sm">$50,000-$75,000</td></tr>
+      </tbody>
+    </table>
+    <p>Larger contracts generally have lower percentage rates because the surety's fixed costs are spread over a bigger premium. Contractors with excellent credit (700+) and strong financial statements consistently get the lowest rates.</p>
+  `}
+  howToQualify={`
+    <p>Surety companies evaluate performance bond applicants based on the "Three Cs" of surety underwriting:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Character:</strong> Your personal credit score and history. Scores above 700 are preferred. Below 650, you will face higher rates or potential decline.</li>
+      <li><strong>Capital:</strong> Your business financial statements — balance sheet, income statement, and cash flow. The surety wants to see working capital and net worth sufficient to support the project.</li>
+      <li><strong>Capacity:</strong> Your experience completing similar projects. A contractor who has completed five $500K projects is a strong candidate for a $750K bond. A contractor jumping from $100K to $2M projects raises underwriting concerns.</li>
+    </ul>
+    <p class="mt-4">You will also need to sign an indemnity agreement, which makes you (and often your spouse and business partners) personally liable for any claims paid on the bond. CPA-prepared financial statements significantly strengthen your application.</p>
+  `}
+  stateRequirements={`
+    <p>Performance bond requirements vary by jurisdiction:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Federal:</strong> Miller Act requires performance bonds on all federal projects over $150,000</li>
+      <li><strong>California:</strong> Required on public works over $25,000</li>
+      <li><strong>Texas:</strong> Required on government contracts over $100,000</li>
+      <li><strong>Florida:</strong> Required on public construction over $200,000</li>
+      <li><strong>New York:</strong> Required on public works over $100,000</li>
+    </ul>
+    <p class="mt-4">Check your state's "Little Miller Act" for specific thresholds. Requirements also vary at the county and municipal level. The obligee (project owner) will always tell you the exact bond requirement in the bid documents or contract.</p>
+  `}
+  editorialInsight={`
+    <p>Performance bonds are where the biggest broker commissions live. On a $1 million project with a 1.5% premium, that is $15,000 in premium — and the broker takes $3,000 to $6,000 of it. Every year. For what?</p>
+    <p>For most performance bonds, the broker fills out an application form, forwards it to a surety company, and delivers the bond certificate. That is it. The underwriting decision is made by the surety's underwriter, not the broker. Your rate is set by the surety's rate manual, not negotiated by the broker.</p>
+    <p>Brokers will tell you they "shop the market" — that they compare multiple surety companies to get you the best rate. Some actually do this. Many send your application to one or two sureties they already have relationships with and call it a day. You have no way to know unless you ask.</p>
+    <p>The smartest thing a contractor can do is understand the underwriting process, get their financials in order, and apply directly with multiple surety companies. The time you spend learning the process is worth more than the "relationship" a broker charges 30% of your premium for.</p>
+  `}
+  faqs={faqs}
+/>

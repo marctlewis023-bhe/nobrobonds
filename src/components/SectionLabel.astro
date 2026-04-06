@@ -1,0 +1,23 @@
+---
+interface Props {
+  color?: "accent" | "accent-light" | "coral" | "lime";
+}
+
+const { color = "accent" } = Astro.props;
+
+const colorClass: Record<string, string> = {
+  accent: "text-accent",
+  "accent-light": "text-accent-light",
+  coral: "text-coral",
+  lime: "text-lime",
+};
+---
+
+<span
+  class:list={[
+    "inline-block text-xs font-bold uppercase tracking-[3px]",
+    colorClass[color] || colorClass.accent,
+  ]}
+>
+  <slot />
+</span>

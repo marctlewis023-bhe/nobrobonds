@@ -1,0 +1,32 @@
+---
+import { glossaryBySlug, glossaryByTerm } from "../data/glossary";
+
+interface Props {
+  term?: string;
+  slug?: string;
+  text?: string;
+  def?: string;
+}
+
+const { term, slug, text, def } = Astro.props;
+
+let definition = def || "";
+let displayText = text || "";
+
+if (slug && glossaryBySlug[slug]) {
+  const entry = glossaryBySlug[slug];
+  if (!definition) definition = entry.definition;
+  if (!displayText) displayText = entry.term;
+} else if (term && glossaryByTerm[term.toLowerCase()]) {
+  const entry = glossaryByTerm[term.toLowerCase()];
+  if (!definition) definition = entry.definition;
+  if (!displayText) displayText = entry.term;
+}
+
+if (!displayText) displayText = term || slug || "term";
+---
+
+<span class="tooltip-term" tabindex="0">
+  {displayText}
+  <span class="tooltip-content">{definition}</span>
+</span>

@@ -1,0 +1,115 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'What is a license bond?',
+    answer: 'A license bond is a type of commercial surety bond required by a state or local government before issuing a professional or business license. It guarantees that the licensee will follow applicable laws and regulations. If they violate those rules, someone harmed can file a claim against the bond.',
+  },
+  {
+    question: 'How much does a license bond cost?',
+    answer: 'License bond premiums typically range from 1% to 10% of the required bond amount. A $10,000 license bond might cost $100-$1,000 per year depending on your credit. Applicants with credit scores above 700 usually pay 1-3%. Those below 600 may pay 5-10% or more.',
+  },
+  {
+    question: 'What is the difference between a license bond and a permit bond?',
+    answer: 'A license bond is required to obtain a business or professional license — it covers your ongoing operations. A permit bond is required for a specific activity or project, like street excavation or building construction. License bonds tend to be ongoing requirements that renew annually. Permit bonds are often tied to a specific project with a defined end date.',
+  },
+  {
+    question: 'Who needs a contractor license bond?',
+    answer: 'Most states require contractors to carry a license bond before they can legally operate. The bond amount varies widely — from $5,000 in some states to $25,000 or more in others. California, for example, requires a $25,000 contractor license bond. The bond protects consumers from contractors who do substandard work or violate licensing laws.',
+  },
+  {
+    question: 'Can I get a license bond with bad credit?',
+    answer: 'Yes. License bonds are among the most accessible surety bonds because the bond amounts are relatively low ($5,000-$50,000 typically). Even with credit below 600, you can usually get a license bond — you will just pay a higher percentage. Some surety companies specialize in bad credit license bonds with rates of 5-15%.',
+  },
+  {
+    question: 'How long does a license bond last?',
+    answer: 'Most license bonds are issued for a one-year term and renew annually. Some states allow multi-year terms. The bond must remain active for as long as you hold the license. Letting a license bond lapse can result in suspension or revocation of your license.',
+  },
+  {
+    question: 'What happens if someone files a claim against my license bond?',
+    answer: 'The surety investigates the claim. If valid, the surety pays the claimant up to the bond amount. Then the surety comes to you for full reimbursement — you signed an indemnity agreement when you got the bond. A paid claim can also affect your ability to get bonded in the future and may be reported to the licensing authority.',
+  },
+  {
+    question: 'Do I need a broker for a license bond?',
+    answer: 'No. License bonds are among the simplest bonds to obtain. Many surety companies offer online applications with instant or same-day approval. A broker takes 20-40% of your premium for what is essentially filling out a form. On a $200 annual premium, that is $40-80 going to someone for clicking a few buttons.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="license-bonds"
+  title="License & Permit Bonds"
+  description="License bonds are required by state and local governments before issuing a professional or business license. They protect the public by guaranteeing the licensee will follow applicable laws and regulations."
+  statNumber="50"
+  statUnit=" states"
+  statLabel="All 50 states require some form of license bonding for regulated industries"
+  statAccent="lime"
+  whatIsIt={`
+    <p>A license bond is a type of commercial surety bond that acts as a condition for doing business. Before a government agency will issue you a professional or business license, they require proof that you are financially accountable. The license bond provides that proof.</p>
+    <p>The bond creates a guarantee to the public. If you violate the terms of your license — by doing substandard work, breaking regulations, or engaging in fraud — anyone harmed can file a claim against your bond. The surety pays the claim (up to the bond amount), then comes to you for repayment.</p>
+    <p>License bonds are the most common type of commercial surety bond. Nearly every state requires them for contractors, auto dealers, mortgage brokers, collection agencies, freight brokers, and dozens of other regulated professions. The bond amounts and requirements vary by state and profession.</p>
+    <p>Unlike contract bonds (which are project-specific), license bonds cover your ongoing business operations. They typically renew annually and must remain active for as long as you hold the license.</p>
+  `}
+  whoNeedsIt={`
+    <p>License bonds are required across a wide range of industries. Common examples include:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>General and specialty contractors</strong> — Required in most states. Bond amounts range from $5,000 to $25,000+.</li>
+      <li><strong>Auto dealers</strong> — Motor vehicle dealer bonds are required in all 50 states. Amounts range from $10,000 to $100,000.</li>
+      <li><strong>Mortgage brokers and loan originators</strong> — Required by state and federal regulators. Amounts can reach $250,000+.</li>
+      <li><strong>Freight brokers</strong> — FMCSA requires a $75,000 BMC-84 surety bond for interstate freight brokers.</li>
+      <li><strong>Collection agencies</strong> — Most states require bonds ranging from $5,000 to $50,000.</li>
+      <li><strong>Notaries public</strong> — Many states require a small notary bond ($5,000-$15,000).</li>
+      <li><strong>Tax preparers</strong> — Some states require a bond to prepare tax returns commercially.</li>
+    </ul>
+    <p class="mt-4">If you are starting a business that requires a license, check with your state licensing board. They will tell you the exact bond type and amount required.</p>
+  `}
+  whatItCosts={`
+    <p>License bond premiums depend on the bond amount and your credit score:</p>
+    <table class="w-full border-collapse my-4">
+      <thead>
+        <tr class="border-b-2 border-border">
+          <th class="text-left py-2 px-3 text-sm font-bold">Bond Amount</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Good Credit (700+)</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Fair Credit (600-699)</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Poor Credit (<600)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$5,000</td><td class="py-2 px-3 text-sm">$50-$150</td><td class="py-2 px-3 text-sm">$150-$300</td><td class="py-2 px-3 text-sm">$300-$500</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$10,000</td><td class="py-2 px-3 text-sm">$100-$300</td><td class="py-2 px-3 text-sm">$300-$600</td><td class="py-2 px-3 text-sm">$600-$1,000</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$25,000</td><td class="py-2 px-3 text-sm">$250-$750</td><td class="py-2 px-3 text-sm">$750-$1,500</td><td class="py-2 px-3 text-sm">$1,500-$2,500</td></tr>
+        <tr><td class="py-2 px-3 text-sm">$75,000</td><td class="py-2 px-3 text-sm">$750-$2,250</td><td class="py-2 px-3 text-sm">$2,250-$5,000</td><td class="py-2 px-3 text-sm">$5,000-$7,500</td></tr>
+      </tbody>
+    </table>
+    <p>These are annual premiums. The bond must be renewed each year. Some surety companies offer 2-3 year terms at a slight discount.</p>
+  `}
+  howToQualify={`
+    <p>License bonds are among the easiest surety bonds to qualify for because the bond amounts are relatively small and the risk to the surety is limited.</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Credit score:</strong> This is still the primary factor, but the bar is lower than for contract bonds. Many surety companies will issue license bonds to applicants with credit scores as low as 500 — at higher rates.</li>
+      <li><strong>No financial statements required:</strong> For most license bonds under $50,000, the surety relies on a personal credit check. You typically do not need CPA-prepared financials.</li>
+      <li><strong>Simple application:</strong> Most license bonds can be applied for online in 10-15 minutes. The application asks for basic personal and business information.</li>
+      <li><strong>Instant approval available:</strong> Applicants with credit above 650 can often get instant approval and receive their bond digitally within hours.</li>
+    </ul>
+    <p class="mt-4">For larger license bonds ($100,000+), the underwriting is more thorough and may require financial documentation similar to contract bonds.</p>
+  `}
+  stateRequirements={`
+    <p>License bond requirements vary significantly by state. Here are some common examples:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>California:</strong> $25,000 contractor license bond required for all licensed contractors (CSLB)</li>
+      <li><strong>Texas:</strong> $10,000-$25,000 for various contractor types, $25,000-$100,000 for motor vehicle dealers</li>
+      <li><strong>Florida:</strong> $5,000 contractor license bond for many license types</li>
+      <li><strong>New York:</strong> Varies widely by municipality and license type, $5,000-$50,000+</li>
+      <li><strong>Arizona:</strong> $5,000-$15,000 for contractor licenses depending on license class</li>
+    </ul>
+    <p class="mt-4">Always check with your state licensing board for the exact bond requirement. Requirements can change, and municipal requirements may differ from state requirements.</p>
+  `}
+  editorialInsight={`
+    <p>License bonds are the bread and butter of bond broker websites. They are simple, high-volume, and easy to process. A broker can issue a $10,000 license bond in 10 minutes and earn $30-120 in commission. Multiply that by hundreds of bonds per month and you have a nice business.</p>
+    <p>The problem is that license bonds are also the easiest bonds to get without a broker. The underwriting is simple (mostly a credit check), the applications are online, and many surety companies offer direct-to-consumer portals. You do not need someone to "shop the market" for a $10,000 contractor license bond. The rates are nearly identical across sureties.</p>
+    <p>Here is what really gets us: some brokers charge processing fees on top of the premium for license bonds. A $200 annual premium plus a $50 "processing fee" means 25% of what you paid went straight to the broker for clicking a button. That processing fee is not required by the surety. It is pure broker profit.</p>
+    <p>Our advice: for license bonds under $50,000, go direct to a surety company. Fill out the online application yourself. You will pay the exact same premium — minus the broker's take.</p>
+  `}
+  faqs={faqs}
+/>

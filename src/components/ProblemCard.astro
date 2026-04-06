@@ -1,0 +1,27 @@
+---
+interface Props {
+  icon: string;
+  iconColor: "coral" | "violet" | "blue";
+  title: string;
+}
+
+const { icon, iconColor, title } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  coral: "bg-coral/15 text-coral",
+  violet: "bg-violet/15 text-violet",
+  blue: "bg-accent/15 text-accent",
+};
+
+const circleClass = colorMap[iconColor] || colorMap.coral;
+---
+
+<div class="bg-card rounded-[20px] p-7 border border-border">
+  <div class:list={["w-14 h-14 rounded-full flex items-center justify-center mb-5", circleClass]}>
+    <Fragment set:html={icon} />
+  </div>
+  <h3 class="font-display font-bold text-primary text-lg mb-3">{title}</h3>
+  <div class="text-muted text-[15px] leading-relaxed">
+    <slot />
+  </div>
+</div>

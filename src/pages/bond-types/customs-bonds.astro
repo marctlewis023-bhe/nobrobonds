@@ -1,0 +1,106 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'What is a customs bond?',
+    answer: 'A customs bond is a surety bond required by U.S. Customs and Border Protection (CBP) for businesses that import goods into the United States. It guarantees that the importer will pay all duties, taxes, and fees owed, and will comply with all customs laws and regulations.',
+  },
+  {
+    question: 'Do I need a customs bond to import goods?',
+    answer: 'Yes, if your commercial shipment is valued at $2,500 or more. All commercial importers must either have a continuous customs bond or purchase a single entry bond for each shipment. Personal shipments and some low-value commercial shipments are exempt.',
+  },
+  {
+    question: 'What is the difference between a single entry bond and a continuous bond?',
+    answer: 'A single entry bond covers one import shipment and is typically set at the value of the goods plus any duties and taxes. A continuous bond covers all shipments during a 12-month period and is set at 10% of your total duties paid in the previous year (minimum $50,000). Continuous bonds are more cost-effective for frequent importers.',
+  },
+  {
+    question: 'How much does a customs bond cost?',
+    answer: 'A standard continuous customs bond at the $50,000 minimum costs $400-$600 per year for importers with good credit. Single entry bonds cost $50-$200 per shipment depending on the value. Higher bond amounts (for importers paying more than $500,000 in annual duties) cost proportionally more.',
+  },
+  {
+    question: 'What is a customs bond activity code?',
+    answer: 'CBP uses activity codes to classify different bond types. The most common is Activity Code 1, which is the basic importer bond (International Carrier/Broker bond). Other codes cover specific activities like foreign trade zone operators, container station operators, and custodians of bonded merchandise.',
+  },
+  {
+    question: 'What happens if customs files a claim against my bond?',
+    answer: 'If CBP determines you owe additional duties, violated trade regulations, or failed to comply with entry requirements, they can file a claim against your bond. The surety pays the claim to CBP (up to the bond amount) and then seeks reimbursement from you under the indemnity agreement. Repeated claims can result in increased bond amounts or bond cancellation.',
+  },
+  {
+    question: 'Can my customs bond be cancelled?',
+    answer: 'Yes. The surety can cancel a continuous customs bond with 30 days written notice to CBP. If your bond is cancelled, you cannot import until you get a new one. CBP can also require increased bond amounts if your import activity increases or if you have compliance issues.',
+  },
+  {
+    question: 'Do I need a customs broker and a customs bond?',
+    answer: 'These are different things. A customs broker is a licensed professional who handles your import paperwork and classification. A customs bond is a financial guarantee required by CBP. You need the bond. Whether you need a customs broker depends on your comfort with the import process. Many importers use customs brokers for their expertise in classification and compliance — but a customs broker is not the same as a bond broker.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="customs-bonds"
+  title="Customs Bonds"
+  description="A customs bond is required by U.S. Customs and Border Protection (CBP) for businesses importing goods into the United States. It guarantees the importer will pay all duties, taxes, and fees and comply with customs regulations."
+  statNumber="$50K"
+  statLabel="Minimum continuous customs bond amount required by CBP"
+  statAccent="blue"
+  whatIsIt={`
+    <p>A customs bond is a surety bond required by U.S. Customs and Border Protection (CBP) for anyone importing commercial goods into the United States. It is a financial guarantee that the importer will pay all required duties, taxes, and fees — and will follow all customs laws and regulations.</p>
+    <p>Every commercial shipment entering the U.S. with a value over $2,500 requires a customs bond. There are two types:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Single entry bond:</strong> Covers one shipment. The bond amount equals the value of the goods plus all applicable duties and taxes. Used by occasional importers.</li>
+      <li><strong>Continuous bond:</strong> Covers all shipments during a 12-month period. The minimum bond amount is $50,000, but CBP can require more based on your import volume. Used by frequent importers.</li>
+    </ul>
+    <p>Customs bonds are governed by 19 CFR Part 113 and issued on CBP Form 301. They are among the most heavily regulated surety bonds because they secure obligations to a federal agency.</p>
+    <p>If you import goods into the U.S. — whether you are a manufacturer bringing in raw materials, a retailer importing products, or an e-commerce seller sourcing from overseas — you need a customs bond.</p>
+  `}
+  whoNeedsIt={`
+    <p>Any business or individual importing commercial goods valued over $2,500 needs a customs bond. Specific categories include:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Importers of record:</strong> Any business that imports goods for resale, manufacturing, or commercial use</li>
+      <li><strong>E-commerce sellers:</strong> Amazon FBA sellers, Shopify stores, and other online retailers sourcing products internationally</li>
+      <li><strong>Manufacturers:</strong> Companies importing raw materials, components, or finished goods</li>
+      <li><strong>Freight forwarders and customs brokers:</strong> These intermediaries may need their own bonds in addition to their clients' bonds</li>
+      <li><strong>Foreign trade zone operators:</strong> Businesses operating within designated FTZs need specific bond types</li>
+    </ul>
+    <p class="mt-4">If you import more than 2-3 shipments per year, a continuous bond is almost always more cost-effective than single entry bonds. The math is simple: one continuous bond at $400-600/year vs. $50-200 per shipment.</p>
+  `}
+  whatItCosts={`
+    <p>Customs bond pricing is more standardized than most surety bonds because the bond amounts are set by CBP:</p>
+    <table class="w-full border-collapse my-4">
+      <thead>
+        <tr class="border-b-2 border-border">
+          <th class="text-left py-2 px-3 text-sm font-bold">Bond Type</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Bond Amount</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Annual Premium</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">Single Entry</td><td class="py-2 px-3 text-sm">Shipment value + duties</td><td class="py-2 px-3 text-sm">$50-$200 per shipment</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">Continuous (minimum)</td><td class="py-2 px-3 text-sm">$50,000</td><td class="py-2 px-3 text-sm">$400-$600</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">Continuous (mid-range)</td><td class="py-2 px-3 text-sm">$100,000-$250,000</td><td class="py-2 px-3 text-sm">$800-$2,500</td></tr>
+        <tr><td class="py-2 px-3 text-sm">Continuous (high volume)</td><td class="py-2 px-3 text-sm">$500,000+</td><td class="py-2 px-3 text-sm">$3,000-$10,000+</td></tr>
+      </tbody>
+    </table>
+    <p>Rates for customs bonds are generally lower than other surety bonds because CBP sets standardized bond amounts and the risk profile is well-understood. But the broker commission is still there — on a $500 annual premium, a broker takes $100-$200.</p>
+  `}
+  howToQualify={`
+    <p>Customs bond qualification is relatively straightforward compared to contract bonds:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Personal credit check:</strong> The primary factor for most importers. Credit above 650 qualifies you for standard rates.</li>
+      <li><strong>Business information:</strong> Your import history, annual import volume, and types of goods imported.</li>
+      <li><strong>CBP compliance history:</strong> If you have prior CBP violations, liquidated damages, or unpaid duties, underwriting is more difficult.</li>
+      <li><strong>Financial statements:</strong> Generally not required for minimum bond amounts ($50,000). Required for larger bonds.</li>
+    </ul>
+    <p class="mt-4">New importers with no import history can still get customs bonds. The surety evaluates your creditworthiness and business profile. First-time importer bonds are common and straightforward.</p>
+    <p>One important note: if CBP increases your required bond amount (called a "bond sufficiency notice"), you may need to provide additional financial documentation or pay a higher premium. This usually happens when your import volume exceeds the level supported by your current bond.</p>
+  `}
+  editorialInsight={`
+    <p>Customs bonds are a fascinating case study in broker economics. The premiums are small — $400-$600 for a standard continuous bond. But the volume is enormous. Every commercial importer in the U.S. needs one. That makes customs bonds a high-volume, low-premium product that brokers process by the thousands.</p>
+    <p>The broker adds almost zero value on a standard customs bond. The bond amount is set by CBP. The rates are standardized. The application is a form. The surety makes the approval decision based on your credit. What exactly is the broker doing for their 20-40% commission?</p>
+    <p>Here is where it gets interesting: many customs brokers (the professionals who handle your import paperwork) also sell customs bonds. This creates a bundling effect where you pay the customs broker for their classification and compliance expertise, and they also take a commission on your surety bond. It is not disclosed as a separate charge. It is just built into the price.</p>
+    <p>The smartest approach for importers: use a licensed customs broker for their expertise in classification and compliance (that is real value), but get your customs bond directly from a surety company. They are different products. There is no reason the same company needs to provide both — except that bundling them is more profitable for the customs broker.</p>
+    <p>For the minimum continuous bond ($50,000), the total premium is under $600. Going direct saves you $100-$200 per year. That is small for one year — but over 10 years of importing, it adds up. And the principle matters: every dollar you save on intermediaries is a dollar that stays in your business.</p>
+  `}
+  faqs={faqs}
+/>

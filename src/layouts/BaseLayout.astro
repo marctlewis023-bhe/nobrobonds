@@ -1,0 +1,113 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface BreadcrumbItem {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  schema?: Record<string, unknown>;
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const {
+  title,
+  description,
+  ogImage = "/og-default.png",
+  canonicalUrl,
+  schema,
+  breadcrumbs,
+} = Astro.props;
+
+const siteUrl = "https://nobrobonds.com";
+const pageTitle = title === "NoBro Bonds" ? title : `${title} | NoBro Bonds`;
+const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "NoBro Bonds",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  description:
+    "Educational platform helping contractors and business owners understand surety bonds without the broker runaround.",
+};
+
+const breadcrumbSchema =
+  breadcrumbs && breadcrumbs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbs.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          item: item.href.startsWith("http") ? item.href : `${siteUrl}${item.href}`,
+        })),
+      }
+    : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    {/* Fonts */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {/* Favicon */}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    {/* SEO */}
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="NoBro Bonds" />
+
+    {/* Twitter Card */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    {/* Schema */}
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+  </head>
+  <body class="min-h-screen bg-bg text-text font-body">
+    <Nav />
+    <main class="pt-[65px]">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

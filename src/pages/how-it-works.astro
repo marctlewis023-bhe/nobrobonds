@@ -1,0 +1,322 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import StatCard from '../components/StatCard.astro';
+import StepCard from '../components/StepCard.astro';
+import QuoteCallout from '../components/QuoteCallout.astro';
+import Tooltip from '../components/Tooltip.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How Surety Bonds Work: The Complete Guide',
+  description: 'Learn how commercial surety bonds work, from application to approval. Understand the three parties, the underwriting process, and what your premium pays for.',
+  step: [
+    { '@type': 'HowToStep', name: 'Determine the bond requirement', text: 'Identify which bond type you need and the required bond amount from the obligee.' },
+    { '@type': 'HowToStep', name: 'Gather your documentation', text: 'Collect financial statements, credit information, and business history.' },
+    { '@type': 'HowToStep', name: 'Submit your application', text: 'Apply directly with a surety company or through a licensed agent.' },
+    { '@type': 'HowToStep', name: 'Underwriting review', text: 'The surety evaluates your credit, finances, experience, and the specific bond risk.' },
+    { '@type': 'HowToStep', name: 'Receive your quote', text: 'If approved, you receive a premium quote based on the underwriter evaluation.' },
+    { '@type': 'HowToStep', name: 'Pay and get bonded', text: 'Pay your premium, sign the indemnity agreement, and receive your bond.' },
+  ],
+};
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'How It Works', href: '/how-it-works' },
+];
+---
+
+<BaseLayout
+  title="How Surety Bonds Work: The Complete Guide"
+  description="Learn how commercial surety bonds work, from application to approval. Understand the three-party relationship, the underwriting process, and what your premium actually pays for."
+  schema={schema}
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'How It Works' }]} />
+
+    <!-- Hero -->
+    <div class="max-w-3xl mb-16">
+      <SectionLabel>Education</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        How Surety Bonds Actually Work
+      </h1>
+      <p class="text-muted text-xl leading-relaxed">
+        Surety bonds are not complicated. The industry just benefits when you think they are. This guide breaks down everything in plain English — no sales pitch, no email gate, no broker needed.
+      </p>
+    </div>
+
+    <!-- What Is a Surety Bond -->
+    <section class="mb-16">
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mb-6">What Is a Surety Bond?</h2>
+      <p class="text-text text-[16px] leading-relaxed mb-6 max-w-3xl">
+        A <Tooltip slug="surety-bond" /> is a three-party agreement. It is a guarantee that one party will meet their obligations to another. If they do not, a third party (the <Tooltip slug="surety" text="surety company" />) steps in and covers the loss — then comes back to the original party for repayment.
+      </p>
+      <p class="text-text text-[16px] leading-relaxed mb-10 max-w-3xl">
+        Think of it like a trust contract backed by an insurance company. It is not insurance for you — it is insurance for the party that requires the bond.
+      </p>
+
+      <!-- Three Party Cards -->
+      <div class="grid md:grid-cols-3 gap-6 mb-10">
+        <div class="bg-card rounded-[20px] border border-border p-7">
+          <div class="w-14 h-14 rounded-full bg-accent/15 text-accent flex items-center justify-center mb-5 text-2xl">&#128100;</div>
+          <h3 class="font-display font-bold text-primary text-lg mb-2">The Principal</h3>
+          <p class="text-muted text-[15px] leading-relaxed">
+            That is you — the person or business that needs the bond. You buy it. You are the one being guaranteed. And if a claim is paid, you are the one who owes the <Tooltip slug="surety" /> back.
+          </p>
+        </div>
+        <div class="bg-card rounded-[20px] border border-border p-7">
+          <div class="w-14 h-14 rounded-full bg-lime/15 text-lime flex items-center justify-center mb-5 text-2xl">&#127970;</div>
+          <h3 class="font-display font-bold text-primary text-lg mb-2">The Obligee</h3>
+          <p class="text-muted text-[15px] leading-relaxed">
+            The party that requires the bond. Usually a government agency, project owner, or court. The <Tooltip slug="obligee" /> is the one protected by the bond — if you fail, they file a claim.
+          </p>
+        </div>
+        <div class="bg-card rounded-[20px] border border-border p-7">
+          <div class="w-14 h-14 rounded-full bg-violet/15 text-violet flex items-center justify-center mb-5 text-2xl">&#127974;</div>
+          <h3 class="font-display font-bold text-primary text-lg mb-2">The Surety</h3>
+          <p class="text-muted text-[15px] leading-relaxed">
+            The insurance company that backs the bond. If you fail your obligation and a claim is filed, the <Tooltip slug="surety" /> pays up to the <Tooltip slug="bond-amount" /> — then turns to you for reimbursement.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      <StatCard number="3" label="Parties in every surety bond" accent="blue" />
+      <StatCard number="1-10" unit="%" label="Typical premium range" accent="dark" />
+      <StatCard number="30+" label="Bond types across industries" accent="violet" />
+      <StatCard number="$0" label="Cost to understand your bond" accent="lime" />
+    </div>
+
+    <!-- Why Bonds Are Required -->
+    <section class="mb-16 max-w-3xl">
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mb-6">Why Bonds Are Required</h2>
+      <p class="text-text text-[16px] leading-relaxed mb-4">
+        Bonds exist to protect the public and project owners from financial harm. They are a condition of doing business in most licensed and regulated industries.
+      </p>
+      <p class="text-text text-[16px] leading-relaxed mb-4">
+        A contractor cannot bid on most public projects without a <Tooltip slug="bid-bond" />. A business cannot get certain professional licenses without a <Tooltip slug="license-bond" />. An importer cannot clear goods through customs without a <Tooltip slug="customs-bond" text="customs bond" />.
+      </p>
+      <p class="text-text text-[16px] leading-relaxed">
+        The requirement is not optional. But how you get bonded — and how much you pay in middleman fees along the way — is something you have more control over than most brokers want you to know.
+      </p>
+    </section>
+
+    <!-- Application Process -->
+    <section class="mb-16">
+      <SectionLabel>Step by Step</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mt-3 mb-8">The Application Process</h2>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StepCard title="Identify Your Bond Requirement" time="Step 1">
+          Find out which bond type you need, the required <Tooltip slug="bond-amount" />, and who the <Tooltip slug="obligee" /> is. This information comes from the government agency, project owner, or court that is requiring the bond.
+        </StepCard>
+        <StepCard title="Gather Your Documentation" time="Step 2">
+          Collect your personal credit information, business financial statements, and any relevant project or industry experience records. Better documentation generally means better rates.
+        </StepCard>
+        <StepCard title="Submit Your Application" time="Step 3">
+          Apply directly with a <Tooltip slug="surety" text="surety company" /> or through a licensed agent. You fill out a standard form with your business info, financial details, and the bond specifics.
+        </StepCard>
+        <StepCard title="Underwriting Review" time="Step 4">
+          The surety's <Tooltip slug="underwriting" text="underwriter" /> evaluates your application. They look at your credit, financial strength, industry experience, and the risk of the specific bond. This typically takes 1-5 business days.
+        </StepCard>
+        <StepCard title="Receive Your Quote" time="Step 5">
+          If approved, you get a <Tooltip slug="premium" /> quote — the annual cost of your bond expressed as a percentage of the bond amount. You can compare quotes from multiple sureties.
+        </StepCard>
+        <StepCard title="Pay and Get Bonded" time="Step 6">
+          Accept the quote, pay your premium, and sign the <Tooltip slug="indemnity-agreement" />. The surety issues your bond certificate. You are now bonded and can proceed with your license, project, or legal requirement.
+        </StepCard>
+      </div>
+    </section>
+
+    <!-- What Underwriters Evaluate -->
+    <section class="bg-gradient-to-br from-primary/[0.03] to-violet/[0.03] rounded-[20px] p-8 md:p-12 mb-16">
+      <SectionLabel>Under the Hood</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mt-3 mb-8">What Underwriters Actually Evaluate</h2>
+      <p class="text-muted text-[16px] mb-8 max-w-2xl">
+        This is the part brokers love to make mysterious. It is not. Here are the five main things every underwriter looks at.
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-card rounded-[16px] border border-border p-6">
+          <div class="text-accent text-2xl mb-3">&#128179;</div>
+          <h3 class="font-display font-bold text-primary mb-2">Personal Credit Score</h3>
+          <p class="text-muted text-sm leading-relaxed">This is the single biggest factor. A credit score above 700 usually qualifies you for the best rates. Below 600, you may still qualify but will pay more.</p>
+        </div>
+        <div class="bg-card rounded-[16px] border border-border p-6">
+          <div class="text-accent text-2xl mb-3">&#128200;</div>
+          <h3 class="font-display font-bold text-primary mb-2">Financial Statements</h3>
+          <p class="text-muted text-sm leading-relaxed">The surety wants to see your balance sheet, income statement, and cash flow. CPA-prepared statements carry more weight. They are looking at liquidity and net worth.</p>
+        </div>
+        <div class="bg-card rounded-[16px] border border-border p-6">
+          <div class="text-accent text-2xl mb-3">&#128188;</div>
+          <h3 class="font-display font-bold text-primary mb-2">Industry Experience</h3>
+          <p class="text-muted text-sm leading-relaxed">How long have you been in business? What is your track record? A contractor with 10 years of completed projects is a lower risk than someone with 10 months.</p>
+        </div>
+        <div class="bg-card rounded-[16px] border border-border p-6">
+          <div class="text-accent text-2xl mb-3">&#128203;</div>
+          <h3 class="font-display font-bold text-primary mb-2">Work on Hand</h3>
+          <p class="text-muted text-sm leading-relaxed">For contract bonds, underwriters look at how many active projects you have and their total value. They want to make sure you are not overextended.</p>
+        </div>
+        <div class="bg-card rounded-[16px] border border-border p-6">
+          <div class="text-accent text-2xl mb-3">&#128269;</div>
+          <h3 class="font-display font-bold text-primary mb-2">Claims History</h3>
+          <p class="text-muted text-sm leading-relaxed">Past bond claims are a red flag. If you have defaulted on a bond before, underwriters see it. This does not disqualify you, but it raises your rate significantly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Premium Calculation Table -->
+    <section class="mb-16 max-w-3xl">
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mb-6">How Your Premium Is Calculated</h2>
+      <p class="text-text text-[16px] leading-relaxed mb-6">
+        Your <Tooltip slug="premium" /> is the annual price you pay for your bond. It is expressed as a percentage of the <Tooltip slug="bond-amount" />.
+      </p>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b-2 border-border">
+              <th class="text-left py-3 px-4 font-display font-bold text-primary text-sm">Bond Amount</th>
+              <th class="text-left py-3 px-4 font-display font-bold text-primary text-sm">Rate (Good Credit)</th>
+              <th class="text-left py-3 px-4 font-display font-bold text-primary text-sm">Annual Premium</th>
+              <th class="text-left py-3 px-4 font-display font-bold text-primary text-sm">Broker Cut (~30%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-border">
+              <td class="py-3 px-4 text-text text-sm">$25,000</td>
+              <td class="py-3 px-4 text-text text-sm">2%</td>
+              <td class="py-3 px-4 text-accent font-bold text-sm">$500</td>
+              <td class="py-3 px-4 text-coral font-bold text-sm">$150</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-3 px-4 text-text text-sm">$100,000</td>
+              <td class="py-3 px-4 text-text text-sm">2%</td>
+              <td class="py-3 px-4 text-accent font-bold text-sm">$2,000</td>
+              <td class="py-3 px-4 text-coral font-bold text-sm">$600</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-3 px-4 text-text text-sm">$500,000</td>
+              <td class="py-3 px-4 text-text text-sm">1.5%</td>
+              <td class="py-3 px-4 text-accent font-bold text-sm">$7,500</td>
+              <td class="py-3 px-4 text-coral font-bold text-sm">$2,250</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-text text-sm">$1,000,000</td>
+              <td class="py-3 px-4 text-text text-sm">1.5%</td>
+              <td class="py-3 px-4 text-accent font-bold text-sm">$15,000</td>
+              <td class="py-3 px-4 text-coral font-bold text-sm">$4,500</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-muted text-sm">
+        The broker cut is built into the premium. You pay the same rate whether you use a broker or not. But knowing the split helps you ask better questions.
+        <a href="/resources/bond-cost-estimator" class="text-accent no-underline hover:underline"> Try our free cost estimator &rarr;</a>
+      </p>
+    </section>
+
+    <!-- Breakdown Bar -->
+    <section class="bg-primary rounded-[20px] p-8 md:p-12 mb-16">
+      <h2 class="font-display font-bold text-white text-2xl mb-6">Where Your Premium Goes</h2>
+      <div class="flex rounded-[12px] overflow-hidden h-[48px] mb-6">
+        <div class="bar-segment bg-accent text-white" style="width: 45%;">45%</div>
+        <div class="bar-segment bg-coral text-white" style="width: 30%;">30%</div>
+        <div class="bar-segment bg-violet text-white" style="width: 15%;">15%</div>
+        <div class="bar-segment bg-lime text-primary" style="width: 10%;">10%</div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-accent"></span>
+          <span class="text-white/70 text-sm">Surety company</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-coral"></span>
+          <span class="text-white/70 text-sm">Broker commission</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-violet"></span>
+          <span class="text-white/70 text-sm">Subagent cut</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-lime"></span>
+          <span class="text-white/70 text-sm">Processing fees</span>
+        </div>
+      </div>
+      <p class="text-white/50 text-sm mt-6">
+        <a href="/resources/where-your-premium-goes" class="text-accent-light no-underline hover:underline">See the full interactive breakdown &rarr;</a>
+      </p>
+    </section>
+
+    <!-- Common Mistakes -->
+    <section class="mb-16 max-w-3xl">
+      <SectionLabel color="coral">Watch Out</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl md:text-3xl mt-3 mb-8">Common Mistakes to Avoid</h2>
+
+      <div class="space-y-4">
+        <div class="flex gap-4 items-start bg-card rounded-[16px] border border-border p-6">
+          <span class="text-coral text-xl font-bold shrink-0">&#10005;</span>
+          <div>
+            <h3 class="font-display font-bold text-primary mb-1">Assuming you need a broker</h3>
+            <p class="text-muted text-[15px] leading-relaxed">Many surety companies accept direct applications. A broker is a convenience, not a requirement. And that convenience costs you up to 40% of your premium.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start bg-card rounded-[16px] border border-border p-6">
+          <span class="text-coral text-xl font-bold shrink-0">&#10005;</span>
+          <div>
+            <h3 class="font-display font-bold text-primary mb-1">Not shopping your bond</h3>
+            <p class="text-muted text-[15px] leading-relaxed">Different surety companies have different appetites for risk. One might quote you 3% while another quotes 1.5% for the exact same bond. Always compare.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start bg-card rounded-[16px] border border-border p-6">
+          <span class="text-coral text-xl font-bold shrink-0">&#10005;</span>
+          <div>
+            <h3 class="font-display font-bold text-primary mb-1">Ignoring your credit before applying</h3>
+            <p class="text-muted text-[15px] leading-relaxed">Your personal credit score is the biggest factor in your premium rate. Spending 3 months improving your credit before applying can save you thousands per year.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start bg-card rounded-[16px] border border-border p-6">
+          <span class="text-coral text-xl font-bold shrink-0">&#10005;</span>
+          <div>
+            <h3 class="font-display font-bold text-primary mb-1">Not reading the indemnity agreement</h3>
+            <p class="text-muted text-[15px] leading-relaxed">The <Tooltip slug="indemnity-agreement" /> makes you personally liable for any claims. Your spouse or business partners may also be on the hook. Read it before you sign.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start bg-card rounded-[16px] border border-border p-6">
+          <span class="text-coral text-xl font-bold shrink-0">&#10005;</span>
+          <div>
+            <h3 class="font-display font-bold text-primary mb-1">Confusing bond amount with premium</h3>
+            <p class="text-muted text-[15px] leading-relaxed">The <Tooltip slug="bond-amount" /> is the maximum coverage. The <Tooltip slug="premium" /> is what you actually pay — typically 1-10% of the bond amount. These are very different numbers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <QuoteCallout>
+      The bonding process is not a mystery. It is a credit check, a financial review, and a signature. Brokers just put a velvet rope in front of it.
+    </QuoteCallout>
+
+    <!-- Soft CTA -->
+    <section class="bg-primary rounded-[20px] p-8 md:p-12 text-center mt-8">
+      <h2 class="font-display font-bold text-white text-2xl mb-3">Ready to see what your bond would cost?</h2>
+      <p class="text-white/60 text-[16px] mb-6 max-w-lg mx-auto">
+        Use our free tools to estimate your premium and understand exactly where your money goes.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/resources/bond-cost-estimator" class="bg-accent hover:bg-accent/90 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+          Cost Estimator
+        </a>
+        <a href="/bond-types" class="bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+          Browse Bond Types
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

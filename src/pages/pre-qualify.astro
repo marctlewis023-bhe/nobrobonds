@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PreQualForm from '../components/PreQualForm';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Pre-Qualify', href: '/pre-qualify' },
+];
+---
+
+<BaseLayout
+  title="Surety Bond Pre-Qualification Check"
+  description="See where you stand before applying for a surety bond. Free self-assessment tool covering credit, experience, financials, and risk factors — no data collected."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'Pre-Qualify' }]} />
+
+    <div class="max-w-3xl mb-10">
+      <SectionLabel>Tool</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        Pre-Qualification Check
+      </h1>
+      <p class="text-muted text-lg leading-relaxed">
+        Before you apply for a bond — or talk to a broker — find out where you stand. This free self-assessment covers the four main factors surety companies evaluate. No data is collected or stored.
+      </p>
+    </div>
+
+    <!-- Underwriting Factors -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-primary text-xl mb-6">What Underwriters Evaluate</h2>
+      <div class="grid sm:grid-cols-2 gap-4 max-w-3xl">
+        <div class="bg-card rounded-[16px] border border-border p-5">
+          <div class="text-accent text-2xl mb-2">&#128179;</div>
+          <h3 class="font-display font-bold text-primary text-sm mb-1">Credit Score</h3>
+          <p class="text-muted text-[13px] leading-relaxed">Your personal credit score is the single biggest factor. Above 700 gets you the best rates. Below 600 means higher premiums or possible decline.</p>
+        </div>
+        <div class="bg-card rounded-[16px] border border-border p-5">
+          <div class="text-accent text-2xl mb-2">&#128200;</div>
+          <h3 class="font-display font-bold text-primary text-sm mb-1">Financial Strength</h3>
+          <p class="text-muted text-[13px] leading-relaxed">Revenue, net worth, and liquidity relative to the bond amount. Sureties want to see you can absorb a claim without going under.</p>
+        </div>
+        <div class="bg-card rounded-[16px] border border-border p-5">
+          <div class="text-accent text-2xl mb-2">&#128188;</div>
+          <h3 class="font-display font-bold text-primary text-sm mb-1">Experience</h3>
+          <p class="text-muted text-[13px] leading-relaxed">Years in business and track record of completed projects. More experience means lower risk, which means lower premiums.</p>
+        </div>
+        <div class="bg-card rounded-[16px] border border-border p-5">
+          <div class="text-accent text-2xl mb-2">&#128269;</div>
+          <h3 class="font-display font-bold text-primary text-sm mb-1">Risk History</h3>
+          <p class="text-muted text-[13px] leading-relaxed">Prior bond claims, defaults, or bankruptcies. Clean history helps you significantly. Past issues do not disqualify you, but they raise your rate.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form -->
+    <div class="bg-card rounded-[20px] border border-border p-8 md:p-10 max-w-3xl">
+      <PreQualForm client:load />
+    </div>
+
+    <div class="max-w-3xl mt-8">
+      <div class="bg-primary/[0.03] rounded-[16px] p-6 border border-border">
+        <p class="text-muted text-[13px] leading-relaxed">
+          <strong class="text-text">Privacy note:</strong> This tool runs entirely in your browser. No data is sent to any server, collected, or stored. We do not know your answers and we cannot contact you. This is an educational self-assessment, not an application.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Blog', href: '/blog' },
+];
+---
+
+<BaseLayout
+  title="NoBro Bonds Blog — Surety Bond Industry Insights"
+  description="Insights, analysis, and plain-English education about commercial surety bonds, broker commissions, and the bonding industry."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'Blog' }]} />
+
+    <div class="max-w-3xl mb-12">
+      <SectionLabel>Blog</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        Industry Insights
+      </h1>
+      <p class="text-muted text-xl leading-relaxed">
+        Analysis, education, and commentary on the surety bond industry — written without a broker's agenda.
+      </p>
+    </div>
+
+    {sortedPosts.length > 0 ? (
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedPosts.map((post) => (
+          <a href={`/blog/${post.id}`} class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="bg-accent/10 text-accent text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">{post.data.category}</span>
+              <span class="text-muted text-xs">{post.data.readingTime}</span>
+            </div>
+            <h2 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">{post.data.title}</h2>
+            <p class="text-muted text-sm leading-relaxed mb-4">{post.data.description}</p>
+            <p class="text-muted text-xs">
+              {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="bg-card rounded-[20px] border border-border p-12 text-center max-w-xl mx-auto">
+        <span class="text-4xl block mb-4">&#128221;</span>
+        <h2 class="font-display font-bold text-primary text-xl mb-2">Coming Soon</h2>
+        <p class="text-muted text-[15px] leading-relaxed">
+          We are working on our first batch of articles covering broker commissions, underwriting transparency, and industry data analysis. Check back soon.
+        </p>
+        <a href="/the-broker-problem" class="inline-block mt-6 bg-accent hover:bg-accent/90 text-white font-display font-bold text-sm px-6 py-3 rounded-[12px] no-underline transition-colors">
+          Read The Broker Problem
+        </a>
+      </div>
+    )}
+  </div>
+</BaseLayout>

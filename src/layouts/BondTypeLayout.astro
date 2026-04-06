@@ -1,0 +1,227 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SectionLabel from "../components/SectionLabel.astro";
+import StatCard from "../components/StatCard.astro";
+import TypeCard from "../components/TypeCard.astro";
+import Tooltip from "../components/Tooltip.astro";
+import { bondTypes, bondTypesBySlug } from "../data/bond-types";
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  whatIsIt: string;
+  whoNeedsIt: string;
+  whatItCosts: string;
+  howToQualify: string;
+  stateRequirements?: string;
+  editorialInsight: string;
+  faqs: FAQ[];
+  statNumber: string;
+  statUnit?: string;
+  statLabel: string;
+  statAccent?: "blue" | "dark" | "violet" | "lime" | "white";
+}
+
+const {
+  slug,
+  title,
+  description,
+  whatIsIt,
+  whoNeedsIt,
+  whatItCosts,
+  howToQualify,
+  stateRequirements,
+  editorialInsight,
+  faqs,
+  statNumber,
+  statUnit,
+  statLabel,
+  statAccent = "blue",
+} = Astro.props;
+
+const bondData = bondTypesBySlug[slug];
+const oneLiner = bondData?.oneLiner || "";
+
+const relatedBonds = bondTypes
+  .filter((bt) => bt.slug !== slug)
+  .slice(0, 3);
+
+const breadcrumbs = [
+  { name: "Home", href: "/" },
+  { name: "Bond Types", href: "/bond-types" },
+  { name: title, href: `/bond-types/${slug}` },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  schema={faqSchema}
+>
+  <div class="max-w-[1280px] mx-auto px-6">
+    {/* Breadcrumb nav */}
+    <nav class="flex items-center gap-2 text-sm text-muted py-6" aria-label="Breadcrumb">
+      {breadcrumbs.map((crumb, i) => (
+        <>
+          {i > 0 && <span class="text-border">/</span>}
+          {i < breadcrumbs.length - 1 ? (
+            <a href={crumb.href} class="text-muted hover:text-accent no-underline transition-colors">
+              {crumb.name}
+            </a>
+          ) : (
+            <span class="text-primary font-medium">{crumb.name}</span>
+          )}
+        </>
+      ))}
+    </nav>
+
+    {/* Header */}
+    <div class="max-w-3xl mb-12">
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mb-4">
+        {title}
+      </h1>
+      {oneLiner && (
+        <p class="text-muted text-xl leading-relaxed">{oneLiner}</p>
+      )}
+    </div>
+
+    {/* Stat card */}
+    <div class="mb-16 max-w-sm">
+      <StatCard number={statNumber} unit={statUnit} label={statLabel} accent={statAccent} />
+    </div>
+
+    {/* Content sections */}
+    <div class="max-w-3xl space-y-16">
+      {/* What Is It */}
+      <section>
+        <SectionLabel>What Is It</SectionLabel>
+        <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+          What Is a {title.replace(/s$/, "")}?
+        </h2>
+        <div class="text-text text-[16px] leading-relaxed space-y-4" set:html={whatIsIt} />
+      </section>
+
+      {/* Who Needs It */}
+      <section>
+        <SectionLabel color="lime">Who Needs It</SectionLabel>
+        <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+          Who Needs {title}?
+        </h2>
+        <div class="text-text text-[16px] leading-relaxed space-y-4" set:html={whoNeedsIt} />
+      </section>
+
+      {/* What It Costs */}
+      <section>
+        <SectionLabel color="coral">Cost Breakdown</SectionLabel>
+        <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+          What Do {title} Cost?
+        </h2>
+        <div class="text-text text-[16px] leading-relaxed space-y-4" set:html={whatItCosts} />
+      </section>
+
+      {/* How to Qualify */}
+      <section>
+        <SectionLabel>Qualification</SectionLabel>
+        <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+          How to Qualify
+        </h2>
+        <div class="text-text text-[16px] leading-relaxed space-y-4" set:html={howToQualify} />
+      </section>
+
+      {/* State Requirements (optional) */}
+      {stateRequirements && (
+        <section>
+          <SectionLabel color="accent-light">State Requirements</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            State-by-State Requirements
+          </h2>
+          <div class="text-text text-[16px] leading-relaxed space-y-4" set:html={stateRequirements} />
+        </section>
+      )}
+
+      {/* FAQs */}
+      <section>
+        <SectionLabel>FAQ</SectionLabel>
+        <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-6">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqs.map((faq) => (
+            <details class="group bg-card rounded-[16px] border border-border overflow-hidden">
+              <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none font-display font-bold text-primary text-[16px] [&::-webkit-details-marker]:hidden">
+                {faq.question}
+                <span class="shrink-0 text-accent text-xl leading-none transition-transform duration-200 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <div class="px-6 pb-5 text-muted text-[15px] leading-relaxed" set:html={faq.answer} />
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* Editorial Insight */}
+      <section class="bg-gradient-to-br from-primary to-primary/90 rounded-[20px] px-8 py-12 md:px-12">
+        <SectionLabel color="accent-light">NoBro Take</SectionLabel>
+        <h2 class="font-display font-bold text-white text-2xl mt-3 mb-4">
+          Our Editorial Insight
+        </h2>
+        <div class="text-white/80 text-[16px] leading-relaxed space-y-4" set:html={editorialInsight} />
+      </section>
+    </div>
+
+    {/* Related Bond Types */}
+    <section class="mt-20 mb-16">
+      <SectionLabel>Related</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-8">
+        Other Bond Types
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {relatedBonds.map((bt) => (
+          <TypeCard
+            icon={bt.icon}
+            title={bt.title}
+            description={bt.oneLiner}
+            href={`/bond-types/${bt.slug}`}
+          />
+        ))}
+      </div>
+    </section>
+
+    {/* Soft CTA */}
+    <section class="text-center py-16 border-t border-border">
+      <h2 class="font-display font-bold text-primary text-2xl mb-3">
+        Ready to understand your bond costs?
+      </h2>
+      <p class="text-muted text-[16px] mb-6">
+        Use our free cost estimator — no broker, no sales pitch.
+      </p>
+      <a
+        href="/resources/cost-estimator"
+        class="inline-flex items-center gap-2 bg-accent text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline hover:bg-accent/90 transition-colors"
+      >
+        Estimate Your Premium
+      </a>
+    </section>
+  </div>
+</BaseLayout>

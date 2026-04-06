@@ -1,0 +1,110 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'What is the difference between a payment bond and a performance bond?',
+    answer: 'A performance bond protects the project owner by guaranteeing the contractor will complete the work. A payment bond protects the subcontractors and suppliers by guaranteeing they will get paid. Both are usually required together on public projects, but they serve different parties and cover different risks.',
+  },
+  {
+    question: 'How much does a payment bond cost?',
+    answer: 'Payment bond premiums typically range from 1% to 3% of the contract value, similar to performance bonds. In many cases, performance and payment bonds are priced together as a package at a combined rate of 1.5-3%. The premium covers both bonds together.',
+  },
+  {
+    question: 'Who can file a claim against a payment bond?',
+    answer: 'Subcontractors, laborers, and material suppliers who are not paid by the general contractor can file claims against the payment bond. On federal projects (Miller Act), first-tier subcontractors and suppliers have clear claim rights. Second-tier claimants (sub-subcontractors) may also have rights, but the rules are stricter and time-sensitive.',
+  },
+  {
+    question: 'What is the Miller Act payment bond requirement?',
+    answer: 'The Miller Act requires payment bonds on all federal construction projects over $150,000. The payment bond must equal 100% of the contract price. It exists because you cannot file a mechanic\'s lien against federal property, so the payment bond provides an alternative remedy for unpaid workers and suppliers.',
+  },
+  {
+    question: 'How long do I have to file a payment bond claim?',
+    answer: 'On federal (Miller Act) projects, subcontractors have 90 days from their last day of work to give written notice to the general contractor (for those without a direct contract). The claim must be filed within 1 year of the last day of work. State deadlines vary but are typically 60-120 days for notice and 1-2 years for filing. Missing these deadlines can void your claim.',
+  },
+  {
+    question: 'Why can\'t I just file a mechanic\'s lien instead?',
+    answer: 'On public projects, you cannot file a mechanic\'s lien against government property. The payment bond is the substitute — it provides a private fund that subcontractors and suppliers can claim against instead of liening public buildings or roads. On private projects where you can file a lien, a payment bond provides an additional layer of protection.',
+  },
+  {
+    question: 'Do I need a separate application for a payment bond?',
+    answer: 'No. Performance and payment bonds are typically underwritten together as a package. When you apply for contract bonding on a project, the surety evaluates you for both bonds at once. The premium is usually combined. You do not fill out two separate applications.',
+  },
+  {
+    question: 'Can a subcontractor require a payment bond from a general contractor?',
+    answer: 'Subcontractors cannot require a payment bond — that requirement comes from the project owner (obligee) or from law (like the Miller Act). However, subcontractors should always verify that a payment bond exists on the project before starting work. You can request a copy of the bond from the general contractor or the project owner.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="payment-bonds"
+  title="Payment Bonds"
+  description="A payment bond guarantees that a contractor will pay their subcontractors, laborers, and material suppliers on a project. It protects the people who do the work and provide the materials."
+  statNumber="$150K"
+  statLabel="Federal Miller Act threshold requiring payment bonds on public projects"
+  statAccent="blue"
+  whatIsIt={`
+    <p>A payment bond is a contract surety bond that guarantees a general contractor will pay their subcontractors, laborers, and material suppliers. If the general contractor fails to pay, those unpaid parties can file a claim against the payment bond and recover what they are owed — up to the bond amount.</p>
+    <p>Payment bonds exist because construction is a layered industry. A project owner hires a general contractor, who hires subcontractors, who hire sub-subcontractors, who buy materials from suppliers. Money flows down through that chain. If it stops flowing at any point, the people at the bottom get hurt.</p>
+    <p>On public projects, payment bonds are especially important because you cannot file a mechanic's lien against government property. The payment bond serves as the substitute remedy — a private fund backed by a surety company that unpaid workers and suppliers can claim against.</p>
+    <p>Payment bonds are almost always required alongside performance bonds on bonded construction projects. Together, they protect both the project owner (performance bond) and the project's workforce and suppliers (payment bond).</p>
+  `}
+  whoNeedsIt={`
+    <p>General contractors on bonded projects are the ones who purchase payment bonds, but the bonds protect the people below them in the contract chain:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Federal projects over $150,000:</strong> The Miller Act requires a payment bond equal to 100% of the contract price</li>
+      <li><strong>State and municipal projects:</strong> Most states have "Little Miller Acts" requiring payment bonds on public construction, though thresholds vary</li>
+      <li><strong>Large private projects:</strong> Some private owners require payment bonds to protect against mechanic's liens on their property</li>
+    </ul>
+    <p class="mt-4">If you are a subcontractor, you do not buy the payment bond — but you should always verify one exists on your project. It is your safety net. If the general contractor does not pay you, the payment bond is how you get made whole.</p>
+  `}
+  whatItCosts={`
+    <p>Payment bonds are typically priced together with performance bonds. The combined premium is usually <strong>1.5% to 3% of the contract value</strong>.</p>
+    <table class="w-full border-collapse my-4">
+      <thead>
+        <tr class="border-b-2 border-border">
+          <th class="text-left py-2 px-3 text-sm font-bold">Contract Value</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Combined P&P Rate</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Total Premium</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Broker Cut (~30%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$250,000</td><td class="py-2 px-3 text-sm">2.5%</td><td class="py-2 px-3 text-sm">$6,250</td><td class="py-2 px-3 text-sm">$1,875</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$500,000</td><td class="py-2 px-3 text-sm">2%</td><td class="py-2 px-3 text-sm">$10,000</td><td class="py-2 px-3 text-sm">$3,000</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$1,000,000</td><td class="py-2 px-3 text-sm">1.5%</td><td class="py-2 px-3 text-sm">$15,000</td><td class="py-2 px-3 text-sm">$4,500</td></tr>
+        <tr><td class="py-2 px-3 text-sm">$5,000,000</td><td class="py-2 px-3 text-sm">1.25%</td><td class="py-2 px-3 text-sm">$62,500</td><td class="py-2 px-3 text-sm">$18,750</td></tr>
+      </tbody>
+    </table>
+    <p>The broker cut shown above is the commission built into the premium. You pay it whether you know it exists or not. On a $5 million project, that is nearly $19,000 to the broker for handling paperwork.</p>
+  `}
+  howToQualify={`
+    <p>Payment bond qualification is identical to performance bond qualification because they are underwritten together. The surety evaluates:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Personal credit score:</strong> 700+ for the best rates. Below 650, you face higher premiums or limited bonding capacity.</li>
+      <li><strong>Business financial statements:</strong> The surety looks at your balance sheet, income statement, and cash flow. Working capital is critical — it shows you can cover project costs while waiting for payment.</li>
+      <li><strong>Payment history:</strong> For payment bonds specifically, underwriters care about your track record of paying subs and suppliers. A history of slow payments or disputes is a red flag.</li>
+      <li><strong>Accounts receivable/payable:</strong> The surety reviews your aging schedules. Heavy past-due receivables or payables suggest cash flow problems.</li>
+    </ul>
+    <p class="mt-4">The key difference from performance bonds: payment bond underwriting puts extra emphasis on your cash management and payment history. A contractor who finishes projects but does not pay their subs is exactly the risk a payment bond is designed to cover.</p>
+  `}
+  stateRequirements={`
+    <p>Payment bond requirements follow similar patterns to performance bonds, with some additional nuances:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Federal (Miller Act):</strong> Payment bond required on all projects over $150,000, equal to 100% of contract price</li>
+      <li><strong>California:</strong> Payment bond required on public works over $25,000</li>
+      <li><strong>Texas:</strong> Payment bond required on government contracts over $25,000</li>
+      <li><strong>Florida:</strong> Payment bond required on public construction over $200,000 for the state, lower thresholds for municipalities</li>
+      <li><strong>New York:</strong> Payment bond required on public works over $100,000</li>
+    </ul>
+    <p class="mt-4">Important: claim deadlines and notice requirements vary by state. If you are a subcontractor working on a bonded project, know your state's rules before you start work — not after you do not get paid.</p>
+  `}
+  editorialInsight={`
+    <p>Payment bonds are where the broker commission math gets absurd. Because performance and payment bonds are priced together, the broker earns one commission on both bonds. On a $5 million project, that is $15,000-$25,000 in annual broker commission — for a combined application that takes the same amount of work as a single bond.</p>
+    <p>Here is what makes it worse: payment bonds are the simplest part of the underwriting. The surety is already evaluating the contractor for the performance bond. The payment bond is a near-automatic add-on. But the broker gets full commission on the combined premium.</p>
+    <p>Subcontractors should also know this: your general contractor's broker has zero incentive to make sure you understand your payment bond rights. In fact, brokers rarely interact with subcontractors at all. If you are a sub on a public project, learn the claim deadlines for your state. Learn how to request a copy of the payment bond. That knowledge is your protection — and nobody in the broker chain is going to volunteer it.</p>
+    <p>We publish claim deadline information because the industry does not make it easy to find. A subcontractor who misses a 90-day notice window on a Miller Act project loses their claim rights entirely. That is not an edge case — it happens constantly, and it is preventable with basic education.</p>
+  `}
+  faqs={faqs}
+/>

@@ -1,0 +1,282 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StatCard from '../components/StatCard.astro';
+import ProblemCard from '../components/ProblemCard.astro';
+import StepCard from '../components/StepCard.astro';
+import TypeCard from '../components/TypeCard.astro';
+import QuoteCallout from '../components/QuoteCallout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Tooltip from '../components/Tooltip.astro';
+import { bondTypes } from '../data/bond-types';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'NoBro Bonds — Free Commercial Surety Bond Education',
+  description: 'The bond industry\'s best free resource. Learn about commercial surety bonds without a broker, commission, or sales pitch.',
+  url: 'https://nobrobonds.com',
+  publisher: {
+    '@type': 'Organization',
+    name: 'NoBro Bonds',
+    url: 'https://nobrobonds.com',
+  },
+};
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+];
+---
+
+<BaseLayout
+  title="NoBro Bonds — Free Commercial Surety Bond Education"
+  description="The bond industry's best free resource. Understand commercial surety bonds, premiums, and the broker problem — without paying someone to introduce you."
+  schema={schema}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <section class="max-w-[1280px] mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+    <div class="max-w-3xl">
+      <span class="inline-block bg-accent/10 text-accent text-xs font-bold uppercase tracking-[2px] px-4 py-2 rounded-full mb-6">
+        The Bond Industry's Best Free Resource
+      </span>
+      <h1 class="font-display font-bold text-4xl md:text-6xl text-primary leading-[1.1] mb-6">
+        Stop Paying Someone
+        <span class="bg-gradient-to-r from-accent to-violet bg-clip-text text-transparent"> to Introduce You</span>
+      </h1>
+      <p class="text-muted text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
+        Your bond <Tooltip slug="premium" /> goes through a chain of middlemen before it reaches the company that actually backs your <Tooltip slug="surety-bond" text="bond" />. We are here to show you exactly how that works — and what you can do about it.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/the-broker-problem" class="bg-accent hover:bg-accent/90 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+          The Broker Problem
+        </a>
+        <a href="/how-it-works" class="bg-primary/5 hover:bg-primary/10 text-primary font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+          How It Works
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Grid -->
+  <section class="max-w-[1280px] mx-auto px-6 mb-20">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <StatCard number="$20B" unit="+" label="U.S. surety bond market size" accent="blue" />
+      <StatCard number="40" unit="%" label="Typical broker commission rate" accent="coral" />
+      <StatCard number="1-10" unit="%" label="What premiums actually cost" accent="dark" />
+      <StatCard number="30" unit="+" label="Terms in our free glossary" accent="violet" />
+    </div>
+    <div class="mt-4">
+      <StatCard number="$2.8B" label="Estimated annual broker fees in the U.S. surety market" accent="dark" wide sideText="That is money contractors pay for introductions, not for bond coverage." />
+    </div>
+  </section>
+
+  <!-- Bond Types Marquee -->
+  <section class="overflow-hidden mb-20 py-6 bg-primary/[0.03]">
+    <div class="flex gap-8" style="animation: marquee 30s linear infinite; width: max-content;">
+      {[...bondTypes, ...bondTypes].map((bt) => (
+        <a href={`/bond-types/${bt.slug}`} class="flex items-center gap-2 text-muted hover:text-accent no-underline whitespace-nowrap transition-colors">
+          <span set:html={bt.icon} />
+          <span class="font-display font-medium text-sm">{bt.title}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- The Broker Problem -->
+  <section class="max-w-[1280px] mx-auto px-6 mb-20">
+    <SectionLabel color="coral">The Problem</SectionLabel>
+    <h2 class="font-display font-bold text-primary text-3xl md:text-4xl mt-3 mb-4 max-w-2xl">
+      The Bond Industry Has a Middleman Problem
+    </h2>
+    <p class="text-muted text-lg mb-10 max-w-2xl">
+      Most people buy surety bonds through <Tooltip slug="broker-commission" text="brokers" /> who add cost without adding value. Here is what they do not want you to know.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <ProblemCard icon="&#128176;" iconColor="coral" title="Commissions Are Built In">
+        Your <Tooltip slug="premium" /> already includes a broker commission of 20-40%. You do not pay extra — but you also never see it broken out. The <Tooltip slug="broker-commission" text="broker" /> gets paid whether they did five minutes of work or five hours.
+      </ProblemCard>
+      <ProblemCard icon="&#128274;" iconColor="violet" title="Information Is Gatekept">
+        Brokers benefit when you do not understand the bonding process. The less you know, the more you depend on them. That is not a partnership — it is a business model built on confusion.
+      </ProblemCard>
+      <ProblemCard icon="&#128257;" iconColor="blue" title="The Process Is Simpler Than They Say">
+        Getting a <Tooltip slug="surety-bond" text="surety bond" /> is not complicated. You fill out an application, an <Tooltip slug="underwriting" text="underwriter" /> reviews your credit and financials, and you get a rate. A broker just stands between you and that process.
+      </ProblemCard>
+    </div>
+  </section>
+
+  <!-- Where Your Premium Goes -->
+  <section class="bg-primary py-16 mb-20">
+    <div class="max-w-[1280px] mx-auto px-6">
+      <SectionLabel color="accent-light">Follow the Money</SectionLabel>
+      <h2 class="font-display font-bold text-white text-3xl md:text-4xl mt-3 mb-4">
+        Where Your Premium Actually Goes
+      </h2>
+      <p class="text-white/60 text-lg mb-10 max-w-2xl">
+        When you pay a bond premium through a broker, here is a typical breakdown of where that money ends up.
+      </p>
+
+      <!-- Breakdown Bar -->
+      <div class="flex rounded-[16px] overflow-hidden h-[60px] mb-8">
+        <div class="bar-segment bg-accent text-white" style="width: 45%;">
+          <span class="text-sm">45%</span>
+          <span class="text-[10px] opacity-70">Surety</span>
+        </div>
+        <div class="bar-segment bg-coral text-white" style="width: 30%;">
+          <span class="text-sm">30%</span>
+          <span class="text-[10px] opacity-70">Broker</span>
+        </div>
+        <div class="bar-segment bg-violet text-white" style="width: 15%;">
+          <span class="text-sm">15%</span>
+          <span class="text-[10px] opacity-70">Sub-Agent</span>
+        </div>
+        <div class="bar-segment bg-lime text-primary" style="width: 10%;">
+          <span class="text-sm">10%</span>
+          <span class="text-[10px] opacity-70">Fees</span>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white/5 rounded-[12px] p-4 border border-white/10">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-3 h-3 rounded-full bg-accent"></span>
+            <span class="text-white font-bold text-sm">Surety Company</span>
+          </div>
+          <p class="text-accent font-display font-bold text-xl">$2,250</p>
+          <p class="text-white/50 text-xs">on a $5,000 premium</p>
+        </div>
+        <div class="bg-white/5 rounded-[12px] p-4 border border-white/10">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-3 h-3 rounded-full bg-coral"></span>
+            <span class="text-white font-bold text-sm">Broker Commission</span>
+          </div>
+          <p class="text-coral font-display font-bold text-xl">$1,500</p>
+          <p class="text-white/50 text-xs">on a $5,000 premium</p>
+        </div>
+        <div class="bg-white/5 rounded-[12px] p-4 border border-white/10">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-3 h-3 rounded-full bg-violet"></span>
+            <span class="text-white font-bold text-sm">Subagent Cut</span>
+          </div>
+          <p class="text-violet font-display font-bold text-xl">$750</p>
+          <p class="text-white/50 text-xs">on a $5,000 premium</p>
+        </div>
+        <div class="bg-white/5 rounded-[12px] p-4 border border-white/10">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-3 h-3 rounded-full bg-lime"></span>
+            <span class="text-white font-bold text-sm">Processing Fees</span>
+          </div>
+          <p class="text-lime font-display font-bold text-xl">$500</p>
+          <p class="text-white/50 text-xs">on a $5,000 premium</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bond Types Grid -->
+  <section class="max-w-[1280px] mx-auto px-6 mb-20">
+    <SectionLabel>Explore</SectionLabel>
+    <h2 class="font-display font-bold text-primary text-3xl md:text-4xl mt-3 mb-4">
+      Bond Types Explained
+    </h2>
+    <p class="text-muted text-lg mb-10 max-w-2xl">
+      Every bond type has its own rules, costs, and quirks. We break each one down in plain English.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {bondTypes.map((bt) => (
+        <TypeCard icon={bt.icon} title={bt.title} description={bt.oneLiner} href={`/bond-types/${bt.slug}`} />
+      ))}
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="max-w-[1280px] mx-auto px-6 mb-20">
+    <SectionLabel>The Process</SectionLabel>
+    <h2 class="font-display font-bold text-primary text-3xl md:text-4xl mt-3 mb-4">
+      How Bonding Actually Works
+    </h2>
+    <p class="text-muted text-lg mb-10 max-w-2xl">
+      The bonding process is not a mystery. Here are the three core steps — no broker required.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <StepCard title="Someone Requires a Bond" time="Step 1">
+        A government agency, project owner, or court says you need a <Tooltip slug="surety-bond" text="surety bond" /> before you can get a license, win a contract, or proceed with a legal matter. They are the <Tooltip slug="obligee" />.
+      </StepCard>
+      <StepCard title="You Apply with a Surety" time="Step 2">
+        You fill out an application with a <Tooltip slug="surety" text="surety company" />. They review your credit, finances, and experience through a process called <Tooltip slug="underwriting" />. This determines your approval and <Tooltip slug="premium" /> rate.
+      </StepCard>
+      <StepCard title="You Get Bonded" time="Step 3">
+        If approved, you pay your premium and sign an <Tooltip slug="indemnity-agreement" />. The surety issues your bond. You are now the <Tooltip slug="principal" /> — the party the bond guarantees.
+      </StepCard>
+    </div>
+  </section>
+
+  <!-- Quote Callout -->
+  <div class="max-w-[1280px] mx-auto px-6">
+    <QuoteCallout>
+      When your broker buys you a steak dinner, remember — you already paid for it. It came out of your premium.
+    </QuoteCallout>
+  </div>
+
+  <!-- Resources -->
+  <section class="max-w-[1280px] mx-auto px-6 mb-20">
+    <SectionLabel>Resources</SectionLabel>
+    <h2 class="font-display font-bold text-primary text-3xl md:text-4xl mt-3 mb-10">
+      Learn on Your Own Terms
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <a href="/resources/glossary" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+        <span class="text-3xl block mb-4">&#128214;</span>
+        <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">Surety Bond Glossary</h3>
+        <p class="text-muted text-sm">30+ terms defined in plain English. No jargon walls, no email gates.</p>
+      </a>
+      <a href="/resources/where-your-premium-goes" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+        <span class="text-3xl block mb-4">&#128200;</span>
+        <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">Where Your Premium Goes</h3>
+        <p class="text-muted text-sm">Interactive breakdown showing exactly who gets what from your bond premium.</p>
+      </a>
+      <a href="/how-it-works" class="group bg-card rounded-[20px] border border-border p-7 no-underline hover:border-accent hover:-translate-y-1 transition-all">
+        <span class="text-3xl block mb-4">&#9881;</span>
+        <h3 class="font-display font-bold text-primary text-lg mb-2 group-hover:text-accent transition-colors">How Bonding Works</h3>
+        <p class="text-muted text-sm">The complete guide to surety bonds — what they are, how to get one, and what to watch out for.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Soft CTA -->
+  <section class="bg-primary py-16">
+    <div class="max-w-[1280px] mx-auto px-6 text-center">
+      <h2 class="font-display font-bold text-white text-3xl md:text-4xl mb-3">
+        Knowledge is the first step
+      </h2>
+      <p class="text-white/60 text-lg mb-8 max-w-xl mx-auto">
+        You do not need a broker to understand your bond. Start with the type you need.
+      </p>
+      <a href="/bond-types" class="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+        Explore Bond Types
+      </a>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 max-w-2xl mx-auto">
+        <div>
+          <p class="font-display font-bold text-white text-2xl">8</p>
+          <p class="text-white/50 text-xs">Bond type guides</p>
+        </div>
+        <div>
+          <p class="font-display font-bold text-white text-2xl">30+</p>
+          <p class="text-white/50 text-xs">Glossary terms</p>
+        </div>
+        <div>
+          <p class="font-display font-bold text-white text-2xl">3</p>
+          <p class="text-white/50 text-xs">Interactive tools</p>
+        </div>
+        <div>
+          <p class="font-display font-bold text-white text-2xl">$0</p>
+          <p class="text-white/50 text-xs">Cost to you</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

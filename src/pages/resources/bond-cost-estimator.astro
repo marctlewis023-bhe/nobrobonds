@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CostEstimator from '../../components/CostEstimator';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Resources', href: '/resources' },
+  { name: 'Bond Cost Estimator', href: '/resources/bond-cost-estimator' },
+];
+---
+
+<BaseLayout
+  title="Free Surety Bond Cost Estimator"
+  description="Estimate your surety bond premium based on bond type, amount, credit score, and experience. See how much a broker would earn on your bond."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'Resources', href: '/resources' }, { label: 'Bond Cost Estimator' }]} />
+
+    <div class="max-w-3xl mb-10">
+      <SectionLabel>Tool</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        Bond Cost Estimator
+      </h1>
+      <p class="text-muted text-lg leading-relaxed">
+        Get a ballpark estimate of what your surety bond premium might cost. Adjust the bond type, amount, credit tier, and years in business to see how those factors affect your rate — and how much of your premium a broker would pocket.
+      </p>
+    </div>
+
+    <div class="bg-card rounded-[20px] border border-border p-8 md:p-10 max-w-3xl">
+      <CostEstimator client:load />
+    </div>
+
+    <div class="max-w-3xl mt-10">
+      <div class="bg-primary/[0.03] rounded-[16px] p-6 border border-border">
+        <h2 class="font-display font-bold text-primary text-lg mb-3">About This Tool</h2>
+        <p class="text-muted text-[15px] leading-relaxed mb-3">
+          This estimator uses general industry rate ranges and applies adjustments for credit and experience. It is an educational tool — not a quote. Actual premiums depend on your full financial profile, the surety company's appetite for your risk class, and the specific bond requirements.
+        </p>
+        <p class="text-muted text-[15px] leading-relaxed mb-3">
+          The broker commission estimate assumes a 25-30% commission rate, which is common in the industry. Some brokers take more, some take less. The key point: the commission is always built into the premium, and you will almost never see it broken out.
+        </p>
+        <p class="text-muted text-[15px] leading-relaxed">
+          Want to understand the full premium breakdown? See our <a href="/resources/where-your-premium-goes" class="text-accent no-underline hover:underline">Where Your Premium Goes</a> interactive tool, or read <a href="/the-broker-problem" class="text-accent no-underline hover:underline">The Broker Problem</a> for the full picture.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

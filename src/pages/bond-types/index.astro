@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import TypeCard from '../../components/TypeCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { bondTypes } from '../../data/bond-types';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Bond Types', href: '/bond-types' },
+];
+---
+
+<BaseLayout
+  title="Commercial Surety Bond Types Explained"
+  description="Explore all major commercial surety bond types — performance, bid, payment, license, permit, court, customs, and fidelity bonds — explained in plain English."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-[1280px] mx-auto px-6 py-12">
+    <Breadcrumbs items={[{ label: 'Bond Types' }]} />
+
+    <div class="max-w-3xl mb-12">
+      <SectionLabel>Explore</SectionLabel>
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mt-3 mb-4">
+        Bond Types Explained
+      </h1>
+      <p class="text-muted text-xl leading-relaxed">
+        There are dozens of surety bond types, but they fall into a handful of major categories. Each guide below covers what the bond is, who needs it, what it costs, and where broker fees hide.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      {bondTypes.map((bt) => (
+        <TypeCard icon={bt.icon} title={bt.title} description={bt.oneLiner} href={`/bond-types/${bt.slug}`} />
+      ))}
+    </div>
+
+    <!-- Not Sure Which Bond? -->
+    <div class="bg-gradient-to-br from-accent/5 to-violet/5 rounded-[20px] p-8 md:p-12 text-center border border-accent/10">
+      <h2 class="font-display font-bold text-primary text-2xl mb-3">Not sure which bond you need?</h2>
+      <p class="text-muted text-[16px] mb-6 max-w-lg mx-auto">
+        Start with our guide to how bonding works. It covers the basics, the three-party relationship, and how to figure out which bond type applies to your situation.
+      </p>
+      <a href="/how-it-works" class="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline transition-colors">
+        How Bonding Works &rarr;
+      </a>
+    </div>
+  </div>
+</BaseLayout>

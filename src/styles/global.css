@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1B1F3B;
+  --color-accent: #3B82F6;
+  --color-accent-light: #60A5FA;
+  --color-lime: #84CC16;
+  --color-coral: #F97316;
+  --color-violet: #8B5CF6;
+  --color-bg: #F8FAFC;
+  --color-card: #FFFFFF;
+  --color-text: #1E293B;
+  --color-muted: #64748B;
+  --color-border: #E2E8F0;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.tooltip-term {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 3px;
+  cursor: help;
+  position: relative;
+}
+
+.tooltip-term:hover .tooltip-content,
+.tooltip-term:focus .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--color-primary);
+  color: white;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  border-radius: 10px;
+  width: max-content;
+  max-width: 280px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  z-index: 50;
+  pointer-events: none;
+  font-weight: 400;
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--color-primary);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bar-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 700;
+}

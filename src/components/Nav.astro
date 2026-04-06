@@ -1,0 +1,95 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/bond-types", label: "Bond Types" },
+  { href: "/the-broker-problem", label: "The Broker Problem" },
+  { href: "/resources", label: "Resources" },
+  { href: "/blog", label: "Blog" },
+];
+---
+
+<nav
+  class="fixed top-0 left-0 right-0 z-50 bg-bg/85 backdrop-blur-md border-b border-border"
+>
+  <div class="max-w-[1280px] mx-auto px-6 flex items-center justify-between h-[65px]">
+    <a href="/" class="flex items-center gap-2.5 no-underline">
+      <span
+        class="w-9 h-9 rounded-[10px] bg-accent flex items-center justify-center text-white font-display font-bold text-sm"
+      >
+        NB
+      </span>
+      <span class="font-display font-bold text-primary text-lg">NoBro Bonds</span>
+    </a>
+
+    {/* Desktop links */}
+    <div class="hidden md:flex items-center gap-7">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "text-sm font-medium no-underline transition-colors duration-200",
+            currentPath.startsWith(link.href)
+              ? "text-accent"
+              : "text-muted hover:text-primary",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    {/* Mobile hamburger */}
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer"
+      aria-label="Toggle menu"
+    >
+      <span class="block w-5 h-[2px] bg-primary rounded transition-transform duration-200"></span>
+      <span class="block w-5 h-[2px] bg-primary rounded transition-opacity duration-200"></span>
+      <span class="block w-5 h-[2px] bg-primary rounded transition-transform duration-200"></span>
+    </button>
+  </div>
+
+  {/* Mobile menu */}
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-card border-t border-border px-6 pb-4"
+  >
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class:list={[
+          "block py-3 text-sm font-medium no-underline border-b border-border last:border-none",
+          currentPath.startsWith(link.href)
+            ? "text-accent"
+            : "text-muted hover:text-primary",
+        ]}
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+      const spans = btn.querySelectorAll("span");
+      const isOpen = !menu.classList.contains("hidden");
+      if (isOpen) {
+        spans[0].style.transform = "rotate(45deg) translate(2.5px, 5px)";
+        spans[1].style.opacity = "0";
+        spans[2].style.transform = "rotate(-45deg) translate(2.5px, -5px)";
+      } else {
+        spans[0].style.transform = "";
+        spans[1].style.opacity = "";
+        spans[2].style.transform = "";
+      }
+    });
+  }
+</script>

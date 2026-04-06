@@ -1,0 +1,102 @@
+---
+import BondTypeLayout from '../../layouts/BondTypeLayout.astro';
+
+const faqs = [
+  {
+    question: 'What is a permit bond?',
+    answer: 'A permit bond is a surety bond required by a government agency before issuing a permit for a specific activity — like street excavation, building construction, or sidewalk use. It guarantees the permit holder will follow all regulations and restore any public property they disturb.',
+  },
+  {
+    question: 'How much does a permit bond cost?',
+    answer: 'Permit bond premiums typically range from 1% to 10% of the bond amount. Most permit bonds are for relatively small amounts ($5,000-$50,000), so the annual premium is usually $100-$2,500. Applicants with good credit pay toward the lower end of that range.',
+  },
+  {
+    question: 'What is the difference between a permit bond and a license bond?',
+    answer: 'A license bond covers your ongoing business operations and is tied to your professional license. A permit bond is tied to a specific activity or project and the permit authorizing it. License bonds renew annually. Permit bonds may be project-specific with a defined term, though some are ongoing.',
+  },
+  {
+    question: 'What types of permits require bonds?',
+    answer: 'Common permit bonds include: street excavation permits, building permits (in some jurisdictions), encroachment permits, right-of-way permits, utility permits, oversize/overweight vehicle permits, sign permits, and demolition permits. The government agency issuing the permit determines whether a bond is required and the amount.',
+  },
+  {
+    question: 'What happens if I damage public property?',
+    answer: 'If you damage public property — like a road, sidewalk, utility, or right-of-way — the government agency can file a claim against your permit bond. The surety pays for the repair or restoration, up to the bond amount. Then the surety seeks reimbursement from you under the indemnity agreement.',
+  },
+  {
+    question: 'How long does a permit bond last?',
+    answer: 'It depends on the permit. Some permit bonds are tied to a specific project and expire when the work is done and the government signs off. Others are ongoing and renew annually as long as the permit is active. The government agency specifies the bond term in the permit requirements.',
+  },
+  {
+    question: 'Can I get a permit bond quickly?',
+    answer: 'Yes. Most permit bonds are straightforward, small-amount bonds with simple underwriting. Applicants with credit above 650 can often get same-day or next-day approval. Many surety companies offer instant online issuance for common permit bonds.',
+  },
+  {
+    question: 'Do I need a broker for a permit bond?',
+    answer: 'No. Permit bonds are some of the simplest bonds in the surety industry. Many surety companies offer direct online applications with instant quotes. Paying a broker commission on a $300 permit bond makes no sense when you can get the same bond directly in 15 minutes.',
+  },
+];
+---
+
+<BondTypeLayout
+  slug="permit-bonds"
+  title="Permit Bonds"
+  description="A permit bond is required by a government agency before issuing a permit for specific activities like construction, street work, or encroachment. It guarantees the permit holder will comply with regulations and restore any public property."
+  statNumber="$5K-50K"
+  statLabel="Typical permit bond amounts — smaller than most other surety bonds"
+  statAccent="lime"
+  whatIsIt={`
+    <p>A permit bond is a type of commercial surety bond required by a government agency before they issue a permit. The bond guarantees that the person or company receiving the permit will follow all applicable regulations and restore any public property they disturb during their permitted activity.</p>
+    <p>For example, if a utility company needs to dig up a city street to install new pipes, the city will require a permit bond before issuing the excavation permit. The bond guarantees the street will be properly restored after the work is done. If the utility company leaves a mess, the city files a claim against the bond to cover the cost of fixing the road.</p>
+    <p>Permit bonds are similar to license bonds but narrower in scope. A license bond covers your ongoing business operations. A permit bond covers a specific permitted activity — it is project-level rather than business-level.</p>
+    <p>Most permit bonds are relatively small ($5,000-$50,000) compared to contract bonds, making them accessible even for businesses with limited credit history. The government agency sets the bond amount based on the potential cost of restoring the public property or the potential harm from non-compliance.</p>
+  `}
+  whoNeedsIt={`
+    <p>Any business or individual that needs a permit for a regulated activity may need a permit bond. Common examples:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Contractors doing street excavation:</strong> Cities require bonds before you dig up public roads or sidewalks</li>
+      <li><strong>Utility companies:</strong> Working in public rights-of-way requires bonds to guarantee property restoration</li>
+      <li><strong>Sign installation companies:</strong> Some municipalities require bonds for commercial sign permits</li>
+      <li><strong>Demolition contractors:</strong> Demolition permits often come with bond requirements to cover debris removal and site restoration</li>
+      <li><strong>Special event organizers:</strong> Events on public property may require bonds to cover cleanup and damage</li>
+      <li><strong>Oversize/overweight vehicle operators:</strong> DOT permits for oversized loads may include bond requirements</li>
+    </ul>
+    <p class="mt-4">The permit issuing agency will tell you if a bond is required and the exact amount. Do not assume you need one until you check the specific permit requirements for your jurisdiction.</p>
+  `}
+  whatItCosts={`
+    <p>Permit bonds are among the most affordable surety bonds because the bond amounts are typically small:</p>
+    <table class="w-full border-collapse my-4">
+      <thead>
+        <tr class="border-b-2 border-border">
+          <th class="text-left py-2 px-3 text-sm font-bold">Bond Amount</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Good Credit</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Fair Credit</th>
+          <th class="text-left py-2 px-3 text-sm font-bold">Poor Credit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$5,000</td><td class="py-2 px-3 text-sm">$50-$150</td><td class="py-2 px-3 text-sm">$150-$300</td><td class="py-2 px-3 text-sm">$300-$500</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$10,000</td><td class="py-2 px-3 text-sm">$100-$300</td><td class="py-2 px-3 text-sm">$300-$500</td><td class="py-2 px-3 text-sm">$500-$1,000</td></tr>
+        <tr class="border-b border-border"><td class="py-2 px-3 text-sm">$25,000</td><td class="py-2 px-3 text-sm">$250-$750</td><td class="py-2 px-3 text-sm">$750-$1,250</td><td class="py-2 px-3 text-sm">$1,250-$2,500</td></tr>
+        <tr><td class="py-2 px-3 text-sm">$50,000</td><td class="py-2 px-3 text-sm">$500-$1,500</td><td class="py-2 px-3 text-sm">$1,500-$2,500</td><td class="py-2 px-3 text-sm">$2,500-$5,000</td></tr>
+      </tbody>
+    </table>
+    <p>Many permit bonds have a minimum premium of $100-$200 regardless of the bond amount. This means very small bonds ($2,000-$5,000) have a disproportionately high rate as a percentage but a low absolute cost.</p>
+  `}
+  howToQualify={`
+    <p>Permit bonds have the simplest underwriting of any surety bond category. Qualification is straightforward:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Personal credit check:</strong> This is the primary factor. Above 650 gets you standard rates. Below 600 means higher rates but usually not denial.</li>
+      <li><strong>Basic business information:</strong> Name, address, years in business, type of business. Nothing complicated.</li>
+      <li><strong>No financial statements needed:</strong> For most permit bonds under $50,000, the surety does not require financial statements. A credit check is sufficient.</li>
+      <li><strong>Simple application:</strong> Most permit bond applications take 5-10 minutes online. Approval is often instant for applicants with decent credit.</li>
+    </ul>
+    <p class="mt-4">Even applicants with very poor credit can usually get permit bonds because the amounts are small and the risk to the surety is limited. You may pay a higher rate, but getting bonded is rarely the obstacle.</p>
+  `}
+  editorialInsight={`
+    <p>Permit bonds are the perfect example of why the broker model is broken. The average permit bond costs $200-$500 in annual premium. A broker earns $40-$200 in commission on that. The application takes 10 minutes. The underwriting is a credit check.</p>
+    <p>For the broker, permit bonds are volume business. Process hundreds of them, and the commissions add up. For you, the buyer, there is literally no reason to involve a middleman. Every surety company that writes permit bonds has an online portal. You can apply, get approved, and download your bond in under 30 minutes.</p>
+    <p>Here is the worst version of this: a contractor needs a $5,000 street excavation bond. They Google it, find a broker's website (which looks like a direct surety because the broker designed it that way), and pay $200 for the bond plus a $50 processing fee. Of that $200 premium, $60 goes to the broker. Plus the $50 fee. That is $110 in broker revenue for a bond that would have cost the same $200 (minus the $50 fee) if the contractor went direct.</p>
+    <p>Permit bonds are a commodity. Treat them like one. Go direct.</p>
+  `}
+  faqs={faqs}
+/>
