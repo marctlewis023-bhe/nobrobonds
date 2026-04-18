@@ -1,0 +1,167 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SectionLabel from "../../../components/SectionLabel.astro";
+import { stateBonds, formatMoney } from "../../../data/state-contractor-bonds";
+
+// Group states by structure for scannable hub page
+const structureGroups: { label: string; description: string; states: typeof stateBonds }[] = [
+  {
+    label: "Flat Rate States",
+    description: "One bond amount for every licensed contractor — simplest structure.",
+    states: stateBonds.filter((s) => s.structure === "flat"),
+  },
+  {
+    label: "Tiered States",
+    description: "Bond amount varies by license type, classification, or annual volume.",
+    states: stateBonds.filter((s) => s.structure === "tiered"),
+  },
+  {
+    label: "Variable States",
+    description: "The licensing board sets your amount case-by-case after reviewing your application.",
+    states: stateBonds.filter((s) => s.structure === "variable"),
+  },
+  {
+    label: "Alternative States",
+    description: "The bond is optional — it serves as an alternative to net worth or working capital.",
+    states: stateBonds.filter((s) => s.structure === "alternative"),
+  },
+  {
+    label: "No State Bond Required",
+    description: "No statewide contractor license bond. Municipal bonds may still apply.",
+    states: stateBonds.filter((s) => s.structure === "none"),
+  },
+].filter((g) => g.states.length > 0);
+
+const title = "Contractor License Bonds by State";
+const description =
+  "Exact contractor license bond requirements for every state — amounts, statutes, filing process, and real costs. Verified against official licensing boards.";
+
+const breadcrumbs = [
+  { name: "Home", href: "/" },
+  { name: "State Bonds", href: "/states/contractor-license-bond" },
+];
+
+function describeStructure(slug: string, s: typeof stateBonds[0]): string {
+  switch (s.structure) {
+    case "flat":
+      return `${formatMoney(s.bondAmounts[0].amount)} flat requirement`;
+    case "tiered":
+      const min = Math.min(...s.bondAmounts.map((b) => b.amount));
+      const max = Math.max(...s.bondAmounts.map((b) => b.amount));
+      return `${formatMoney(min)}–${formatMoney(max)} by license type`;
+    case "variable":
+      return `Set case-by-case ($1K–$500K range)`;
+    case "alternative":
+      return `${formatMoney(s.bondAmounts[0].amount)} bond OR prove net worth`;
+    case "none":
+      return `No state-level bond required`;
+  }
+}
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <div class="max-w-[1280px] mx-auto px-6">
+    {/* Breadcrumbs */}
+    <nav class="flex items-center gap-2 text-sm text-muted py-6" aria-label="Breadcrumb">
+      {breadcrumbs.map((crumb, i) => (
+        <>
+          {i > 0 && <span class="text-border">/</span>}
+          {i < breadcrumbs.length - 1 ? (
+            <a href={crumb.href} class="text-muted hover:text-accent no-underline transition-colors">
+              {crumb.name}
+            </a>
+          ) : (
+            <span class="text-primary font-medium">{crumb.name}</span>
+          )}
+        </>
+      ))}
+    </nav>
+
+    {/* Header */}
+    <div class="max-w-3xl mb-12">
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mb-4">
+        Contractor License Bonds by State
+      </h1>
+      <p class="text-muted text-xl leading-relaxed">
+        Every state sets its own contractor bond rules — and a lot of them are more complicated than brokers let on. Pick your state below for the exact requirement, real premium costs, and how to file without paying markup.
+      </p>
+    </div>
+
+    {/* Intro */}
+    <div class="max-w-3xl mb-16 space-y-4 text-text text-[16px] leading-relaxed">
+      <p>
+        Contractor license bonds aren't one-size-fits-all. Some states publish a single flat amount that every licensed contractor must post. Others split the requirement across multiple tiers by license class, project size, or specialty. A few states don't publish a fixed amount at all — they decide case-by-case. And a handful don't require a bond if you can prove enough net worth.
+      </p>
+      <p>
+        Every page below is verified against the official state licensing authority — the statute, the agency bond form, or both. We show the exact amount, the cost by credit tier, the filing process, and the gotchas that cost contractors money.
+      </p>
+    </div>
+
+    {/* State list — grouped by structure */}
+    <section class="mb-20">
+      <SectionLabel>Available Guides</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-8">
+        State-by-State Requirements
+      </h2>
+
+      {structureGroups.map((group) => (
+        <div class="mb-12">
+          <div class="flex items-baseline justify-between gap-4 mb-2 pb-3 border-b border-border">
+            <h3 class="font-display font-bold text-primary text-xl">
+              {group.label}
+            </h3>
+            <span class="text-muted text-sm">
+              {group.states.length} {group.states.length === 1 ? "state" : "states"}
+            </span>
+          </div>
+          <p class="text-muted text-sm mb-5 max-w-2xl">{group.description}</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {group.states.map((s) => (
+              <a
+                href={`/states/contractor-license-bond/${s.slug}`}
+                class="block bg-card border border-border rounded-[16px] p-6 no-underline hover:border-accent transition-colors"
+              >
+                <div class="flex items-start justify-between gap-4 mb-2">
+                  <div class="font-display font-bold text-primary text-xl">
+                    {s.name}
+                  </div>
+                  <div class="text-xs uppercase tracking-wider text-muted font-bold mt-1">
+                    {s.abbreviation}
+                  </div>
+                </div>
+                <div class="text-muted text-sm mb-3">
+                  {describeStructure(s.slug, s)}
+                </div>
+                <div class="text-xs text-muted">
+                  {s.agencyShort} • {s.statute}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div class="mt-8 p-6 bg-card border border-border rounded-[16px] text-muted text-sm">
+        <strong class="text-primary">More states coming.</strong> We're building
+        out every state's requirement with the same level of detail. If your
+        state isn't listed yet, use our <a href="/resources/bond-cost-estimator" class="text-accent hover:underline">bond cost estimator</a> for a quick premium estimate while we work on it.
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="text-center py-16 border-t border-border">
+      <h2 class="font-display font-bold text-primary text-2xl mb-3">
+        Already know your bond amount?
+      </h2>
+      <p class="text-muted text-[16px] mb-6">
+        Skip to the cost estimator and see what you should actually be paying.
+      </p>
+      <a
+        href="/resources/bond-cost-estimator"
+        class="inline-flex items-center gap-2 bg-accent text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline hover:bg-accent/90 transition-colors"
+      >
+        Estimate Your Premium
+      </a>
+    </section>
+  </div>
+</BaseLayout>
