@@ -1,0 +1,677 @@
+---
+import StateBondLayout from "../../../layouts/StateBondLayout.astro";
+import { stateBonds, stateBondsBySlug } from "../../../data/state-contractor-bonds";
+
+export async function getStaticPaths() {
+  return stateBonds.map((s) => ({
+    params: { state: s.slug },
+  }));
+}
+
+const { state: slug } = Astro.params;
+const state = stateBondsBySlug[slug!];
+
+if (!state) {
+  return Astro.redirect("/states/contractor-license-bond");
+}
+
+// Per-state FAQs and editorial insight
+const content = getStateContent(slug!);
+
+function getStateContent(slug: string) {
+  const content: Record<
+    string,
+    { faqs: { question: string; answer: string }[]; editorialInsight: string }
+  > = {
+    california: {
+      faqs: [
+        {
+          question: "How much does a California contractor license bond cost?",
+          answer:
+            "For a $25,000 California CSLB bond, contractors with excellent credit (720+) typically pay $250–$500 per year. Good credit (680–719) runs $500–$875. Below 620, expect $1,000 or more. The bond amount is the same for everyone — only the premium changes with credit.",
+        },
+        {
+          question: "Is the California contractor bond the same for A, B, and C licenses?",
+          answer:
+            "Yes. Business and Professions Code §7071.6 sets a single $25,000 bond for all licensed contractors in California — General Engineering (A), General Building (B), and all Specialty (C) classifications pay the same amount.",
+        },
+        {
+          question: "What is the Bond of Qualifying Individual and do I need one?",
+          answer:
+            "The Bond of Qualifying Individual (BQI) is a separate $12,500 bond required when your license qualifier is not the sole owner of the business. If you own 100% of your company and you're the qualifier, you don't need the BQI. If someone else qualifies the license for you, the BQI is on top of your $25,000 contractor bond.",
+        },
+        {
+          question: "When did California raise the bond to $25,000?",
+          answer:
+            "January 1, 2023. SB 607 raised the contractor license bond, the Bond of Qualifying Individual, and the disciplinary bond simultaneously. Before that, the contractor bond had been $15,000 since 2007.",
+        },
+        {
+          question: "Does CSLB accept any surety company?",
+          answer:
+            "No. The surety company must be admitted by the California Department of Insurance and must issue the bond on the CSLB's approved form. Generic bond forms from out-of-state sureties will get rejected. Most major national sureties are admitted in California, so this rarely blocks contractors in practice.",
+        },
+        {
+          question: "Can I get a California contractor bond with bad credit?",
+          answer:
+            "Yes, but you'll pay more. At a credit score below 580, expect to pay $2,000–$2,500 annually on the $25,000 bond — roughly 10% of the face amount. Some sureties specialize in substandard credit contractor bonds. The bond itself will still be issued.",
+        },
+      ],
+      editorialInsight: `
+        <p>California is one of the cleanest state requirements in the country. A single bond amount. A clearly written statute. A well-documented obligee form. There's no ambiguity about what you owe.</p>
+        <p>The ambiguity comes from the brokers. We've seen California contractors quoted anywhere from $180 to $900 per year on the exact same $25,000 bond — same credit, same underwriter, same surety pool. The difference is pure broker markup.</p>
+        <p>Here's the thing about a simple license bond like California's: the underwriter isn't doing anything complicated. They're running a credit check and issuing a standard form. If you're paying a broker 30% of your premium to facilitate that transaction, you're paying for someone to type your information into a computer for you.</p>
+        <p>Our advice: if your credit is above 680, there's no scenario where you need a broker for a California contractor bond. Go direct. If your credit is under 620, a broker with relationships at substandard-credit sureties can genuinely add value — but even then, ask what their commission is before you sign anything.</p>
+      `,
+    },
+
+    washington: {
+      faqs: [
+        {
+          question: "How much is the Washington contractor bond in 2026?",
+          answer:
+            "$30,000 for General Contractors and $15,000 for Specialty Contractors. These amounts took effect July 1, 2024 — up from $12,000 (general) and $6,000 (specialty), where they had sat since 2001.",
+        },
+        {
+          question: "What's the difference between General and Specialty in Washington?",
+          answer:
+            "A General Contractor can work across multiple trades on a single project. A Specialty Contractor is limited to one trade — plumbing, electrical, roofing, painting, etc. If you only do one trade, registering as Specialty saves you half the bond cost.",
+        },
+        {
+          question: "Does Washington require insurance on top of the bond?",
+          answer:
+            "Yes. L&I requires a general liability policy with minimums of $200,000 per person / $50,000 property damage / $250,000 aggregate for bodily injury. Insurance and the bond serve different purposes and you need both to legally register.",
+        },
+        {
+          question: "When did Washington raise the contractor bond amounts?",
+          answer:
+            "July 1, 2024. General contractor bonds went from $12,000 to $30,000. Specialty contractor bonds went from $6,000 to $15,000. It was the first bond increase since 2001. The motivation was that the old $12,000 general bond was often fully claimed by a single consumer, leaving nothing for later claimants.",
+        },
+        {
+          question: "Is Washington a registration state or a licensing state?",
+          answer:
+            "Washington calls it 'contractor registration,' not licensing. The legal effect is similar — you can't advertise or bid without being registered, and the bond is the key requirement — but the terminology matters if you're reading the statute (RCW 18.27).",
+        },
+        {
+          question: "What does the Washington contractor bond cost in premium?",
+          answer:
+            "On the $30,000 General Contractor bond, excellent credit (720+) runs $300–$600 per year. Fair credit (620–679) runs $1,200–$1,800. On the $15,000 Specialty bond, those same tiers drop to $150–$300 and $600–$900 respectively.",
+        },
+      ],
+      editorialInsight: `
+        <p>Washington's bond increase in July 2024 was overdue. The old amounts — $12,000 general, $6,000 specialty — had been untouched for 23 years. A single consumer with a bad roofing job could exhaust the entire bond in one claim, leaving nothing for the next homeowner in line.</p>
+        <p>If you were bonded in Washington before the change and you're renewing for the first time, the sticker shock is real. Your premium is going to roughly 2.5× what it was. That's not your broker gouging you — it's the new statutory amount. But it <em>is</em> a good moment to shop the renewal. Surety companies re-price at renewal, and with the new higher bond amount, the spread between the best and worst quote has widened significantly.</p>
+        <p>The General-vs-Specialty question is the one most Washington contractors get wrong. If you only do one trade — you're a plumber, or an electrician, or a roofer — register as Specialty. You'll pay half the bond cost, every year, forever. The only reason to register as General is if you actually self-perform or subcontract multiple trades on a single project. "Maybe someday I'll want to be a general" is not a reason to pay the higher bond today.</p>
+        <p>2024 was a big year for Pacific Northwest contractor bonds. Washington wasn't the only state to raise amounts — <a href="/states/contractor-license-bond/oregon" class="text-accent hover:underline">Oregon's HB 2922 also took effect in January 2024</a>, bumping every contractor bond endorsement category by $5,000. If you work in both states, both your bonds went up at the same time.</p>
+      `,
+    },
+
+    oregon: {
+      faqs: [
+        {
+          question: "How much is an Oregon contractor license bond?",
+          answer:
+            "Oregon has 9 different bond amounts depending on your license endorsement. Residential bonds range from $15,000 (Residential Limited) to $25,000 (Residential General and Developer). Commercial bonds range from $25,000 (Level 2 endorsements) to $80,000 (Commercial General Level 1).",
+        },
+        {
+          question: "What's the difference between Level 1 and Level 2 in Oregon?",
+          answer:
+            "Oregon splits commercial contractors into two tiers based on the dollar value of projects they take on. Level 2 is the lower tier with lower project dollar limits and a lower bond ($25,000). Level 1 is the higher tier for larger projects and requires $80,000 (General) or $55,000 (Specialty). Most small and mid-size commercial contractors register at Level 2 to save on bond and insurance costs.",
+        },
+        {
+          question: "Why is the Oregon bond term 2 years instead of 1?",
+          answer:
+            "Oregon's contractor license runs for a 2-year term, so the CCB matches the bond to the license cycle. You pay 2 years of premium upfront when you get the bond. That can be a cash flow shock for newer contractors compared to states with 1-year terms.",
+        },
+        {
+          question: "Do I need a new bond if I change endorsements in Oregon?",
+          answer:
+            "Yes. Changing from a lower endorsement to a higher one (residential to commercial, or Level 2 to Level 1) requires filing a new bond at the higher amount. The CCB won't let you 'upgrade' your existing bond — it's a new bond filing.",
+        },
+        {
+          question: "What's the Residential Limited Contractor category?",
+          answer:
+            "Residential Limited is Oregon's lowest-cost contractor registration at a $15,000 bond. It's intended for contractors who do small residential jobs with tight project and revenue caps. If you're starting out and only doing small residential work, this can be the cheapest way to get legal.",
+        },
+        {
+          question: "Can the CCB require more than the standard bond amount?",
+          answer:
+            "Yes. ORS 701.068(5)–(6) allows the board to require up to 5× the standard bond amount in disciplinary cases or when an applicant has a history of claims. For a standard Commercial General Level 1, that could mean $400,000 of required bond. This is rare but statutory.",
+        },
+      ],
+      editorialInsight: `
+        <p>Oregon has the most complicated bond schedule of any state in our first five. Nine different amounts depending on what endorsement you file under. It's the kind of thing that makes bond brokers very happy, because every Oregon contractor is a chance to "help you figure out which endorsement is right."</p>
+        <p>Here's the truth: your Oregon endorsement is dictated by what work you do and how big your projects are. A broker isn't going to change which category you belong in. The CCB's rules do that. All a broker can do is file the bond for whichever endorsement you already belong to — the same thing you can do yourself online in about 20 minutes.</p>
+        <p>The real money decision in Oregon is Level 1 vs Level 2 for commercial contractors. The Level 1 Commercial General bond ($80K) versus Level 2 ($25K) is a $1,000+ per year difference in premium for most contractors. If your actual project volume stays comfortably under the Level 2 caps, stay at Level 2. Don't register at Level 1 "just in case."</p>
+        <p>And if you're a residential contractor doing small jobs, look hard at the Residential Limited category. A $15,000 bond at 1.5% is $225 per year. That's the cheapest path to a legal Oregon license in the entire state.</p>
+      `,
+    },
+
+    nevada: {
+      faqs: [
+        {
+          question: "How much is a Nevada contractor license bond?",
+          answer:
+            "Nevada doesn't publish a fixed amount. The NSCB sets your bond case-by-case based on your license classification, monetary limit, financial responsibility, experience, and character. The statutory range is $1,000 to $500,000. You won't know your required amount until after the board reviews your application.",
+        },
+        {
+          question: "Why doesn't Nevada tell me the bond amount up front?",
+          answer:
+            "Nevada's NRS Chapter 624 gives the Nevada State Contractors Board broad discretion to set bonds based on individual applicant factors. The idea is that a contractor seeking a $50,000 monetary limit with thin financials shouldn't pay the same bond as one seeking a $1,000,000 limit with strong working capital. In practice, it means more uncertainty during the application process than most other states.",
+        },
+        {
+          question: "What factors determine my Nevada contractor bond amount?",
+          answer:
+            "Four things: (1) the license classification you're applying for, (2) the monetary limit you're requesting — higher limits mean higher bonds, (3) your business's financial responsibility based on working capital and financial statements, and (4) your experience and 'character,' which the board evaluates from your application materials.",
+        },
+        {
+          question: "What's the minimum Nevada contractor bond?",
+          answer:
+            "The statutory minimum is $1,000, but in practice restricted contractor licenses start at $2,000 and most standard licenses are assigned bonds of $5,000 or more. Pool and spa contractors have their own minimum of $10,000, and residential improvement contractors under AB 39 must carry a minimum $100,000 consumer protection bond.",
+        },
+        {
+          question: "Can I get a lower bond amount if I have strong financials?",
+          answer:
+            "Yes — to an extent. The NSCB considers financial responsibility when setting the amount, so a contractor with strong working capital and clean financial statements can land at a lower bond for the same monetary limit than a contractor with weaker numbers. Supplying a well-prepared balance sheet with your application genuinely affects the number.",
+        },
+        {
+          question: "How much will a Nevada contractor bond cost in premium?",
+          answer:
+            "It depends entirely on what amount you get assigned. At $10,000 bond with excellent credit, roughly $100–$200/year. At $50,000 bond with fair credit, $2,000–$3,000/year. At $100,000 with bad credit, $8,000–$10,000/year. The table on this page shows the math at four common amounts.",
+        },
+      ],
+      editorialInsight: `
+        <p>Nevada is the state where we most understand why people hire brokers. When the bond amount is a mystery until after you submit your application, having someone who's seen hundreds of NSCB decisions is genuinely useful. A good broker can look at your classification, your monetary limit, and your financials and tell you roughly where you'll land before you apply.</p>
+        <p>That said, once you know your bond amount, the rest is still just a credit check and a form. You don't need to stay with the broker who helped you estimate. Get the number from them, then shop the actual bond. Most Nevada contractors pay 20–40% more than they need to because they assume the broker who guided them through the application should also write the bond. Those are two separate transactions.</p>
+        <p>The other thing worth knowing: your Nevada bond amount isn't permanent. At renewal, you can apply to have it lowered if your financials have improved or your claim history is clean. The NSCB won't volunteer this — you have to ask. Contractors who've been bonded at an inflated amount for 3+ years are often carrying a premium they could have renegotiated away.</p>
+      `,
+    },
+
+    virginia: {
+      faqs: [
+        {
+          question: "Do I really not need a contractor bond in Virginia?",
+          answer:
+            "It depends on your license class. Class C contractors (projects under $10,000) don't need a bond or a net worth requirement. Class A and Class B contractors must prove net worth OR post a $50,000 bond — the bond is an alternative, not a hard requirement. Most established contractors use financial statements instead of a bond.",
+        },
+        {
+          question: "What are Virginia's contractor license classes?",
+          answer:
+            "Class C is for single projects under $10,000 and annual contracts under $150,000. Class B is for projects between $10,000 and $120,000, or annual contracts under $750,000. Class A has no project size limit and is required for larger work. Each class has different exam, net worth, and bond requirements.",
+        },
+        {
+          question: "How much net worth does Virginia require for Class A and Class B?",
+          answer:
+            "Class A requires $45,000 in net worth. Class B requires $15,000. You can prove this with financial statements, or you can skip the net worth requirement entirely by posting the $50,000 surety bond. Class C has no net worth requirement.",
+        },
+        {
+          question: "Should I post the bond or prove net worth?",
+          answer:
+            "Run the math. A $50,000 Virginia bond at 2% costs $1,000/year (2-year term = $2,000 upfront). Proving $45,000 in net worth means keeping that cash tied up in the business instead of earning returns elsewhere. For most contractors with stable finances, proving net worth is cheaper. For newer contractors without $45,000 in the bank, the bond is the more accessible path.",
+        },
+        {
+          question: "Why is the Virginia bond term 2 years?",
+          answer:
+            "Virginia contractor licenses run on a 2-year cycle, and DPOR requires the bond to match the license term. The bond must expire on the last day of the month the license expires. You pay 2 years of premium upfront when the bond is issued.",
+        },
+        {
+          question: "What's the Virginia contractor bond form?",
+          answer:
+            "DPOR requires their specific form A501-27BOND. Generic surety bond forms will get rejected. The surety must be licensed to write business in Virginia and the bond must name the Commonwealth of Virginia Board for Contractors as the obligee.",
+        },
+      ],
+      editorialInsight: `
+        <p>Virginia is the most interesting state in our first five because it's the only one where the answer might be "you don't actually need a bond at all."</p>
+        <p>If you have $45,000 in net worth as a Class A contractor, or $15,000 as a Class B, just prove it. A clean balance sheet and a financial statement. No bond, no premium, no 2-year upfront cost. The Commonwealth is genuinely indifferent as to which path you pick.</p>
+        <p>The contractors who should post the bond instead are the ones where tying up $45,000 in demonstrable net worth actually costs them money. A growing contractor who needs every dollar working in the field is better off paying $1,000 a year for a $50,000 bond than keeping $45,000 parked in a business savings account. The math works out in favor of the bond whenever your opportunity cost of capital exceeds 2%. For most contractors, it does.</p>
+        <p>What you don't want is a broker convincing you the bond is "required" in Virginia when it isn't. It's an alternative. If anyone tells you Class A and Class B contractors "must" post a bond, they're either uninformed or they're trying to sell you one.</p>
+      `,
+    },
+
+    texas: {
+      faqs: [
+        {
+          question: "Does Texas require a state contractor license bond?",
+          answer:
+            "No. Texas has no statewide general contractor licensing and no statewide contractor license bond. Specific trades (electrical, HVAC, plumbing) are licensed by TDLR or the Texas State Board of Plumbing Examiners and require liability insurance, not a surety bond.",
+        },
+        {
+          question: "Do I need to be licensed as a general contractor in Texas?",
+          answer:
+            "Not at the state level. Texas is one of the few large states with no statewide general contractor license. However, most Texas cities over 50,000 people — including Houston, Dallas, San Antonio, Austin, Fort Worth, and Arlington — require local contractor registration, and some of those require bonds.",
+        },
+        {
+          question: "What does the Houston contractor bond cost?",
+          answer:
+            "Houston requires a General Contractor bond for contractors doing work in the city. The bond amount depends on the class of work. Premium ranges on a typical Houston GC bond run from $100–$300 for excellent credit to $500–$800 for fair credit. Houston is a separate requirement from TDLR trade licensing.",
+        },
+        {
+          question: "What insurance does TDLR require for Texas electricians?",
+          answer:
+            "Licensed electrical contractors under TDLR need at least $300,000 per occurrence / $600,000 aggregate bodily injury and property damage liability coverage, plus $300,000 for completed operations. Verify current limits against the TDLR administrative rules — the amounts have been stable but are reviewed periodically.",
+        },
+        {
+          question: "Why do bond brokers sell 'Texas contractor bonds' if the state doesn't require one?",
+          answer:
+            "Because most Texas contractors do need a bond — just from a city, not the state. A broker listing 'Texas contractor bond' is usually selling Houston, Dallas, or San Antonio bonds. The trick is that the required bond form and amount vary by city, so buying a generic 'Texas contractor bond' online can leave you with a bond the city won't accept.",
+        },
+        {
+          question: "Does Texas require insurance for general contractors?",
+          answer:
+            "The state doesn't — there's no state licensing to attach an insurance requirement to. Liability insurance is typically required by the client, the project owner, or the city where you're working. Most Texas cities with contractor registration require proof of insurance as part of the registration.",
+        },
+      ],
+      editorialInsight: `
+        <p>Texas is a state where brokers make money on confusion. The state has no statewide contractor bond, so when a Texas contractor Googles "Texas contractor bond" they get pitched a product that isn't quite what they need. The broker sells them something, and the contractor finds out later that it doesn't match the bond form their city requires.</p>
+        <p>Here's the thing: most Texas contractors <em>do</em> need a bond somewhere. Houston has a General Contractor bond. Dallas has one. San Antonio has one. Austin has one. But those are all city-level bonds with their own forms and their own amounts. A generic "Texas contractor bond" from a national broker website is useless until you know which city you're filing it in.</p>
+        <p>Our advice: figure out where you're actually doing work before you buy a bond. Call the city's permit office. Ask them which bond form they require and what the amount is. Then get a bond on that form. If someone sells you a Texas contractor bond without asking which city, they're not paying attention to your situation — they're just processing a transaction.</p>
+        <p>If you only do trade work (electrical, HVAC, plumbing), you don't need a bond at all. You need insurance. TDLR's minimums are $300K/$600K/$300K for electricians, and the plumbing and HVAC minimums are similar. A trade license with insurance is cheaper than licensing plus a bond, and for trade-only contractors it's all Texas requires.</p>
+      `,
+    },
+
+    florida: {
+      faqs: [
+        {
+          question: "Does Florida require a contractor license bond?",
+          answer:
+            "No. Florida eliminated the contractor license bond requirement on April 13, 2022 when Rule 61G4-15.006 was amended. The old 'Florida 660 bond' for contractors with credit scores below 660 is no longer required. Financial stability is now satisfied by a FICO score of 660+ OR completion of a 14-hour Board-approved financial responsibility course.",
+        },
+        {
+          question: "What was the 'Florida 660 bond' and why did it go away?",
+          answer:
+            "Before April 2022, Florida contractors with FICO credit scores below 660 had to post a surety bond of $5,000 to $20,000 (depending on division) as proof of financial stability. The Construction Industry Licensing Board amended Rule 61G4-15.006 to replace the bond option with a 14-hour financial responsibility course. The course is cheaper, faster, and easier — so the bond disappeared.",
+        },
+        {
+          question: "What do I actually need to get licensed as a Florida contractor?",
+          answer:
+            "Pass the trade exam, carry the required general liability insurance, satisfy the experience requirement for your classification, and prove financial stability through either a 660+ FICO score or the 14-hour course. You do NOT need a surety bond.",
+        },
+        {
+          question: "Why do some websites still list a Florida contractor bond requirement?",
+          answer:
+            "Because bond broker websites are slow to update and they make commission on bonds, not on telling you that you don't need one. The rule change is almost four years old now, but you can still find broker pages selling 'Florida 660 bonds' that the state no longer requires. The current Rule 61G4-15.006 text makes no mention of a bond.",
+        },
+        {
+          question: "What about the Florida Financially Responsible Officer (FRO) bond?",
+          answer:
+            "That's a different bond and it still exists. When a qualifier is designated as the Financially Responsible Officer for a construction company that cannot otherwise prove financial responsibility, the FRO may be required to post a $100,000 bond. It's rare and it applies to business structure situations, not individual licensure. Most Florida contractors will never encounter it.",
+        },
+        {
+          question: "Do Florida cities or counties require contractor bonds?",
+          answer:
+            "Rarely. Florida's state licensing is comprehensive enough that most cities defer to it. A handful of local jurisdictions may require registration or a specific-trade bond, but there is no common city-level bond requirement comparable to what you see in Texas or California municipalities.",
+        },
+      ],
+      editorialInsight: `
+        <p>Florida is the clearest example in our first batch of a bond that isn't required but is still being sold.</p>
+        <p>The Construction Industry Licensing Board killed the contractor bond option in April 2022. That's almost four years ago. The current text of Rule 61G4-15.006 doesn't mention a bond — it just says you either need a 660 FICO or a 14-hour course. The state eliminated an entire category of surety bond with one rule change.</p>
+        <p>And yet if you Google "Florida contractor license bond" right now, the first page of results is still full of broker sites listing $5,000 and $20,000 "sub-660 bonds" as if they're current requirements. They're not. Some of those pages haven't been updated since 2020.</p>
+        <p>If a Florida broker tries to sell you a contractor bond, ask them to cite the current rule. They can't, because the rule doesn't require it. The honest answer for any Florida contractor in 2026 is: "You don't need a bond. Take the course or show a 660 credit score. Save your money."</p>
+        <p>The only Florida construction bond that still genuinely exists is the Financially Responsible Officer bond, and that's a structural requirement for specific business setups — not something most contractors will ever need.</p>
+        <p>Florida isn't alone in this problem. <a href="/states/contractor-license-bond/pennsylvania" class="text-accent hover:underline">Pennsylvania contractors see the same thing</a> — brokers still sell "HICPA bonds" that have never existed in state statute. When a state's bond requirement changes or doesn't exist at all, broker websites are the last to catch up.</p>
+      `,
+    },
+
+    "new-york": {
+      faqs: [
+        {
+          question: "Does New York State require a contractor license?",
+          answer:
+            "No. New York has no statewide general contractor license, no statewide contractor registration, and no statewide contractor license bond. All contractor regulation in New York happens at the city or county level — and each jurisdiction sets its own rules.",
+        },
+        {
+          question: "What is the NYC Home Improvement Contractor license bond?",
+          answer:
+            "NYC requires every Home Improvement Contractor (HIC) licensee to either enroll in the DCWP Trust Fund ($200 one-time contribution) or post a $20,000 surety bond naming the Department of Consumer and Worker Protection as certificate holder. The bond and trust fund serve the same purpose: both act as a source of funds for consumer claims. Most contractors choose the Trust Fund because it's cheaper.",
+        },
+        {
+          question: "Should I choose the NYC Trust Fund or the $20,000 bond?",
+          answer:
+            "For most contractors, the Trust Fund is the better deal. A one-time $200 contribution versus a recurring bond premium is a dramatic savings. The bond makes sense only if you can't qualify for the Trust Fund for some reason — or if the Trust Fund is temporarily closed to new enrollment. Check the DCWP website for current Trust Fund status before you commit.",
+        },
+        {
+          question: "Do I need a license in Long Island or Westchester?",
+          answer:
+            "Yes — but it's not a NYC license. Nassau County, Suffolk County, Westchester County, Rockland County, and Putnam County all operate their own Home Improvement Contractor licensing systems. Each has its own application, fee, and bond requirement. A NYC HIC license does not cover work in these counties.",
+        },
+        {
+          question: "How long does the NYC HIC license last?",
+          answer:
+            "2 years. The NYC HIC license is a 2-year term, so you pay application and Trust Fund (or bond) costs every 2 years when you renew.",
+        },
+        {
+          question: "Why is there no statewide license in New York?",
+          answer:
+            "History. New York State chose to leave contractor regulation to local governments — counties, towns, and cities — rather than create a statewide licensing board. It's one of only a handful of large states that took this approach. The practical effect is that contractors working in multiple New York jurisdictions need to register in each one separately.",
+        },
+      ],
+      editorialInsight: `
+        <p>New York is two completely different stories depending on where you actually work.</p>
+        <p>If you work in upstate New York — Buffalo, Rochester, Syracuse, Albany — there may be nothing to register for at all, or a simple city registration. No state bond, no state exam, no state anything. The state got out of contractor regulation long ago and never came back.</p>
+        <p>But if you work in the New York City metropolitan area, you hit a wall of local licensing that varies city-by-city and county-by-county. NYC's Home Improvement Contractor license is the big one — and it comes with a choice that most contractors get wrong.</p>
+        <p>The choice is Trust Fund vs. Bond. A $200 Trust Fund enrollment versus a $20,000 surety bond. On paper it looks like "$200 versus $20,000," but the $20,000 is the face amount — the actual annual bond premium is more like $100–$400 depending on your credit. So the real comparison is "$200 once" versus "$100–$400 per year forever."</p>
+        <p>For contractors planning to stay in the business long-term, the Trust Fund is the obvious choice. The only reason to pick the bond is if the Trust Fund is temporarily closed or if you can't qualify for enrollment. A broker will happily sell you the $20,000 bond because it's recurring revenue for them — the Trust Fund pays them nothing. Ask about the Trust Fund first.</p>
+        <p>And if you work in Nassau, Suffolk, or Westchester, you need a completely separate license from the NYC HIC. A NYC license is worthless on Long Island. Plan to get each jurisdiction's license individually.</p>
+      `,
+    },
+
+    pennsylvania: {
+      faqs: [
+        {
+          question: "Does Pennsylvania require a contractor license bond?",
+          answer:
+            "No. Pennsylvania does not require a surety bond for home improvement contractors or general contractors at the state level. The Home Improvement Consumer Protection Act (HICPA) requires registration and liability insurance, not a bond.",
+        },
+        {
+          question: "What is HICPA registration?",
+          answer:
+            "HICPA is the Home Improvement Consumer Protection Act, administered by the Pennsylvania Office of Attorney General. Contractors performing more than $5,000/year in residential home improvement must register. It's registration, not licensing — there's no exam, no experience test, and no bond.",
+        },
+        {
+          question: "What insurance does HICPA require?",
+          answer:
+            "Minimum $50,000 personal injury liability and $50,000 property damage liability. You provide proof of coverage when you register and when you renew. That's the extent of the state's financial responsibility requirement — no bond on top of the insurance.",
+        },
+        {
+          question: "How much does HICPA registration cost?",
+          answer:
+            "$100 as of March 2, 2026. The fee was raised recently — older sources may list the previous amount. Registration runs for 2 years before renewal.",
+        },
+        {
+          question: "Do I need a license in Philadelphia or Pittsburgh?",
+          answer:
+            "Yes — but not from the state. Philadelphia's Department of Licenses and Inspections runs its own contractor licensing scheme for work inside the city. Pittsburgh has its own rules as well. Those are municipal requirements separate from HICPA and do not involve a state bond.",
+        },
+        {
+          question: "Why do bond broker sites list 'Pennsylvania contractor bonds'?",
+          answer:
+            "Because their content is out of date, or because they're confusing HICPA with bonding, or because they're selling Philadelphia-specific bonds and mislabeling them. The Commonwealth of Pennsylvania has never required a HICPA bond. If a broker tells you otherwise, ask them to cite 73 P.S. § 517.1 — the HICPA statute — which makes no mention of a bond.",
+        },
+      ],
+      editorialInsight: `
+        <p>Pennsylvania is the state where brokers most reliably sell bonds that don't exist.</p>
+        <p>The Home Improvement Consumer Protection Act passed in 2008 and has been in effect for more than 15 years. The law requires registration and insurance. It does not require a bond. Nowhere in 73 P.S. § 517.1 will you find the word "surety" or "bond" attached to the registration requirement. Insurance minimums, yes — $50,000 personal injury, $50,000 property damage — but no bond.</p>
+        <p>Despite that, bond broker websites still list Pennsylvania contractor bond requirements with made-up amounts. We've seen $10,000, $20,000, and $50,000 quoted on different sites, all citing HICPA as the authority. None of those amounts exist in the statute. The amounts are invented.</p>
+        <p>What you actually need in Pennsylvania: register with the Office of Attorney General, pay the $100 fee, provide proof of $50K/$50K insurance, renew every 2 years. That's the entire statewide requirement for home improvement contractors.</p>
+        <p>Philadelphia and Pittsburgh are different. Both cities run their own contractor licensing schemes and they may have their own rules. If you work in either city, check the municipal requirements directly. But the state has nothing to do with those local rules — and neither does HICPA.</p>
+        <p>If a broker tries to sell you a "Pennsylvania contractor license bond," ask them to read 73 P.S. § 517.1 out loud. You'll save yourself a premium.</p>
+      `,
+    },
+
+    ohio: {
+      faqs: [
+        {
+          question: "Does Ohio require a state contractor license bond?",
+          answer:
+            "No. Ohio does not require a statewide contractor license bond for any trade. The Ohio Construction Industry Licensing Board (OCILB) licenses five commercial specialty trades under ORC Chapter 4740 and requires $500,000 in general liability insurance, not a surety bond.",
+        },
+        {
+          question: "Which trades does Ohio license at the state level?",
+          answer:
+            "Five: electrical, plumbing, HVAC, hydronics, and refrigeration. All five are commercial trades — the OCILB does not license residential specialty contractors, residential remodelers, or general contractors at the state level. Those categories are left entirely to local jurisdictions.",
+        },
+        {
+          question: "Do I need a license to do residential work in Ohio?",
+          answer:
+            "Not from the state. Ohio does not license residential contractors, handymen, general contractors, or most residential trades at the state level. You may still need a license from the city where you work — Cincinnati, Columbus, Cleveland, Toledo, Akron, and Dayton all have municipal contractor registration systems with varying requirements.",
+        },
+        {
+          question: "What insurance does OCILB require?",
+          answer:
+            "At least $500,000 in general liability coverage for OCILB-licensed commercial trades. The insurance requirement is in lieu of a surety bond — the state uses insurance as its financial responsibility mechanism. You provide proof of insurance at application and renewal.",
+        },
+        {
+          question: "Why do Cincinnati and Cleveland require bonds if the state doesn't?",
+          answer:
+            "Because Ohio leaves residential and general contractor regulation to the cities, and several large cities chose to require bonds as part of their local licensing. Cincinnati, Columbus, Cleveland, and Toledo all have their own contractor registration with their own bond forms and amounts. These are municipal requirements, not state requirements.",
+        },
+        {
+          question: "What's the difference between the OCILB license and a city contractor registration?",
+          answer:
+            "The OCILB license is required for commercial electrical, plumbing, HVAC, hydronics, and refrigeration work anywhere in the state. The city registrations are required for various types of contracting work (sometimes including residential and general contracting) performed in that specific city. A contractor doing commercial electrical work in Cleveland needs both the OCILB electrical license AND any applicable Cleveland city registration.",
+        },
+      ],
+      editorialInsight: `
+        <p>Ohio is a clean example of a state that decided to use insurance instead of a bond. The OCILB requires $500,000 in liability coverage and calls it good. There's no surety bond anywhere in ORC Chapter 4740 for the five licensed trades.</p>
+        <p>That's actually a more protective arrangement than a small license bond in most respects. A $12,000 contractor bond caps consumer recovery at $12,000. A $500,000 liability policy covers up to $500,000 per claim. For the homeowner whose botched plumbing job flooded the basement, the insurance policy is the better tool. For the state trying to enforce financial responsibility on contractors, it's a cleaner mechanism than processing surety claims through a third party.</p>
+        <p>The gap in Ohio is residential work. The state doesn't license residential contractors, handymen, remodelers, or general contractors. That entire category falls to the cities, and the cities do it differently:</p>
+        <ul class="list-disc pl-6 space-y-2 mt-3 text-white/80">
+          <li><strong>Cincinnati</strong> — Registration with a bond.</li>
+          <li><strong>Columbus</strong> — Registration, some categories require bonds.</li>
+          <li><strong>Cleveland</strong> — Building Department registration with bond requirements for certain trades.</li>
+          <li><strong>Toledo</strong> — Local registration.</li>
+        </ul>
+        <p class="mt-4">If a broker quotes you an "Ohio contractor bond," ask them which city. If they can't answer, they're selling you a generic product without understanding the requirement. And if you only do commercial work in one of the five OCILB trades, you don't need a bond from anyone — just insurance and your OCILB license.</p>
+      `,
+    },
+
+    arizona: {
+      faqs: [
+        {
+          question: "How much is an Arizona contractor license bond?",
+          answer:
+            "It depends on your classification and annual volume. Residential general contractors post $5,000 to $15,000. Residential specialty contractors post $1,000 to $7,500. Commercial contractors pay more as their annual work volume grows — up to $100,000 for commercial general contractors doing $10 million or more per year in Arizona work.",
+        },
+        {
+          question: "What is the Arizona Residential Contractors' Recovery Fund?",
+          answer:
+            "It's a state-run consumer protection fund that all residential contractors contribute to as part of their ROC licensing fees. The Fund pays out to homeowners harmed by contractor misconduct. Contractors can technically skip the Fund contribution by posting a $200,000 bond instead, but almost nobody does this because the Fund fee is much cheaper than the annual premium on a $200K bond.",
+        },
+        {
+          question: "Does the Arizona bond amount change if my volume grows?",
+          answer:
+            "Yes, for commercial contractors. Arizona ties commercial bond amounts to annual project volume. If you grow from $4 million to $6 million in Arizona work, your required bond jumps from the $7,500–$25,000 tier to the $17,500–$37,500 tier. You'll need to file an updated bond amount with ROC when you cross the threshold.",
+        },
+        {
+          question: "What if I have both a residential and commercial license?",
+          answer:
+            "You pay both bonds. A dual license in Arizona means posting the residential bond for your residential classification AND the commercial bond for your commercial classification. The amounts are combined. There's no discount for holding both.",
+        },
+        {
+          question: "Is the Arizona contractor bond annual or multi-year?",
+          answer:
+            "Arizona contractor licenses run for 2 years, and the bond must remain in force for the entire license term. Most bonds are written as continuous until cancelled, but the premium is paid annually or every two years depending on the surety.",
+        },
+        {
+          question: "What's the cheapest Arizona contractor license?",
+          answer:
+            "A residential specialty contractor license requires only a $1,000 bond at the low end. At a 1% premium rate, that's $10 per year — the cheapest contractor license bond in the state. Most Arizona specialty contractors land in the $2,500–$5,000 bond range, which runs $25–$75 per year at good credit.",
+        },
+      ],
+      editorialInsight: `
+        <p>Arizona's tiered bond system is one of the more sophisticated in the country, and it's actually fair — the board ties your required bond to the real financial exposure of your work. A contractor doing $8 million a year in commercial projects carries more risk to consumers than one doing $800,000, and Arizona's ROC makes the bond reflect that.</p>
+        <p>The trap most Arizona contractors fall into: not reviewing their bond amount as their business grows. If you got licensed at the $7,500–$25,000 commercial tier based on a projected $3M in annual volume, and three years later you're doing $7M, you need to file an updated bond at the higher tier. The ROC will eventually notice — usually at renewal — and you'll end up filing a new bond retroactively. Review your annual volume every year and file upward when you cross a threshold.</p>
+        <p>The other thing worth knowing: Arizona's bond amounts are ranges, not fixed numbers. The ROC sets your specific amount within the range based on your financials and experience. A contractor with thin working capital at the $10M+ commercial general tier might get stuck at the $100,000 top of the range. A contractor with strong financials at the same volume might land at $50,000 — saving $500–$1,000 per year in premium. Submitting clean financial statements with your application matters.</p>
+      `,
+    },
+
+    georgia: {
+      faqs: [
+        {
+          question: "Do I need a contractor license bond in Georgia?",
+          answer:
+            "Not necessarily. Georgia's contractor bond is an alternative to proving net worth. Residential contractors need either $25,000 in net worth or a $25,000 surety bond. General contractors at the unlimited tier need either $150,000 net worth or a $150,000 bond. If you can show the required net worth on financial statements, you don't need a bond at all.",
+        },
+        {
+          question: "What's the difference between a residential and general contractor license in Georgia?",
+          answer:
+            "Residential Basic is for residential work up to 4 units. Residential Light Commercial allows work on certain commercial buildings. General Contractor is the unlimited tier — required for any project exceeding the residential caps. The exam, net worth requirement, and bond alternative are all different for each classification.",
+        },
+        {
+          question: "How much is the Georgia contractor license bond?",
+          answer:
+            "$25,000 for residential and residential light commercial. $150,000 for general contractors at the unlimited tier. The residential bond at a 1.5% premium runs about $375/year. The general contractor bond at 2% is roughly $3,000/year.",
+        },
+        {
+          question: "Do I need liability insurance on top of the bond?",
+          answer:
+            "Yes. Georgia requires every licensed contractor to carry at least $500,000 in general liability insurance, whether you prove net worth or post a bond. The insurance and the financial responsibility requirement are separate — the insurance is mandatory for everyone.",
+        },
+        {
+          question: "Should I prove net worth or post the bond?",
+          answer:
+            "For a residential contractor, proving $25,000 in net worth is almost always easier than paying bond premiums for years. Most small businesses have that much in working capital anyway. For a general contractor facing the $150,000 net worth requirement, the bond becomes more attractive — especially for growing contractors who need to keep cash deployed in the business rather than sitting idle.",
+        },
+        {
+          question: "How long does the Georgia contractor license take?",
+          answer:
+            "Georgia's contractor license cycle is 2 years. You apply, pass the exam, provide proof of insurance and financial responsibility, and receive your license. The license renews every 2 years and the bond (if you use one) must remain continuously in force during that period.",
+        },
+      ],
+      editorialInsight: `
+        <p>Georgia is a state where the right answer depends entirely on where you are in your business's life cycle.</p>
+        <p>If you're a residential contractor who has been in business for a few years and has $25,000 sitting in your operating account, just prove the net worth. Submit a balance sheet, skip the bond, and you're done. There's no reason to pay $400 a year for a bond when your balance sheet already satisfies the requirement.</p>
+        <p>If you're a general contractor trying to qualify at the unlimited tier and you don't have $150,000 on the balance sheet, the bond is actually the smart move. $150,000 of demonstrable net worth is a lot of cash to keep locked up for a growing business. A $150K bond at 2% runs $3,000/year — and $3,000/year is way cheaper than the opportunity cost of tying up $150K in working capital when you could be deploying it into job costs, equipment, or hiring.</p>
+        <p>The mistake we see most often: contractors who pay for a bond when they could have proved the net worth. If you have a stable business and clean financial statements, you don't need a broker selling you a Georgia bond. Show the financials to the SLBRGC and keep your premium money.</p>
+        <p>The $500,000 liability insurance requirement is non-negotiable regardless of which path you take. Don't let anyone tell you the bond replaces the insurance — it doesn't.</p>
+      `,
+    },
+
+    "north-carolina": {
+      faqs: [
+        {
+          question: "Does North Carolina require a contractor license bond?",
+          answer:
+            "Only as an alternative. NC requires general contractors to prove working capital — current assets exceeding current liabilities by $17,000 (Limited), $75,000 (Intermediate), or $150,000 (Unlimited). The bond is only needed if you can't meet the working capital requirement. And the bond amounts are much higher than the working capital numbers, so the bond is rarely the cheaper path.",
+        },
+        {
+          question: "What are the three North Carolina contractor license tiers?",
+          answer:
+            "Limited allows projects up to $750,000 in value. Intermediate allows projects up to $1.5 million. Unlimited has no project limit. Each tier has its own exam, its own working capital requirement, and its own bond amount (if you choose the bond alternative).",
+        },
+        {
+          question: "How much is the NC contractor bond for each tier?",
+          answer:
+            "Limited: $175,000 bond (alternative to $17,000 working capital). Intermediate: $500,000 bond (alternative to $75,000 working capital). Unlimited: $1,000,000 bond (alternative to $150,000 working capital). At industry-standard premiums of 1-3%, these bonds run from $1,750/year at the low end to $30,000/year at the unlimited tier.",
+        },
+        {
+          question: "Why are NC bond amounts so much higher than the working capital requirement?",
+          answer:
+            "This is intentional. The NC Licensing Board for General Contractors designed the bond alternative to be much more expensive than simply proving working capital. The state would rather contractors demonstrate financial health through balance sheets than rely on surety bonds. The 10× ratio makes the bond path unattractive except for contractors with ongoing cash-flow problems.",
+        },
+        {
+          question: "What counts as working capital for a NC contractor?",
+          answer:
+            "Working capital is current assets minus current liabilities on your balance sheet. Current assets include cash, accounts receivable due within a year, inventory, and other short-term assets. Current liabilities include accounts payable, the current portion of long-term debt, and other obligations due within a year. NC requires a CPA-reviewed or CPA-compiled financial statement to prove the number.",
+        },
+        {
+          question: "Should I use the bond or prove working capital in NC?",
+          answer:
+            "For virtually every NC contractor, proving working capital is the cheaper path. The bond amounts are 6-10 times the working capital requirements, and premium costs add up fast. The only scenario where the bond makes sense is if your financial statements show recurring working capital deficiencies that you can't clean up before applying.",
+        },
+      ],
+      editorialInsight: `
+        <p>North Carolina has the most lopsided alternative structure of any state we cover. The NCLBGC designed the bond option to be expensive on purpose — they want contractors to prove financial health through real balance sheets, not through bond purchases.</p>
+        <p>Run the math on the Unlimited tier:</p>
+        <ul class="list-disc pl-6 space-y-2 mt-3 text-white/80">
+          <li>Working capital requirement: $150,000 (current assets over current liabilities)</li>
+          <li>Bond alternative: $1,000,000 at ~2% premium = $20,000/year</li>
+          <li>Over a 10-year license life, the bond path costs $200,000 in premiums</li>
+        </ul>
+        <p class="mt-4">Nobody should pay $200,000 over 10 years to avoid proving $150,000 of working capital on a balance sheet. The math just doesn't work. The same logic applies at Limited and Intermediate — the bond is 6-10 times more expensive than the working capital it replaces.</p>
+        <p>If you're a new NC contractor who can't meet the working capital requirement, the real problem isn't that you need a bond. The real problem is that your balance sheet isn't strong enough to run a contracting business. A bond is a band-aid over a financial wound. The better path is to clean up your books — collect outstanding receivables, negotiate extended terms with suppliers, move short-term debt to long-term where possible — until your working capital actually covers the requirement.</p>
+        <p>The one exception: if you're transitioning from a sole proprietorship where personal assets and business assets were mixed, and you haven't yet separated your finances cleanly. In that case, a temporary bond while you clean up the accounting can be worth it. But the goal is to exit the bond and prove working capital within 12-24 months, not to pay the bond premium forever.</p>
+      `,
+    },
+
+    maryland: {
+      faqs: [
+        {
+          question: "Do I need a surety bond for a Maryland home improvement contractor license?",
+          answer:
+            "Only if you can't prove sufficient net worth. Maryland's MHIC requires every licensed home improvement contractor to demonstrate financial solvency. Contractors who can show net worth equal to the maximum Guaranty Fund award (currently $20,000 per claim) don't need a bond. Contractors who can't prove that net worth must post a 2-year surety bond in the same amount.",
+        },
+        {
+          question: "What is the Maryland MHIC Guaranty Fund?",
+          answer:
+            "It's a state-run consumer protection fund that every licensed home improvement contractor contributes to as part of their license fee. If a contractor performs unworkmanlike, inadequate, or incomplete work, the homeowner can file a claim against the Fund for up to $20,000 (or the total amount paid on the contract, whichever is lower). The Fund is separate from the surety bond — it's always in effect regardless of whether the contractor posted a bond.",
+        },
+        {
+          question: "How much is the Maryland home improvement contractor bond?",
+          answer:
+            "The bond amount is tied by regulation to the maximum Guaranty Fund per-claim award, which is currently $20,000 (per COMAR 09.08.01.19 and MD Business Regulation §8-405). Some broker websites still quote $30,000. Because the amount is tied to a statutory formula that can change, verify the current amount with MHIC before filing your bond. Call 410-230-6231.",
+        },
+        {
+          question: "Who has to file a bond in Maryland?",
+          answer:
+            "Only applicants who cannot demonstrate sufficient net worth OR who have credit report issues like unsatisfied judgments or liens. If your balance sheet shows adequate net worth and your credit is clean, you skip the bond and just contribute to the Guaranty Fund through your licensing fees.",
+        },
+        {
+          question: "How long does the Maryland contractor bond last?",
+          answer:
+            "The bond is written for a 2-year term, matching the MHIC license cycle. It must be renewed with each license renewal as long as you need the bond to meet the financial solvency requirement. Contractors whose financial situation improves can apply to MHIC to cancel the bond and satisfy the requirement through net worth instead.",
+        },
+        {
+          question: "Is the Maryland bond for general contractors or only home improvement?",
+          answer:
+            "Only home improvement. The Maryland Home Improvement Commission licenses residential home improvement contractors — remodelers, roofers, siding installers, window installers, etc. Commercial general contractors in Maryland are regulated differently and have their own requirements. This page covers the MHIC residential bond only.",
+        },
+      ],
+      editorialInsight: `
+        <p>Maryland's home improvement contractor regulation has a structure that most other states should copy. The Guaranty Fund covers consumer claims up to $20,000, every contractor contributes to it automatically through licensing fees, and the bond is only required for the subset of contractors who can't demonstrate financial health on their own.</p>
+        <p>The genius of the system is that it protects consumers without forcing every contractor to pay for a bond they don't need. A healthy contractor with clean books pays the licensing fee, contributes to the Fund, and skips the bond entirely. A struggling contractor with thin working capital or outstanding judgments posts the bond as a safety net until their finances improve.</p>
+        <p>Here's what that means for you as a Maryland contractor:</p>
+        <ul class="list-disc pl-6 space-y-2 mt-3 text-white/80">
+          <li><strong>Submit clean financials first.</strong> If your balance sheet shows enough net worth to match the Fund's maximum payout, say so clearly in your application. No bond required.</li>
+          <li><strong>Fix your credit before applying.</strong> MHIC pulls your credit report and unsatisfied judgments or open liens can trigger the bond requirement even if your balance sheet looks fine. Resolve any judgments before filing the application.</li>
+          <li><strong>Don't let a broker oversell.</strong> The bond amount is whatever the current Guaranty Fund maximum is — it's not a broker's call. Some broker sites quote $30,000, but verify the current statutory amount with MHIC directly before you buy.</li>
+          <li><strong>Exit the bond as soon as you can.</strong> If your finances improve, apply to MHIC to drop the bond and satisfy the requirement through net worth instead. The Fund still covers your consumers, and you save the annual premium.</li>
+        </ul>
+        <p>The other thing worth flagging: the $20,000 Guaranty Fund cap is meaningful protection for small jobs but falls short on larger projects. If you're taking a $50,000 deposit on a whole-house remodel, the Fund only covers $20,000 of exposure if something goes wrong. Smart consumers in Maryland ask about additional project-specific protections (escrow accounts, progress payments tied to milestones) beyond the Fund.</p>
+      `,
+    },
+
+    indiana: {
+      faqs: [
+        {
+          question: "Does Indiana require a contractor license bond?",
+          answer:
+            "No. Indiana has no statewide general contractor license and no statewide contractor license bond. Bond requirements exist only at the municipal level. Indianapolis requires a $10,000 general contractor bond. Evansville-Vanderburgh County requires $25,000. Lake County requires a $5,000 minimum. Each city sets its own rules.",
+        },
+        {
+          question: "Do I need a general contractor license in Indiana?",
+          answer:
+            "Not at the state level. Indiana does not license general contractors statewide. However, most mid-size and large Indiana cities require contractor registration or licensing for work performed in the city. If you're doing work in Indianapolis, Fort Wayne, Evansville, South Bend, or Gary, check the local requirements before starting the job.",
+        },
+        {
+          question: "Which Indiana trades are licensed at the state level?",
+          answer:
+            "Plumbers are licensed by the Indiana Plumbing Commission. HVAC technicians have some statewide certification requirements. Electricians are usually licensed at the municipal level, not the state level. None of these require a statewide surety bond — insurance is the typical financial responsibility requirement.",
+        },
+        {
+          question: "What is the Indianapolis contractor bond?",
+          answer:
+            "Indianapolis requires a General Contractor license for work in the city. The license comes with a $10,000 surety bond requirement naming the City of Indianapolis as obligee. The bond runs $100-$300 per year in premium at good credit. This is a city-level requirement, not a state requirement.",
+        },
+        {
+          question: "If I work in multiple Indiana cities, how many bonds do I need?",
+          answer:
+            "One for each city that requires one. Indiana's municipal contractor licensing doesn't coordinate across jurisdictions. If you're licensed in Indianapolis and want to start working in Evansville, you need to register in Evansville separately and post their required bond. Contractors doing statewide work often carry multiple active bonds.",
+        },
+        {
+          question: "Is Indiana a good state for contractors who don't want a license?",
+          answer:
+            "For residential contractors working outside the major cities, Indiana has some of the lightest regulation in the country. Many rural and small-town contractors operate without any license or bond because no local authority requires one. That said, liability insurance is always a good idea regardless of the legal requirements, and larger metro areas do require licenses.",
+        },
+      ],
+      editorialInsight: `
+        <p>Indiana is one of the states where bond brokers most reliably sell products that don't match the customer's actual situation. The state has no statewide contractor bond, so when an Indiana contractor Googles "Indiana contractor bond" they get pitched a generic product without anyone asking which city they actually work in.</p>
+        <p>Here's the truth: most Indiana contractors either need a city-specific bond or no bond at all. There is no middle ground called "Indiana contractor bond" that covers the whole state.</p>
+        <p>What you actually need depends on where you're working:</p>
+        <ul class="list-disc pl-6 space-y-2 mt-3 text-white/80">
+          <li><strong>Indianapolis</strong> — General Contractor license with a $10,000 bond naming the city as obligee. Separate from state requirements because there aren't state requirements.</li>
+          <li><strong>Evansville / Vanderburgh County</strong> — $25,000 contractor bond. Highest municipal requirement we've found in Indiana.</li>
+          <li><strong>Lake County</strong> — Contractor registration with a $5,000 minimum bond.</li>
+          <li><strong>Fort Wayne, South Bend, Bloomington, and other mid-size cities</strong> — Each has their own rules. Some require bonds, some just insurance, some just registration.</li>
+          <li><strong>Rural Indiana and smaller towns</strong> — Frequently no license, no bond, no registration. Just carry liability insurance and be ready to prove it to your customers.</li>
+        </ul>
+        <p class="mt-4">If you're buying an Indiana contractor bond, the first question any honest broker should ask is "which city?" If they don't ask — or if they sell you a generic bond without getting the city's bond form — you're probably getting a product you can't actually use when you go to file at the permit office.</p>
+        <p>Our advice: before you buy anything, call the building department in the city where you're working. Ask them which bond form they require and what the amount is. Then get a bond written on that specific form. Don't buy a "generic Indiana contractor bond" from a broker website — there's no such thing.</p>
+      `,
+    },
+  };
+
+  return content[slug] || { faqs: [], editorialInsight: "" };
+}
+---
+
+<StateBondLayout state={state} faqs={content.faqs} editorialInsight={content.editorialInsight} />

@@ -1,0 +1,621 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SectionLabel from "../components/SectionLabel.astro";
+import StatCard from "../components/StatCard.astro";
+import {
+  type StateBond,
+  creditTiers,
+  premiumRange,
+  formatMoney,
+  stateBonds,
+} from "../data/state-contractor-bonds";
+
+interface Props {
+  state: StateBond;
+  faqs: { question: string; answer: string }[];
+  editorialInsight: string; // HTML
+}
+
+const { state, faqs, editorialInsight } = Astro.props;
+
+const title = `${state.name} Contractor License Bond`;
+const description = buildDescription(state);
+
+function buildDescription(s: StateBond): string {
+  switch (s.structure) {
+    case "flat":
+      return `${s.name} requires a ${formatMoney(s.bondAmounts[0].amount)} contractor license bond through the ${s.agencyShort}. See exact cost by credit tier, filing requirements, and how to avoid broker markup.`;
+    case "tiered":
+      return `${s.name} contractor bond amounts range from ${formatMoney(Math.min(...s.bondAmounts.map((b) => b.amount)))} to ${formatMoney(Math.max(...s.bondAmounts.map((b) => b.amount)))} depending on your ${s.agencyShort} license type. See costs by credit tier and how to file.`;
+    case "variable":
+      return `${s.name} doesn't publish a fixed contractor bond amount — the ${s.agencyShort} sets it case-by-case. See how the board determines your bond and estimated costs at common amounts.`;
+    case "alternative":
+      return `${s.name} contractors can post a ${formatMoney(s.bondAmounts[0].amount)} bond as an alternative to proving net worth. See when the bond makes sense and how much it actually costs.`;
+    case "none":
+      return `${s.name} doesn't require a state-level contractor license bond. Here's what's required instead and when you might still need a bond.`;
+  }
+}
+
+const breadcrumbs = [
+  { name: "Home", href: "/" },
+  { name: "State Bonds", href: "/states/contractor-license-bond" },
+  { name: state.name, href: `/states/contractor-license-bond/${state.slug}` },
+];
+
+// Determine which amount drives the "primary" cost table
+const primaryAmount =
+  state.bondAmounts.length > 0 ? state.bondAmounts[0].amount : 25000;
+
+const statForCard = (() => {
+  switch (state.structure) {
+    case "flat":
+      return {
+        number: `$${(primaryAmount / 1000).toFixed(0)}K`,
+        label: `Required bond amount for every licensed contractor in ${state.name}`,
+        accent: "blue" as const,
+      };
+    case "tiered":
+      return {
+        number: `${state.bondAmounts.length}`,
+        unit: " tiers",
+        label: `${state.name} sets different bond amounts by license type or classification`,
+        accent: "violet" as const,
+      };
+    case "variable":
+      return {
+        number: "?",
+        label: `${state.name}'s bond is set case-by-case — range is $1,000 to $500,000`,
+        accent: "dark" as const,
+      };
+    case "alternative":
+      return {
+        number: `$${(primaryAmount / 1000).toFixed(0)}K`,
+        label: `Optional bond — alternative to proving net worth`,
+        accent: "lime" as const,
+      };
+    case "none":
+      return {
+        number: "0",
+        label: `${state.name} doesn't require a state-level contractor bond`,
+        accent: "white" as const,
+      };
+  }
+})();
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.answer,
+    },
+  })),
+};
+
+// Related states — prioritize same structure, fill remaining with different structures
+const sameStructure = stateBonds.filter(
+  (s) => s.slug !== state.slug && s.structure === state.structure
+);
+const differentStructure = stateBonds.filter(
+  (s) => s.slug !== state.slug && s.structure !== state.structure
+);
+const relatedStates = [
+  ...sameStructure.slice(0, 2),
+  ...differentStructure.slice(0, 3 - Math.min(sameStructure.length, 2)),
+];
+
+// All states grouped by structure for the "Browse All States" section
+const structureGroups: { label: string; description: string; states: typeof stateBonds }[] = [
+  {
+    label: "Flat Rate States",
+    description: "One bond amount for every licensed contractor",
+    states: stateBonds.filter((s) => s.structure === "flat"),
+  },
+  {
+    label: "Tiered States",
+    description: "Bond amount varies by license type or classification",
+    states: stateBonds.filter((s) => s.structure === "tiered"),
+  },
+  {
+    label: "Variable States",
+    description: "Bond amount set case-by-case by the licensing board",
+    states: stateBonds.filter((s) => s.structure === "variable"),
+  },
+  {
+    label: "Alternative States",
+    description: "Bond is optional — serves as an alternative to net worth or working capital",
+    states: stateBonds.filter((s) => s.structure === "alternative"),
+  },
+  {
+    label: "No State Bond Required",
+    description: "No statewide contractor license bond — municipal bonds may still apply",
+    states: stateBonds.filter((s) => s.structure === "none"),
+  },
+].filter((group) => group.states.length > 0);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  schema={faqSchema}
+>
+  <div class="max-w-[1280px] mx-auto px-6">
+    {/* Breadcrumb nav */}
+    <nav class="flex items-center gap-2 text-sm text-muted py-6" aria-label="Breadcrumb">
+      {breadcrumbs.map((crumb, i) => (
+        <>
+          {i > 0 && <span class="text-border">/</span>}
+          {i < breadcrumbs.length - 1 ? (
+            <a
+              href={crumb.href}
+              class="text-muted hover:text-accent no-underline transition-colors"
+            >
+              {crumb.name}
+            </a>
+          ) : (
+            <span class="text-primary font-medium">{crumb.name}</span>
+          )}
+        </>
+      ))}
+    </nav>
+
+    {/* Header */}
+    <div class="max-w-3xl mb-12">
+      <h1 class="font-display font-bold text-primary text-4xl md:text-5xl leading-tight mb-4">
+        {title}
+      </h1>
+      <p class="text-muted text-xl leading-relaxed">
+        Exact requirements, real costs, and how to file the bond without paying a broker 30% to do it for you.
+      </p>
+    </div>
+
+    {/* Stat card */}
+    <div class="mb-12 max-w-sm">
+      <StatCard
+        number={statForCard.number}
+        unit={statForCard.unit}
+        label={statForCard.label}
+        accent={statForCard.accent}
+      />
+    </div>
+
+    {/* The Short Version — key facts box */}
+    <section class="mb-16 max-w-3xl bg-card border border-border rounded-[20px] p-8">
+      <SectionLabel>The Short Version</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+        What {state.name} Actually Requires
+      </h2>
+      <ul class="space-y-3 text-text text-[16px] leading-relaxed">
+        {state.keyFacts.map((fact) => (
+          <li class="flex gap-3">
+            <span class="text-accent font-bold mt-1">→</span>
+            <span set:html={fact} />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <div class="max-w-3xl space-y-16">
+      {/* ─── BOND AMOUNT SECTION — varies by structure ─── */}
+
+      {state.structure === "flat" && (
+        <section>
+          <SectionLabel>Bond Amount</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            The {state.name} Bond Amount
+          </h2>
+          <p class="text-text text-[16px] leading-relaxed mb-4">
+            {state.name} makes it simple. Every licensed contractor posts the
+            same bond amount, regardless of classification or project size. The
+            requirement is set by <strong>{state.statute}</strong> and
+            administered by the {state.agency}.
+          </p>
+          <div class="bg-bg border-2 border-accent rounded-[16px] p-6 my-6">
+            <div class="font-display font-bold text-primary text-3xl md:text-4xl">
+              {formatMoney(state.bondAmounts[0].amount)}
+            </div>
+            <div class="text-muted text-sm mt-1">
+              {state.bondAmounts[0].label}
+              {state.bondAmounts[0].note && (
+                <> — {state.bondAmounts[0].note}</>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {state.structure === "tiered" && (
+        <section>
+          <SectionLabel>Bond Amounts</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            {state.name} Bond Amounts by License Type
+          </h2>
+          <p class="text-text text-[16px] leading-relaxed mb-4">
+            {state.name} sets the bond amount based on your license type. Pick
+            your category below. The amounts are set by <strong>{state.statute}</strong>
+            and administered by the {state.agency}.
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse my-4">
+              <thead>
+                <tr class="border-b-2 border-border">
+                  <th class="text-left py-3 px-4 text-sm font-bold">License Type</th>
+                  <th class="text-right py-3 px-4 text-sm font-bold">Bond Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {state.bondAmounts.map((b) => (
+                  <tr class="border-b border-border">
+                    <td class="py-3 px-4 text-sm">
+                      <div class="font-medium">{b.label}</div>
+                      {b.note && (
+                        <div class="text-muted text-xs mt-1">{b.note}</div>
+                      )}
+                    </td>
+                    <td class="py-3 px-4 text-sm text-right font-display font-bold text-primary">
+                      {formatMoney(b.amount)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {state.structure === "variable" && (
+        <section>
+          <SectionLabel color="coral">How the Bond Amount Is Set</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            Why {state.name} Won't Tell You the Number Up Front
+          </h2>
+          <div
+            class="text-text text-[16px] leading-relaxed space-y-4"
+            set:html={state.variableContext}
+          />
+        </section>
+      )}
+
+      {state.structure === "alternative" && (
+        <section>
+          <SectionLabel color="lime">When You Actually Need It</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            {state.name}'s Bond Is Optional — Here's When It Makes Sense
+          </h2>
+          <div
+            class="text-text text-[16px] leading-relaxed space-y-4"
+            set:html={state.alternativeContext}
+          />
+        </section>
+      )}
+
+      {state.structure === "none" && (
+        <section>
+          <SectionLabel color="coral">What You Actually Need</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            {state.name} Doesn't Require a State Contractor Bond
+          </h2>
+          <div
+            class="text-text text-[16px] leading-relaxed space-y-4"
+            set:html={state.noneContext}
+          />
+        </section>
+      )}
+
+      {/* ─── COST BY CREDIT TIER ─── */}
+
+      {(state.structure === "flat" ||
+        state.structure === "tiered" ||
+        state.structure === "alternative") && (
+        <section>
+          <SectionLabel color="coral">Cost Breakdown</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            What Your {state.name} Bond Actually Costs
+          </h2>
+          <p class="text-text text-[16px] leading-relaxed mb-4">
+            You don't pay the full bond amount. You pay a premium — a percentage
+            of the bond based on your credit score. Here's what the annual
+            premium looks like on {state.structure === "tiered" ? "each" : "the"} {state.name} bond:
+          </p>
+
+          {state.bondAmounts.map((b) => (
+            <div class="mb-8">
+              <h3 class="font-display font-bold text-primary text-lg mb-2">
+                On a {formatMoney(b.amount)} bond
+                {state.bondAmounts.length > 1 && (
+                  <span class="text-muted font-normal text-base"> — {b.label}</span>
+                )}
+              </h3>
+              <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                  <thead>
+                    <tr class="border-b-2 border-border">
+                      <th class="text-left py-2 px-3 text-sm font-bold">Credit Tier</th>
+                      <th class="text-right py-2 px-3 text-sm font-bold">Annual Premium</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {creditTiers.map((tier) => (
+                      <tr class="border-b border-border">
+                        <td class="py-2 px-3 text-sm">{tier.label}</td>
+                        <td class="py-2 px-3 text-sm text-right font-mono">
+                          {premiumRange(b.amount, tier)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+
+          <p class="text-muted text-sm mt-4 italic">
+            Premium ranges are based on standard surety industry rates. Your
+            exact rate depends on credit, experience, and the specific surety
+            company. These are annual premiums — the bond itself doesn't cost
+            you the face amount unless there's a claim.
+          </p>
+        </section>
+      )}
+
+      {state.structure === "variable" && state.sampleAmounts && (
+        <section>
+          <SectionLabel color="coral">Cost at Common Amounts</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            What It Would Cost — {state.name} Sample Amounts
+          </h2>
+          <p class="text-text text-[16px] leading-relaxed mb-4">
+            Since {state.name} doesn't publish bond amounts, here's what the
+            annual premium would look like at four common amounts the NSCB
+            regularly assigns. Find the row closest to your likely bond amount.
+          </p>
+          {state.sampleAmounts.map((amt) => (
+            <div class="mb-8">
+              <h3 class="font-display font-bold text-primary text-lg mb-2">
+                If your bond comes back at {formatMoney(amt)}
+              </h3>
+              <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                  <thead>
+                    <tr class="border-b-2 border-border">
+                      <th class="text-left py-2 px-3 text-sm font-bold">Credit Tier</th>
+                      <th class="text-right py-2 px-3 text-sm font-bold">Annual Premium</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {creditTiers.map((tier) => (
+                      <tr class="border-b border-border">
+                        <td class="py-2 px-3 text-sm">{tier.label}</td>
+                        <td class="py-2 px-3 text-sm text-right font-mono">
+                          {premiumRange(amt, tier)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+          <p class="text-muted text-sm mt-4 italic">
+            Rates are industry-standard surety percentages. Your actual premium
+            depends on credit, experience, and financials.
+          </p>
+        </section>
+      )}
+
+      {/* ─── FILING / AUTHORITY ─── */}
+      <section>
+        <SectionLabel>{state.structure === "none" ? "Authority" : "Filing"}</SectionLabel>
+        <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+          {state.structure === "none"
+            ? `${state.name} Licensing Authority & Statute`
+            : `How to File Your ${state.name} Bond`}
+        </h2>
+        <p class="text-text text-[16px] leading-relaxed mb-4">
+          {state.filingProcess}
+        </p>
+        <div class="bg-card border border-border rounded-[16px] p-6 space-y-3">
+          {state.structure !== "none" && (
+            <>
+              <div>
+                <div class="text-xs uppercase tracking-wider text-muted font-bold mb-1">Obligee</div>
+                <div class="text-text">{state.obligee}</div>
+              </div>
+              <div>
+                <div class="text-xs uppercase tracking-wider text-muted font-bold mb-1">Term</div>
+                <div class="text-text">{state.renewalTerm}</div>
+              </div>
+            </>
+          )}
+          <div>
+            <div class="text-xs uppercase tracking-wider text-muted font-bold mb-1">Licensing Authority</div>
+            <div class="text-text">
+              {state.agency} (<a href={state.agencyUrl} target="_blank" rel="noopener" class="text-accent hover:underline">{state.agencyShort}</a>)
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-muted font-bold mb-1">Statute</div>
+            <div class="text-text">
+              {state.statuteUrl ? (
+                <a href={state.statuteUrl} target="_blank" rel="noopener" class="text-accent hover:underline">
+                  {state.statute}
+                </a>
+              ) : (
+                state.statute
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── STATE-SPECIFIC NOTES ─── */}
+      {state.notes && (
+        <section>
+          <SectionLabel color="accent-light">What Most Contractors Miss</SectionLabel>
+          <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-4">
+            {state.name}-Specific Gotchas
+          </h2>
+          <div
+            class="text-text text-[16px] leading-relaxed space-y-4"
+            set:html={state.notes}
+          />
+        </section>
+      )}
+
+      {/* ─── FAQs ─── */}
+      <section>
+        <SectionLabel>FAQ</SectionLabel>
+        <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-6">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {faqs.map((faq) => (
+            <details class="group bg-card rounded-[16px] border border-border overflow-hidden">
+              <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none font-display font-bold text-primary text-[16px] [&::-webkit-details-marker]:hidden">
+                {faq.question}
+                <span class="shrink-0 text-accent text-xl leading-none transition-transform duration-200 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <div
+                class="px-6 pb-5 text-muted text-[15px] leading-relaxed"
+                set:html={faq.answer}
+              />
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── NOBRO TAKE ─── */}
+      <section class="bg-gradient-to-br from-primary to-primary/90 rounded-[20px] px-8 py-12 md:px-12">
+        <SectionLabel color="accent-light">NoBro Take</SectionLabel>
+        <h2 class="font-display font-bold text-white text-2xl mt-3 mb-4">
+          Our Editorial Insight
+        </h2>
+        <div
+          class="text-white/80 text-[16px] leading-relaxed space-y-4"
+          set:html={editorialInsight}
+        />
+      </section>
+
+      {/* ─── VERIFICATION FOOTNOTE ─── */}
+      <section class="border-t border-border pt-8">
+        <div class="text-xs uppercase tracking-wider text-muted font-bold mb-3">
+          Verified & Sources
+        </div>
+        <p class="text-muted text-sm mb-3">
+          The requirements on this page were last verified on{" "}
+          <strong class="text-text">{state.lastVerified}</strong> against the
+          sources below. Bond amounts and regulations can change — always
+          confirm with the {state.agencyShort} before filing.
+        </p>
+        <ul class="space-y-1 text-sm">
+          {state.sources.map((src) => (
+            <li>
+              <a
+                href={src.url}
+                target="_blank"
+                rel="noopener"
+                class="text-accent hover:underline"
+              >
+                {src.label} ↗
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+
+    {/* ─── RELATED STATES ─── */}
+    <section class="mt-20 mb-16">
+      <SectionLabel>Related</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-8">
+        Other State Requirements
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {relatedStates.map((s) => (
+          <a
+            href={`/states/contractor-license-bond/${s.slug}`}
+            class="block bg-card border border-border rounded-[16px] p-6 no-underline hover:border-accent transition-colors"
+          >
+            <div class="text-xs uppercase tracking-wider text-muted font-bold mb-2">
+              {s.abbreviation}
+            </div>
+            <div class="font-display font-bold text-primary text-lg mb-2">
+              {s.name}
+            </div>
+            <div class="text-muted text-sm">
+              {s.structure === "flat" &&
+                `${formatMoney(s.bondAmounts[0].amount)} flat requirement`}
+              {s.structure === "tiered" &&
+                `${s.bondAmounts.length} bond tiers by license type`}
+              {s.structure === "variable" &&
+                `Bond amount set case-by-case`}
+              {s.structure === "alternative" &&
+                `Bond optional — alternative to net worth`}
+              {s.structure === "none" && `No state-level contractor bond`}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {/* ─── BROWSE ALL STATES BY STRUCTURE ─── */}
+    <section class="mt-20 mb-16 border-t border-border pt-16">
+      <SectionLabel>Browse All States</SectionLabel>
+      <h2 class="font-display font-bold text-primary text-2xl mt-3 mb-2">
+        State Contractor Bonds by Structure
+      </h2>
+      <p class="text-muted text-[16px] mb-10 max-w-2xl">
+        Every state sets its own rules. Here's how all the states we've researched group together — find your state or browse by the structure that matches yours.
+      </p>
+      {structureGroups.map((group) => (
+        <div class="mb-10">
+          <div class="flex items-baseline justify-between gap-4 mb-3 pb-2 border-b border-border">
+            <h3 class="font-display font-bold text-primary text-lg">
+              {group.label}
+            </h3>
+            <span class="text-muted text-xs">{group.states.length} {group.states.length === 1 ? "state" : "states"}</span>
+          </div>
+          <p class="text-muted text-sm mb-4">{group.description}</p>
+          <div class="flex flex-wrap gap-2">
+            {group.states.map((s) => (
+              <a
+                href={`/states/contractor-license-bond/${s.slug}`}
+                class:list={[
+                  "inline-flex items-center gap-2 px-4 py-2 rounded-[10px] text-sm no-underline transition-colors",
+                  s.slug === state.slug
+                    ? "bg-accent text-white font-medium"
+                    : "bg-card border border-border text-text hover:border-accent hover:text-accent",
+                ]}
+              >
+                <span class="font-mono text-xs opacity-60">{s.abbreviation}</span>
+                <span>{s.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    {/* ─── SOFT CTA TO ESTIMATOR ─── */}
+    <section class="text-center py-16 border-t border-border">
+      <h2 class="font-display font-bold text-primary text-2xl mb-3">
+        Want a personalized estimate?
+      </h2>
+      <p class="text-muted text-[16px] mb-6">
+        Run your credit tier and bond amount through our free cost estimator — no broker, no sales pitch.
+      </p>
+      <a
+        href="/resources/bond-cost-estimator"
+        class="inline-flex items-center gap-2 bg-accent text-white font-display font-bold text-sm px-7 py-3.5 rounded-[12px] no-underline hover:bg-accent/90 transition-colors"
+      >
+        Estimate Your Premium
+      </a>
+    </section>
+  </div>
+</BaseLayout>
